@@ -1,0 +1,34 @@
+<%
+const FMTName = "Fremont Compensation"
+const FMTNo = 75
+
+const FREName = "Fremont CIP"
+const FRENo = 71
+
+const MARName = "Marriott"
+const MARNo = 72
+
+const GBSName = "Gallagher Basset Services, Inc"
+const GBSNo = 46
+
+const AIGName = "American International Group"
+const AIGNo = 62
+
+const ULIName = "ULICO"
+const ULINo = 76
+
+const TIGName = "TIG Insurance"
+const TIGNo = 59
+
+const MCDName = "McDonalds"
+const MCDNo = 73
+
+const KMPName = "Kemper"
+const KMPNo = 31
+
+const CCEName = "Claim Capture Express"
+const CCENo = 11
+
+const LACName = "Los Angeles County"
+const LACNo = 52
+%>

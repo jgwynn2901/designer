@@ -1,0 +1,10 @@
+td {  font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; color: #000000}
+.white {  color: #FFFFFF}
+.button {  color: #000000; border-style: outset; font-size: 11px}
+.fillin { color: #333333; border-color: #666666 #666666 #666666 #333333; border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px }
+.copyright {  font-size: 10px; color: #8A2D00}
+.brandedColor1 {  background-color: #999900}
+.brandedColor2 { background-color: #FFCC00}
+hr {
+	color: #000000;
+}

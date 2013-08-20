@@ -1,0 +1,11 @@
+REGEDIT4
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Edgewater\FNS\DataCapture\Spellcheck]
+"LexLoc"="C:\\Inetpub\\FNSNet\\lex"
+"MainTLex"="ssceam.tlx"
+"FNSNetLex"="ssceamfns.tlx"
+"MainCLex"="ssceam2.clx"
+"EnableSpellChk"="Y"
+@="ssceamfns.tlx"
+"EnableIASpellChk"="Y"
+

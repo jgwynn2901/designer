@@ -1,0 +1,68 @@
+<HTML>
+ <HEAD>
+  <!-- $MVD$:app("RoboHELP HTML Edition by Blue Sky Software, portions by MicroVision Dev. Inc.","769") -->
+  <!-- $MVD$:template("","0","0") -->
+  <!-- $MVD$:color("18","e1ffff","MS Soft Yellow","0") -->
+  <!-- $MVD$:color("19","408000","Concentra Green","0") -->
+  <!-- $MVD$:color("20","4000","Concentra 2","0") -->
+  <!-- $MVD$:color("21","996600","Custom #1","0") -->
+  <!-- $MVD$:fontset("Verdana","Verdana") -->
+  <TITLE>Sharing Call Flows</TITLE>
+  <META NAME="generator" CONTENT="RoboHELP by Blue Sky Software www.blue-sky.com HTML Edition">
+  <SCRIPT LANGUAGE="JavaScript" TITLE="BSSC Special Effects" SRC="BSSCDHTM.js"></SCRIPT><LINK
+  REL="StyleSheet" HREF="DesignerHelp.css"></HEAD>
+  <BODY ONLOAD="BSSCOnLoad();" ONCLICK="BSSCOnClick();" ONUNLOAD="BSSCOnUnload();">
+  <H1>
+   Sharing Call Flows</H1>
+  <P>
+   If you plan to use the call flow as is, you may want to use a <SPAN ONCLICK="javascript:outline2()"><CITE CLASS="expandspot">shared
+    call flow</CITE> </SPAN><DFN CLASS="collapsed">(A shared call flow is an 
+   existing call flow in the call flow table.)</DFN>. </P>
+  <P>
+   Sharing call flows has an important consequences. When you share a 
+   call flow you are sharing the frames from the frame table that make 
+   up the call flow. Therefore if you change these shared frames the 
+   changes will effect all call flows that use those frames.</P>
+  <P>
+   The call flows themselves are not directly shared. Each call flow has 
+   a unique call flow ID.</P>
+  <P>
+   You <SPAN ONCLICK="javascript:outline2()"><CITE CLASS="expandspot">attach call flows</CITE> </SPAN><DFN CLASS="collapsed">(An
+    attached call flow is a call flow joined to a client in the 
+   database. It may also be attached to other clients.)</DFN> to share 
+   call flows. If you change your mind you can also <SPAN ONCLICK="javascript:outline2()"><CITE CLASS="expandspot">detach
+    call flows</CITE> </SPAN><DFN CLASS="collapsed">(A detached call flow is a 
+   call flow not joined to a client in a database.)</DFN>.</P>
+  <P>
+   The Designer has two icons concerning shared call flows.</P>
+  <P>
+   The Shared Count icon <IMG SRC="sharedcountcallflow2.gif" WIDTH="35" HEIGHT="15" VSPACE="0" HSPACE="0" BORDER="0"> 
+   tells you how many times its attached. The number to the right of the 
+   Shared Count icon is the shared count. For example, <IMG SRC="sharedcountcallflow2.gif" WIDTH="35" HEIGHT="15" VSPACE="0" HSPACE="0" BORDER="0"> 
+   tells you three other clients\Account Hierarchy Step IDs are sharing 
+   this call flow. You can also click the Shared Count icon to see a 
+   Reference Count Report to see more detailed information on the 
+   references. The Shared Count icon appears on the Call Flow Name bar 
+   on the Call Flow Editor.</P>
+  <P>
+   The Status Report icon <IMG SRC="statuscallflow.gif" WIDTH="249" HEIGHT="14" VSPACE="0" HSPACE="0" BORDER="0"> 
+   gives you a warning if the shared count is greater than one for the 
+   call flow. For example, <IMG SRC="statuscallflow.gif" WIDTH="249" HEIGHT="14" VSPACE="0" HSPACE="0" BORDER="0"> 
+   tells you more than one Account Hierarchy Step ID is sharing this 
+   call flow. You can also click the Status Report icon to see a Status 
+   Report to see more detailed information on the warnings. The Status 
+   Report icon appears on the Call Flow Name bar on the Call Flow Editor.</P>
+  <P>
+   <OBJECT
+    CLASSID="clsid:ADB880A6-D8FF-11CF-9377-00AA003B7A11"
+    ID="RelatedTopics"
+    ALIGN=BOTTOM
+    BORDER="0"
+    VSPACE="0"
+    HSPACE="0"><PARAM
+    NAME="Command" VALUE="Related Topics,MENU"><PARAM
+    NAME="Button" VALUE="Text:Related Topics"><PARAM
+    NAME="Font" VALUE="MS Sans Serif,8,,,"><PARAM
+    NAME="Item1" VALUE="Building Call Flows;Building Call Flows.htm"></OBJECT>
+ </BODY>
+</HTML>

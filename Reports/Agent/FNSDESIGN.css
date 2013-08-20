@@ -1,0 +1,338 @@
+<STYLE ID="ICMSStyle" TYPE="text/css">
+BODY
+{
+    COLOR: black;
+    FONT-FAMILY: Verdana;
+    FONT-SIZE: 10px;
+    FONT-STYLE: normal;
+    MARGIN: 0px
+}
+.ResultRow
+{
+    BACKGROUND-COLOR: seashell;
+    COLOR: black;
+    CURSOR: hand;
+    FONT-FAMILY: Verdana;
+    FONT-SIZE: 12px;
+    FONT-STYLE: normal
+}
+.ResultCell
+{
+    BORDER-BOTTOM: white solid 1px;
+    BORDER-LEFT: white solid 1px;
+    BORDER-RIGHT: white solid 1px;
+    BORDER-TOP: white solid 1px;
+    COLOR: black;
+    CURSOR: hand;
+    FONT-FAMILY: Verdana;
+    FONT-SIZE: 10px;
+    FONT-STYLE: normal
+}
+.ResultCellFailed
+{
+    BORDER-BOTTOM: white solid 1px;
+    BORDER-LEFT: white solid 1px;
+    BORDER-RIGHT: white solid 1px;
+    BORDER-TOP: white solid 1px;
+    COLOR: maroon;
+    CURSOR: hand;
+    FONT-FAMILY: Verdana;
+    FONT-SIZE: 10px;
+    FONT-STYLE: normal
+}
+.ResultCellComplete
+{
+    BORDER-BOTTOM: white solid 1px;
+    BORDER-LEFT: white solid 1px;
+    BORDER-RIGHT: white solid 1px;
+    BORDER-TOP: white solid 1px;
+    COLOR: darkgreen;
+    CURSOR: hand;
+    FONT-FAMILY: Verdana;
+    FONT-SIZE: 10px;
+    FONT-STYLE: normal
+}
+.ResultSelectRow
+{
+    BACKGROUND-COLOR: #99ccff;
+    COLOR: white;
+    CURSOR: hand;
+    FONT-FAMILY: Verdana;
+    FONT-SIZE: 12px
+}
+.ResultHeader
+{
+    BACKGROUND-COLOR: #006699;
+    COLOR: white;
+    CURSOR: hand;
+    FONT-FAMILY: Verdana;
+    FONT-SIZE: 10px;
+    FONT-STYLE: normal
+}
+.thd
+{
+    BACKGROUND-COLOR: #006699;
+    COLOR: white;
+    CURSOR: hand;
+    FONT-FAMILY: Verdana;
+    FONT-SIZE: 10px;
+    FONT-STYLE: normal
+}
+.HELP
+{
+    COLOR: yellow;
+    CURSOR: hand;
+    FONT-FAMILY: Verdana;
+    FONT-SIZE: 10px
+}
+.TableRows
+{
+    BACKGROUND-COLOR: white;
+    COLOR: black;
+    CURSOR: hand;
+    FONT-FAMILY: Verdana;
+    FONT-SIZE: 12px;
+    FONT-STYLE: normal
+}
+.Label
+{
+    COLOR: black;
+    FONT-FAMILY: Verdana;
+    FONT-SIZE: 10px;
+    FONT-STYLE: normal
+}
+.NavLabel
+{
+    COLOR: cornflowerblue;
+    FONT-FAMILY: Verdana;
+    FONT-SIZE: 13px;
+    FONT-STYLE: normal;
+    FONT-WEIGHT: bolder
+}
+.StdButton
+{
+    COLOR: black;
+    CURSOR: hand;
+    FONT-FAMILY: Verdana;
+    FONT-SIZE: 10px;
+    FONT-STYLE: normal;
+    WIDTH: 75px
+}
+.LabelReadOnly
+{
+    BACKGROUND-COLOR: #c0c0c0;
+    COLOR: black;
+    FONT-FAMILY: Verdana;
+    FONT-SIZE: 10px;
+    FONT-STYLE: normal
+}
+.NAVBAR
+{
+    BORDER-BOTTOM-STYLE: solid;
+    BORDER-LEFT-STYLE: solid;
+    BORDER-RIGHT-STYLE: solid;
+    BORDER-TOP-STYLE: solid;
+    FONT-FAMILY: Verdana;
+    FONT-SIZE: 14px;
+    BORDER-SIZE: 1px
+}
+.CLICKED
+{
+    BACKGROUND-COLOR: #d6cfbd;
+    BORDER-BOTTOM: #8b4513 solid 0px;
+    BORDER-LEFT: white solid 2px;
+    BORDER-RIGHT: black solid 2px;
+    BORDER-TOP: white solid 2px;
+    CURSOR: hand;
+    FONT-FAMILY: Verdana
+}
+.NOTCLICKED
+{
+    BACKGROUND-COLOR: silver;
+    BORDER-BOTTOM: solid 0px;
+    BORDER-LEFT: white solid 1px;
+    BORDER-RIGHT: gray solid 1px;
+    BORDER-TOP: white solid 1px;
+    CURSOR: hand;
+    FONT-FAMILY: Verdana
+}
+.UPMENU
+{
+    BORDER-BOTTOM: gray solid 1px;
+    BORDER-LEFT: white solid 1px;
+    BORDER-RIGHT: gray solid 1px;
+    BORDER-TOP: white solid 1px;
+    CURSOR: hand;
+    FONT-FAMILY: VERDANA;
+    FONT-SIZE: 10px;
+    WIDTH: 45px
+}
+.DOWNMENU
+{
+    BORDER-BOTTOM: #d6cfbd solid 1px;
+    BORDER-LEFT: #d6cfbd solid 1px;
+    BORDER-RIGHT: #d6cfbd solid 1px;
+    BORDER-TOP: #d6cfbd solid 1px;
+    CURSOR: hand;
+    FONT-FAMILY: VERDANA;
+    FONT-SIZE: 10px;
+    WIDTH: 45px
+}
+.CLICKMENU
+{
+    BORDER-BOTTOM: white solid 1px;
+    BORDER-LEFT: gray solid 1px;
+    BORDER-RIGHT: white solid 1px;
+    BORDER-TOP: gray solid 1px;
+    CURSOR: hand;
+    FONT-FAMILY: VERDANA;
+    FONT-SIZE: 10px;
+    WIDTH: 45px
+}
+.MENU
+{
+    BORDER-BOTTOM: gray solid 1px;
+    BORDER-LEFT: white solid 1px;
+    BORDER-RIGHT: gray solid 1px;
+    BORDER-TOP: solid 0px;
+    CURSOR: hand;
+    FONT-FAMILY: VERDANA;
+    FONT-SIZE: 10px;
+    WIDTH: 100px
+}
+.LABELHEADER
+{
+    COLOR: black;
+    FONT-FAMILY: VERDANA;
+    FONT-SIZE: 12px;
+    FONT-WEIGHT: bold
+}
+.conts
+{
+    VISIBILITY: hidden
+}
+.GrpLabel
+{
+    BACKGROUND: #006699;
+    COLOR: white;
+    FONT-FAMILY: Verdana;
+    FONT-SIZE: 10px;
+    FONT-WEIGHT: normal;
+    TEXT-ALIGN: left
+}
+.GrpLabelDrk
+{
+    BACKGROUND: #3399cc;
+    COLOR: white;
+    CURSOR: hand;
+    FONT-FAMILY: Verdana;
+    FONT-SIZE: 10px;
+    FONT-WEIGHT: bold;
+    TEXT-ALIGN: left
+}
+.GrpLabelLine
+{
+    BACKGROUND: #3399cc;
+    COLOR: white;
+    CURSOR: hand;
+    FONT-FAMILY: Verdana;
+    FONT-SIZE: 10px;
+    FONT-WEIGHT: bold;
+    TEXT-ALIGN: left
+}
+.PAGENAV
+{
+    BORDER-BOTTOM: black solid 1px;
+    BORDER-LEFT: black solid 1px;
+    BORDER-RIGHT: black solid 1px;
+    BORDER-TOP: black solid 1px;
+    CURSOR: hand
+}
+.SPACING
+{
+    BORDER-BOTTOM: solid 0px;
+    BORDER-LEFT: #a9a9a9 solid 1px;
+    BORDER-RIGHT: #a9a9a9 solid 1px;
+    BORDER-TOP: solid 0px
+}
+.LABELLIST
+{
+    BACKGROUND-COLOR: #006699;
+    COLOR: white;
+    FONT-FAMILY: VERDANA;
+    FONT-SIZE: 10px
+}
+.LABELDATA
+{
+    FONT-FAMILY: VERDANA;
+    FONT-SIZE: 10px
+}
+.tab
+{
+    BACKGROUND: #d6cfbd;
+    BORDER-LEFT: #eeeeee solid 1px;
+    BORDER-RIGHT: gray solid 1px;
+    BORDER-TOP: #eeeeee solid 1px;
+    CURSOR: hand;
+    FONT-FAMILY: Verdana;
+    FONT-SIZE: 11px;
+    FONT-WEIGHT: normal;
+    TEXT-ALIGN: center
+}
+.selTab
+{
+    BACKGROUND: #d6cfbd;
+    BORDER-LEFT: white solid 2px;
+    BORDER-RIGHT: black solid 2px;
+    BORDER-TOP: white solid 2px;
+    CURSOR: hand;
+    FONT-FAMILY: Verdana;
+    FONT-SIZE: 11px;
+    TEXT-ALIGN: center
+}
+.MoreButton
+{
+    COLOR: black;
+    CURSOR: hand;
+    FONT-FAMILY: Verdana;
+    FONT-SIZE: 10px;
+    FONT-STYLE: normal;
+    HEIGHT: 25px;
+    WIDTH: 25px
+}
+.DISABLED
+{
+    BACKGROUND-COLOR: lightgrey;
+    COLOR: black;
+    FONT-FAMILY: Verdana;
+    FONT-SIZE: 10px;
+    FONT-STYLE: normal
+}
+.MoreButtonDISABLED
+{
+    BACKGROUND-COLOR: lightgrey;
+    COLOR: black;
+    FONT-FAMILY: Verdana;
+    FONT-SIZE: 10px;
+    FONT-STYLE: normal;
+    HEIGHT: 25px;
+    WIDTH: 25px
+}
+.StdButtonHidden
+{
+    COLOR: black;
+    CURSOR: hand;
+    FONT-FAMILY: Verdana;
+    FONT-SIZE: 0px;
+    FONT-STYLE: normal;
+    WIDTH: 0px
+}
+.ReadOnly
+{
+    BACKGROUND-COLOR: silver;
+    COLOR: black;
+    FONT-FAMILY: Verdana;
+    FONT-SIZE: 10px;
+    FONT-STYLE: normal
+}
+</STYLE>

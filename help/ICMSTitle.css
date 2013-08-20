@@ -1,0 +1,102 @@
+P
+{
+    COLOR: #006699;
+    FONT-FAMILY: Verdana;
+    FONT-SIZE: 8pt;
+    TEXT-TRANSFORM: capitalize
+}
+.mvd-P
+{
+    BACKGROUND-COLOR: transparent;
+    FONT-FAMILY: Verdana;
+    FONT-SIZE: 8pt;
+    TEXT-TRANSFORM: capitalize
+}
+BODY
+{
+    FONT-FAMILY: Verdana
+}
+.mvd-BODY
+{
+}
+H1
+{
+    COLOR: #006699;
+    FONT-FAMILY: Verdana, Verdana;
+    FONT-SIZE: 10pt;
+    FONT-WEIGHT: bold;
+    TEXT-TRANSFORM: capitalize
+}
+.mvd-H1
+{
+    BACKGROUND-COLOR: transparent;
+    COLOR: teal;
+    FONT-FAMILY: Verdana;
+    FONT-SIZE: 10pt;
+    FONT-WEIGHT: bold;
+    TEXT-TRANSFORM: capitalize
+}
+H2
+{
+    COLOR: #006699;
+    FONT-FAMILY: Verdana;
+    FONT-SIZE: 10pt;
+    FONT-WEIGHT: bold;
+    TEXT-TRANSFORM: capitalize
+}
+.mvd-H2
+{
+    COLOR: teal;
+    FONT-FAMILY: Verdana;
+    FONT-SIZE: 10pt;
+    FONT-WEIGHT: bold;
+    TEXT-TRANSFORM: capitalize
+}
+CITE.expandspot
+{
+    COLOR: green;
+    CURSOR: hand;
+    FONT-STYLE: normal
+}
+.mvd-CITE-expandspot
+{
+    COLOR: green;
+    CURSOR: hand;
+    FONT-STYLE: normal
+}
+DFN.collapsed
+{
+    COLOR: red;
+    DISPLAY: none;
+    FONT-STYLE: italic;
+    FONT-WEIGHT: normal
+}
+.mvd-DFN-collapsed
+{
+    COLOR: red;
+    DISPLAY: none;
+    FONT-STYLE: italic;
+    FONT-WEIGHT: normal
+}
+DFN.expanded
+{
+    COLOR: red;
+    FONT-STYLE: italic;
+    FONT-WEIGHT: normal
+}
+.mvd-DFN-expanded
+{
+    COLOR: red;
+    FONT-STYLE: italic;
+    FONT-WEIGHT: normal
+}
+EM.dropspot
+{
+    COLOR: green;
+    CURSOR: hand
+}
+.mvd-EM-dropspot
+{
+    COLOR: green;
+    CURSOR: hand
+}

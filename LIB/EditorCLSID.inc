@@ -1,0 +1,4 @@
+<%
+Response.write(" CLASSID='CLSID:13A2FD71-9ECC-11D2-AF73-0060082408D7' ")
+%>
+

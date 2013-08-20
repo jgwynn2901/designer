@@ -1,0 +1,181 @@
+P
+{
+    BACKGROUND-COLOR: white;
+    BORDER-BOTTOM: medium none;
+    BORDER-LEFT: medium none;
+    BORDER-RIGHT: medium none;
+    BORDER-TOP: medium none;
+    FONT-FAMILY: Verdana;
+    FONT-SIZE: 8pt;
+    FONT-STYLE: normal;
+    FONT-VARIANT: normal;
+    FONT-WEIGHT: lighter;
+    LETTER-SPACING: normal;
+    LIST-STYLE: none;
+    PADDING-BOTTOM: 1pt;
+    PADDING-LEFT: 1pt;
+    PADDING-RIGHT: 1pt;
+    PADDING-TOP: 1pt;
+    TEXT-ALIGN: left;
+    TEXT-DECORATION: none;
+    TEXT-TRANSFORM: none;
+    VERTICAL-ALIGN: baseline;
+    WORD-SPACING: normal
+}
+.mvd-P
+{
+    BACKGROUND-COLOR: white;
+    FONT-FAMILY: Verdana;
+    FONT-SIZE: 8pt;
+    FONT-STYLE: normal;
+    FONT-VARIANT: normal;
+    FONT-WEIGHT: lighter;
+    LETTER-SPACING: normal;
+    LIST-STYLE: none;
+    PADDING-BOTTOM: 1pt;
+    PADDING-LEFT: 1pt;
+    PADDING-RIGHT: 1pt;
+    PADDING-TOP: 1pt;
+    TEXT-ALIGN: left;
+    TEXT-DECORATION: none;
+    TEXT-TRANSFORM: none;
+    VERTICAL-ALIGN: baseline;
+    WORD-SPACING: normal
+}
+H1
+{
+    BACKGROUND-COLOR: transparent;
+    COLOR: #006699;
+    FONT-FAMILY: Verdana;
+    FONT-SIZE: 10pt;
+    FONT-WEIGHT: bold;
+    TEXT-TRANSFORM: none;
+    VERTICAL-ALIGN: baseline
+}
+.mvd-H1
+{
+    BACKGROUND-COLOR: transparent;
+    COLOR: teal;
+    FONT-FAMILY: Verdana;
+    FONT-SIZE: 10pt;
+    FONT-WEIGHT: bold;
+    TEXT-TRANSFORM: none;
+    VERTICAL-ALIGN: baseline
+}
+H2
+{
+    COLOR: #006699;
+    FONT-FAMILY: Verdana;
+    FONT-SIZE: 8pt;
+    FONT-WEIGHT: bold;
+    TEXT-TRANSFORM: none;
+    VERTICAL-ALIGN: baseline
+}
+.mvd-H2
+{
+    COLOR: teal;
+    FONT-FAMILY: Verdana;
+    FONT-SIZE: 8pt;
+    FONT-WEIGHT: bold;
+    TEXT-TRANSFORM: none;
+    VERTICAL-ALIGN: baseline
+}
+BODY
+{
+    BACKGROUND-COLOR: white;
+    FONT-FAMILY: Verdana
+}
+.mvd-BODY
+{
+    BACKGROUND-COLOR: white
+}
+H3
+{
+    COLOR: #006699;
+    FONT-FAMILY: Verdana;
+    FONT-SIZE: 8pt
+}
+.mvd-H3
+{
+    COLOR: teal;
+    FONT-FAMILY: Verdana;
+    FONT-SIZE: 8pt
+}
+A:link
+{
+    COLOR: #006699;
+    FONT-FAMILY: Verdana;
+    FONT-SIZE: 8pt
+}
+A:visited
+{
+    COLOR: #006699;
+    FONT-FAMILY: Verdana;
+    FONT-SIZE: 8pt
+}
+A:active
+{
+    COLOR: #006699
+}
+H4
+{
+    COLOR: black;
+    FONT-FAMILY: Verdana;
+    FONT-SIZE: 8pt;
+    FONT-WEIGHT: bold
+}
+.mvd-H4
+{
+    COLOR: black;
+    FONT-FAMILY: Verdana;
+    FONT-SIZE: 8pt;
+    FONT-WEIGHT: bold
+}
+CITE.expandspot
+{
+    COLOR: green;
+    CURSOR: hand;
+    FONT-STYLE: normal
+}
+.mvd-CITE-expandspot
+{
+    COLOR: green;
+    CURSOR: hand;
+    FONT-STYLE: normal
+}
+DFN.collapsed
+{
+    COLOR: red;
+    DISPLAY: none;
+    FONT-STYLE: italic;
+    FONT-WEIGHT: normal
+}
+.mvd-DFN-collapsed
+{
+    COLOR: red;
+    DISPLAY: none;
+    FONT-STYLE: italic;
+    FONT-WEIGHT: normal
+}
+DFN.expanded
+{
+    COLOR: red;
+    FONT-STYLE: italic;
+    FONT-WEIGHT: normal
+}
+.mvd-DFN-expanded
+{
+    COLOR: red;
+    FONT-STYLE: italic;
+    FONT-WEIGHT: normal
+}
+EM.dropspot
+{
+    COLOR: green;
+    CURSOR: hand
+}
+.mvd-EM-dropspot
+{
+    COLOR: green;
+    CURSOR: hand
+}

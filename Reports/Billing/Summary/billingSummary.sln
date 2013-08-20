@@ -1,0 +1,21 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "billingSummary", "http://localhost/billingSummary/billingSummary.vbproj", "{4FBC399D-5767-482F-9BD6-D4363D64E30D}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Release = Release
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{4FBC399D-5767-482F-9BD6-D4363D64E30D}.Debug.ActiveCfg = Debug|.NET
+		{4FBC399D-5767-482F-9BD6-D4363D64E30D}.Debug.Build.0 = Debug|.NET
+		{4FBC399D-5767-482F-9BD6-D4363D64E30D}.Release.ActiveCfg = Release|.NET
+		{4FBC399D-5767-482F-9BD6-D4363D64E30D}.Release.Build.0 = Release|.NET
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal

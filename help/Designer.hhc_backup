@@ -1,0 +1,194 @@
+<html>
+<!-- Sitemap 1.0 -->
+<object type="text/site properties">
+  <param name="SiteType" value="toc">
+  <param name="Window Styles" value="0x800002">
+  <param name="ExWindow Styles" value="0x100">
+</object>
+<ul>
+  <li><object type="text/sitemap">
+    <param name="Name" value="Designer Help">
+    <param name="Local" value="Welcome To FNSNet Designer Help.htm">
+  </object>
+  <ul>
+    <li><object type="text/sitemap">
+      <param name="Name" value="Welcome">
+      <param name="Local" value="Welcome.htm">
+    </object>
+    <ul>
+      <li><object type="text/sitemap">
+        <param name="Name" value="About FNSNet Designer">
+        <param name="Local" value="About FNSNet Designer.htm">
+      </object>
+      <li><object type="text/sitemap">
+        <param name="Name" value="Tell Us What You Think">
+        <param name="Local" value="Tell Us What You Think.htm">
+      </object>
+      <li><object type="text/sitemap">
+        <param name="Name" value="Technical Support">
+        <param name="Local" value="Technical Support.htm">
+      </object>
+      <li><object type="text/sitemap">
+        <param name="Name" value="Credits">
+        <param name="Local" value="Credits.htm">
+      </object>
+      </ul>
+    <li><object type="text/sitemap">
+      <param name="Name" value="Call Flows">
+      <param name="Local" value="Call Flows.htm">
+    </object>
+    <ul>
+      <li><object type="text/sitemap">
+        <param name="Name" value="Getting Started In Call Flows">
+        <param name="Local" value="Getting Started In Call Flows.htm">
+      </object>
+      <ul>
+        <li><object type="text/sitemap">
+          <param name="Name" value="Designer and Call Flows">
+          <param name="Local" value="Designer and Call Flows.htm">
+        </object>
+        <li><object type="text/sitemap">
+          <param name="Name" value="About Call Flows">
+          <param name="Local" value="About Call Flows.htm">
+        </object>
+        <li><object type="text/sitemap">
+          <param name="Name" value="Standard Call Flows">
+          <param name="Local" value="Standard Call Flows.htm">
+        </object>
+        <li><object type="text/sitemap">
+          <param name="Name" value="Sharing Call Flows">
+          <param name="Local" value="Sharing Call Flows.htm">
+        </object>
+        <li><object type="text/sitemap">
+          <param name="Name" value="Sharing Call Flow Components">
+          <param name="Local" value="Sharing Call Flow Components.htm">
+        </object>
+        <li><object type="text/sitemap">
+          <param name="Name" value="Creating Call Flow Components">
+          <param name="Local" value="Creating Call Flow Components.htm">
+        </object>
+        <li><object type="text/sitemap">
+          <param name="Name" value="Call Flow Common Tasks">
+          <param name="Local" value="Call Flow Common Tasks.htm">
+        </object>
+        </ul>
+      <li><object type="text/sitemap">
+        <param name="Name" value="Call Flow Basics">
+        <param name="Local" value="Call Flow Basics.htm">
+      </object>
+      <ul>
+        <li><object type="text/sitemap">
+          <param name="Name" value="Building Call Flows">
+          <param name="Local" value="Building Call Flows.htm">
+        </object>
+        <li><object type="text/sitemap">
+          <param name="Name" value="Adding Frames to Call Flows">
+          <param name="Local" value="Adding Frames to Call Flows.htm">
+        </object>
+        <li><object type="text/sitemap">
+          <param name="Name" value="Adding Attributes to Frames">
+          <param name="Local" value="Adding Attributes to Frames.htm">
+        </object>
+        <li><object type="text/sitemap">
+          <param name="Name" value="Adding Rules to Call Flows, Frames and Attributes">
+          <param name="Local" value="Adding Rules to Call Flows, Frames and Attributes.htm">
+        </object>
+        <li><object type="text/sitemap">
+          <param name="Name" value="Adding Frame Orders">
+          <param name="Local" value="Adding Frame Orders.htm">
+        </object>
+        <li><object type="text/sitemap">
+          <param name="Name" value="Reviewing Attribute Instance Listing and General Information">
+          <param name="Local" value="Reviewing Attribute Instance Listing and General Information.htm">
+        </object>
+        <li><object type="text/sitemap">
+          <param name="Name" value="Editing and Refreshing Call Flows">
+          <param name="Local" value="Editing and Refreshing Call Flows.htm">
+        </object>
+        <li><object type="text/sitemap">
+          <param name="Name" value="Copying and Pasting Call Flows">
+          <param name="Local" value="Copying and Pasting Call Flows.htm">
+        </object>
+        <li><object type="text/sitemap">
+          <param name="Name" value="Filtering and Deleting Call Flows">
+          <param name="Local" value="Filtering and Deleting Call Flows.htm">
+        </object>
+        <li><object type="text/sitemap">
+          <param name="Name" value="Attaching Call Flows">
+          <param name="Local" value="Attaching Call Flows.htm">
+        </object>
+        </ul>
+      <li><object type="text/sitemap">
+        <param name="Name" value="Call Flow Maintenance">
+        <param name="Local" value="Call Flow Maintenance.htm">
+      </object>
+      <ul>
+        <li><object type="text/sitemap">
+          <param name="Name" value="Address Book Search and New Address Book">
+          <param name="Local" value="Address Book Search and New Address Book.htm">
+        </object>
+        <li><object type="text/sitemap">
+          <param name="Name" value="Call Flow Search and New Call Flow">
+          <param name="Local" value="Call Flow Search and New Call Flow.htm">
+        </object>
+        <li><object type="text/sitemap">
+          <param name="Name" value="Frame Search">
+          <param name="Local" value="Frame Search.htm">
+        </object>
+        <li><object type="text/sitemap">
+          <param name="Name" value="Attribute Search and New Attribute">
+          <param name="Local" value="Attribute Search and New Attribute.htm">
+        </object>
+        <li><object type="text/sitemap">
+          <param name="Name" value="Lookup Type Search and New Lookup Type">
+          <param name="Local" value="Lookup Type Search and New Lookup Type.htm">
+        </object>
+        <li><object type="text/sitemap">
+          <param name="Name" value="Rule Search and New Rule">
+          <param name="Local" value="Rule Search and New Rule.htm">
+        </object>
+        <li><object type="text/sitemap">
+          <param name="Name" value="Escalation Search and New Escalation">
+          <param name="Local" value="Escalation Search and New Escalation.htm">
+        </object>
+        </ul>
+      </ul>
+    <li><object type="text/sitemap">
+      <param name="Name" value="Getting Help">
+      <param name="Local" value="Getting Help.htm">
+    </object>
+    <ul>
+      <li><object type="text/sitemap">
+        <param name="Name" value="About Designer Help">
+        <param name="Local" value="About Designer Help.htm">
+      </object>
+      <li><object type="text/sitemap">
+        <param name="Name" value="Context Sensitive Help">
+        <param name="Local" value="Context Sensitive Help.htm">
+      </object>
+      <li><object type="text/sitemap">
+        <param name="Name" value="Contents">
+        <param name="Local" value="Contents.htm">
+      </object>
+      <li><object type="text/sitemap">
+        <param name="Name" value="Index">
+        <param name="Local" value="Index.htm">
+      </object>
+      </ul>
+    <li><object type="text/sitemap">
+      <param name="Name" value="Settings And Exit">
+      <param name="Local" value="Settings And Exit.htm">
+    </object>
+    <ul>
+      <li><object type="text/sitemap">
+        <param name="Name" value="Settings">
+        <param name="Local" value="Settings.htm">
+      </object>
+      <li><object type="text/sitemap">
+        <param name="Name" value="Exit">
+        <param name="Local" value="Exit.htm">
+      </object>
+      </ul>
+    </ul>
+</ul>
+</html>

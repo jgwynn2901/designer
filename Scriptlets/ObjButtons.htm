@@ -1,0 +1,112 @@
+<!--#include file="..\lib\common.inc"-->
+<HTML>
+<HEAD>
+<META name=VI60_defaultClientScript content=VBScript>
+<link rel="stylesheet" type="text/css" href="..\FNSDESIGN.css">
+<TITLE></TITLE>
+<SCRIPT LANGUAGE=vbscript>
+<!--
+Sub SwitchMenu(ID)
+	ID.classname = "UPMENU"
+End Sub
+
+Sub SwitchBack(ID)
+	ID.classname = "DOWNMENU"
+End Sub
+
+Function SwitchClick(ID)
+	ID.classname = "CLICKMENU"
+End Function
+
+Sub TDEDIT_OnMouseDown
+	SwitchClick(TDEDIT)
+End Sub
+
+Sub TDEDIT_OnMouseUp
+	SwitchMenu(TDEDIT)
+	window.external.raiseEvent "EDITBUTTONCLICK", TDEDIT
+End Sub
+
+Sub TDNEW_OnMouseDown
+	SwitchClick(TDNEW)
+End Sub
+
+Sub TDNEW_OnMouseUp
+	SwitchMenu(TDNEW)
+	window.external.raiseEvent "NEWBUTTONCLICK", TDNEW
+End Sub
+
+Sub TDCOPY_OnMouseDown
+	SwitchClick(TDCOPY)
+End Sub
+
+Sub TDCOPY_OnMouseUp
+	SwitchMenu(TDCOPY)
+	window.external.raiseEvent "COPYBUTTONCLICK", TDCOPY
+End Sub
+
+Sub TDPASTE_OnMouseDown
+	SwitchClick(TDPASTE)
+End Sub
+
+Sub TDPASTE_OnMouseUp
+	SwitchMenu(TDPASTE)
+	window.external.raiseEvent "PASTEBUTTONCLICK", TDPASTE
+End Sub
+
+Sub TDSEARCH_OnMouseDown
+	SwitchClick(TDSEARCH)
+End Sub
+
+Sub TDSEARCH_OnMouseUp
+	SwitchMenu(TDSEARCH)
+	window.external.raiseEvent "SEARCHBUTTONCLICK", TDSEARCH
+End Sub
+
+Sub TDRemove_OnMouseDown
+	SwitchClick(TDREMOVE)
+End Sub
+
+Sub TDREMOVE_OnMouseUp
+	SwitchMenu(TDREMOVE)
+	window.external.raiseEvent "REMOVEBUTTONCLICK", TDREMOVE
+End Sub
+
+Sub TDATTACH_OnMouseDown
+	SwitchClick(TDATTACH)
+End Sub
+
+Sub TDATTACH_OnMouseUp
+	SwitchMenu(TDATTACH)
+	window.external.raiseEvent "ATTACHBUTTONCLICK", TDATTACH
+End Sub
+
+Sub TDREFRESH_OnMouseDown
+	SwitchClick(TDREFRESH)
+End Sub
+
+Sub TDREFRESH_OnMouseUp
+	SwitchMenu(TDREFRESH)
+	window.external.raiseEvent "REFRESHBUTTONCLICK", TDREFRESH
+End Sub
+-->
+
+</SCRIPT>
+</HEAD>
+<BODY  bottommargin=0 leftmargin=0 rightmargin=0 topmargin=0>
+<FIELDSET STYLE="BACKGROUND-COLOR:#d6cfbd">
+<TABLE  BGCOLOR=#d6cfbd STYLE="HEIGHT:10;WIDTH:'90%'" ID="TBLMENU">
+<TR ALIGN=CENTER>
+<TD CLASS=DOWNMENU  ALIGN=CENTER ID="TDEDIT" NAME="TDEDIT" OnMouseOver="SwitchMenu(TDEDIT)" OnMouseOut="SwitchBack(TDEDIT)">Edit</TD>
+<TD CLASS=DOWNMENU  ALIGN=CENTER ID="TDNEW" NAME="TDNEW" OnMouseOver="SwitchMenu(TDNEW)" OnMouseOut="SwitchBack(TDNEW)">New</TD>
+<TD CLASS=DOWNMENU  ALIGN=CENTER ID="TDCOPY" NAME="TDCOPY" OnMouseOver="SwitchMenu(TDCOPY)" OnMouseOut="SwitchBack(TDCOPY)">Copy</TD>
+<TD CLASS=DOWNMENU  ALIGN=CENTER ID="TDPASTE" NAME="TDPASTE" OnMouseOver="SwitchMenu(TDPASTE)" OnMouseOut="SwitchBack(TDPASTE)">Paste</TD>
+<TD CLASS=DOWNMENU  ALIGN=CENTER ID="TDSEARCH" NAME="TDSEARCH" OnMouseOver="SwitchMenu(TDSEARCH)" OnMouseOut="SwitchBack(TDSEARCH)">Search</TD>
+<TD CLASS=DOWNMENU  ALIGN=CENTER ID="TDREMOVE" NAME="TDREMOVE" OnMouseOver="SwitchMenu(TDREMOVE)" OnMouseOut="SwitchBack(TDREMOVE)">Delete</TD>
+<TD CLASS=DOWNMENU  ALIGN=CENTER ID="TDATTACH" NAME="TDATTACH" OnMouseOver="SwitchMenu(TDATTACH)" OnMouseOut="SwitchBack(TDATTACH)">Attach</TD>
+<TD CLASS=DOWNMENU  ALIGN=CENTER ID="TDREFRESH" NAME="TDREFRESH" OnMouseOver="SwitchMenu(TDREFRESH)" OnMouseOut="SwitchBack(TDREFRESH)">Refresh</TD>
+</TR>
+</TABLE>
+</FIELDSET>
+</BODY>
+</HTML>

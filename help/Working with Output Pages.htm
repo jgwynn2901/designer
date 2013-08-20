@@ -1,0 +1,286 @@
+<HTML>
+ <HEAD>
+  <!-- $MVD$:app("RoboHELP HTML Edition by Blue Sky Software, portions by MicroVision Dev. Inc.","769") -->
+  <!-- $MVD$:template("","0","0") -->
+  <!-- $MVD$:color("18","e1ffff","MS Soft Yellow","0") -->
+  <!-- $MVD$:color("19","408000","Concentra Green","0") -->
+  <!-- $MVD$:color("20","4000","Concentra 2","0") -->
+  <!-- $MVD$:color("21","996600","Custom #1","0") -->
+  <!-- $MVD$:fontset("Verdana","Verdana") -->
+  <TITLE>Working with Output Pages</TITLE>
+  <META NAME="generator" CONTENT="RoboHELP by Blue Sky Software www.blue-sky.com HTML Edition">
+  <SCRIPT LANGUAGE="javascript" TITLE="BSSC Special Effects" SRC="BSSCDHTM.js">
+ </SCRIPT><LINK
+  REL="StyleSheet" HREF="DesignerHelp.css"></HEAD>
+  <BODY ONLOAD="BSSCOnLoad();" ONCLICK="BSSCOnClick();" ONUNLOAD="BSSCOnUnload();">
+  <H1>
+   Working with Output Pages</H1>
+  <P>
+   Output Pages are cover letters, First Report of Injury and Overflow. 
+   Output pages have two parts. The underlying bitmap image is set on 
+   the &quot;General&quot; tab in the Output Definition Editor. The 
+   attributes mapped to that image are set in the &quot;Layout&quot; tab 
+   in the Output Definition Editor. You can view the attributes using 
+   the &quot;layout&quot; tab or see a list of attributes using the 
+   &quot;Listing&quot; tab.</P>
+  <P>
+   You have two options concerning attributes. You can find attributes 
+   and map them to forms or create new fields from existing attributes 
+   (for example, an address field made up of street, city, state and zip 
+   code attributes).</P>
+  <H4>
+   Find Attributes &amp; New Output Fields</H4>
+  <P>
+   If your attribute requires a great deal of the same information found 
+   on other attributes, you should use <SPAN ONCLICK="javascript:outline2()"><CITE CLASS="expandspot">Find Attributes</CITE> </SPAN><DFN CLASS="collapsed">(Find
+    Attribute is an attribute search based on criteria you enter.)</DFN> 
+   to use an existing attribute.</P>
+  <P>
+   New Output Fields adds output fields to the Output page. You can also 
+   add fields that are composites of several attributes, or that execute 
+   conditional logic related to their appearance on the form.</P>
+  <P>
+   <SPAN ONCLICK="drop('text0');"><EM CLASS="dropspot">Example</EM></SPAN></P>
+  <DIV ID="text0" CLASS="droptext" STYLE="display:'none';">
+   <P>
+    <IMG SRC="newoutputfield.gif" WIDTH="95" HEIGHT="17" VSPACE="0" HSPACE="0" BORDER="1"></P>
+   </DIV>
+  <H4>
+   Remove Output Fields</H4>
+  <P>
+   This removes output fields from the Output Page.</P>
+  <H4>
+   Output Field Properties</H4>
+  <P>
+   Output Field Properties enables you to update or change Output Field 
+   properties. Output Field properties are used to combine and format 
+   different attributes. It is also used to set rules for when to show 
+   fields. For example to show a field if a certain attribute equals a 
+   certain value. Otherwise show something else or show nothing.</P>
+  <H4>
+   Layout Tab Icons and Popup Menu</H4>
+  <P>
+   The Layout Tab contains icons you use when adding attributes. These 
+   icons are Attribute Search, Output Field Properties, Save, Undo and 
+   Zoom. The Popup Menu contains choices that effect the way you view 
+   information on the Layout Tab. These choices are Show Select, Show 
+   All, Show Attributes and Show Samples.</P>
+  <P>
+   Click <SPAN ONCLICK="drop('text1');"><EM CLASS="dropspot">Navigation Details</EM></SPAN> for information on 
+   how to get to Working with Output Pages.</P>
+  <DIV ID="text1" CLASS="droptext" STYLE="display:'none';">
+   <H4>
+    Navigation Details</H4>
+   <P>
+    1. From the Navigation bar, choose Hierarchy.</P>
+   <P>
+    2. Click the &quot;+&quot; sign next to FNS in the Hierarchy tree.</P>
+   <P>
+    3. Select the client in the Hierarchy Tree to go to the Business 
+    Entity Summary page in the right frame.</P>
+   <P>
+    4. Click the &quot;+&quot; sign next to the Routing Plans on the 
+    Business Entity page.</P>
+   <P>
+    5. Select routing plan from list of routing plans and click 
+    &quot;Edit&quot; on the Routing Plans bar.</P>
+   <P>
+    6. Double click Transmission Sequence Step and double click Output Item.</P>
+   <P>
+    7. Right click the mouse on the Output Definition and select 
+    &quot;Visual Editor&quot; from the popup menu.</P>
+   </DIV>
+  <H4>
+   Common Tasks</H4>
+  <P>
+   These Common Tasks are used when Working with Output Pages. Click the 
+   green text for detailed information on each task.</P>
+  <P>
+   <SPAN ONCLICK="drop('text2');"><EM CLASS="dropspot">Find Attributes</EM></SPAN></P>
+  <DIV ID="text2" CLASS="droptext" STYLE="display:'none';">
+   <H4>
+    Find Attributes</H4>
+   <P>
+    Click the Attribute Search icon on the Layout tab bar.</P>
+   <UL>
+    <BLOCKQUOTE>
+     <LI CLASS="mvd-P">
+     <P>
+      Enter Name and Caption.</P>
+     <LI CLASS="mvd-P">
+     <P>
+      Select Input Type from drop down list.</P>
+     <LI CLASS="mvd-P">
+     <P>
+      Enter Description, Help String and Attribute ID.</P>
+     </UL>
+    <BLOCKQUOTE>
+     <BLOCKQUOTE>
+      <P>
+       The Help String is information in the Tips Frame in the call flow 
+       screen. The Tips Frame contains suggestions for taking the 
+       information from the caller when the call representative uses the attribute.</P>
+      </BLOCKQUOTE>
+     </BLOCKQUOTE>
+    <UL>
+     <LI CLASS="mvd-P">
+     <P>
+      Select Type of Search</P>
+     </UL>
+    <BLOCKQUOTE>
+     <BLOCKQUOTE>
+      <P>
+       The default is &quot;Begins With&quot;. &quot;Begins With&quot; means 
+       Designer returns results beginning with the criteria you entered. 
+       &quot;&quot;Contains&quot; means Designer returns results containing 
+       the criteria you entered. &quot;Exact&quot; means Designer returns 
+       results with the exact criteria you entered.</P>
+      </BLOCKQUOTE>
+     </BLOCKQUOTE>
+    <UL>
+     <LI CLASS="mvd-P">
+     <P>
+      Click the Search button.</P>
+     </BLOCKQUOTE>
+    </UL>
+   <P>
+    <SPAN ONCLICK="drop('text3');"><EM CLASS="dropspot">Example</EM></SPAN></P>
+   <DIV ID="text3" CLASS="droptext" STYLE="display:'none';">
+    <P>
+     <IMG SRC="AttributeSearch.gif" WIDTH="520" HEIGHT="580" VSPACE="0" HSPACE="0" BORDER="1"></P>
+    </DIV>
+   <UL>
+    <BLOCKQUOTE>
+     <LI CLASS="mvd-P">
+     <P>
+      Select appropriate result from results list.</P>
+     <LI CLASS="mvd-P">
+     <P>
+      Click the Select button.</P>
+     </UL>
+    <BLOCKQUOTE>
+     <BLOCKQUOTE>
+      <P>
+       The attribute appears in the Attribute Name List drop down box.</P>
+      <P>
+       It also appears in the Output Definitions Editor.</P>
+      </BLOCKQUOTE>
+     </BLOCKQUOTE>
+    </BLOCKQUOTE>
+   <P>
+    <SPAN ONCLICK="drop('text4');"><EM CLASS="dropspot">Example</EM></SPAN></P>
+   <DIV ID="text4" CLASS="droptext" STYLE="display:'none';">
+    <P>
+     <IMG SRC="attributesample.gif" WIDTH="283" HEIGHT="37" VSPACE="0" HSPACE="0" BORDER="1"></P>
+    </DIV>
+   <P>
+    <!-- $MVD$:spaceretainer() -->&nbsp;</P>
+   </DIV>
+  <P>
+   <SPAN ONCLICK="drop('text5');"><EM CLASS="dropspot">New Output Fields</EM></SPAN></P>
+  <DIV ID="text5" CLASS="droptext" STYLE="display:'none';">
+   <H4>
+    New Output Fields</H4>
+   <P>
+    Click the &quot;New Output Field&quot; icon on the Output Page bar.</P>
+   </DIV>
+  <P>
+   <SPAN ONCLICK="drop('text6');"><EM CLASS="dropspot">Remove Output Fields</EM></SPAN></P>
+  <DIV ID="text6" CLASS="droptext" STYLE="display:'none';">
+   <H4>
+    Remove Output Fields</H4>
+   <P>
+    Right click the mouse on the output field and select 
+    &quot;Remove&quot; from the popup menu.</P>
+   </DIV>
+  <P>
+   <SPAN ONCLICK="drop('text7');"><EM CLASS="dropspot">Output Field Properties</EM></SPAN></P>
+  <DIV ID="text7" CLASS="droptext" STYLE="display:'none';">
+   <H4>
+    Output Field Properties</H4>
+   <P>
+    Right click the mouse on the output field and select 
+    &quot;Properties&quot; from the popup menu.</P>
+   <P>
+    Update or change the Output Field Properties. Click &quot;Save&quot; 
+    and &quot;Close&quot;.</P>
+   </DIV>
+  <P>
+   <SPAN ONCLICK="drop('text8');"><EM CLASS="dropspot">Layout Tab Icons and Popup Menu</EM></SPAN></P>
+  <DIV ID="text8" CLASS="droptext" STYLE="display:'none';">
+   <H4>
+    Layout Tab Icons and Popup Menu</H4>
+   <H4>
+    Layout Tab Icons</H4>
+   <UL>
+    <LI CLASS="mvd-P">
+    <P>
+     Attribute Search icon accesses attribute search.</P>
+    <LI CLASS="mvd-P">
+    <P>
+     Properties icon <IMG SRC="Propertiesicon.gif" WIDTH="17" HEIGHT="17" VSPACE="0" HSPACE="0" BORDER="0"> 
+     accesses Instance Properties or Attribute Properties.</P>
+    <LI CLASS="mvd-P">
+    <P>
+     Save icon <IMG SRC="Saveicon.gif" WIDTH="19" HEIGHT="17" VSPACE="0" HSPACE="0" BORDER="0"> 
+     saves any changes to the Designer.</P>
+    <LI CLASS="mvd-P">
+    <P>
+     Undo icon <IMG SRC="Undoicon.gif" WIDTH="18" HEIGHT="15" VSPACE="0" HSPACE="0" BORDER="0"> 
+     undoes the last action.</P>
+    <LI CLASS="mvd-P">
+    <P>
+     Zoom icon <IMG SRC="Zoom.gif" WIDTH="18" HEIGHT="20" VSPACE="0" HSPACE="0" BORDER="0"> 
+     zooms in for a close or enlarged view of the frame.</P>
+    <LI CLASS="mvd-P">
+    <P>
+     Override icon <IMG SRC="Override.gif" WIDTH="19" HEIGHT="17" VSPACE="0" HSPACE="0" BORDER="0"> 
+     overrides an attribute property.</P>
+    <LI CLASS="mvd-P">
+    <P>
+     Remove icon <IMG SRC="Remove.gif" WIDTH="20" HEIGHT="18" VSPACE="0" HSPACE="0" BORDER="0"> 
+     removes the attribute from the frame.</P>
+    </UL>
+   <H4>
+    Popup Menu</H4>
+   <BLOCKQUOTE>
+    <H4>
+     Show Select</H4>
+    <P>
+     Displays the attribute selected. Right click the mouse inside the 
+     frame and select &quot;Show Select&quot; from the popup menu.</P>
+    <H4>
+     Show All</H4>
+    <P>
+     Displays all the attributes on the frame. Right click the mouse 
+     inside the frame and select &quot;Show All&quot; from the popup menu.</P>
+    <H4>
+     Show Attributes</H4>
+    <P>
+     Displays attributes such as &quot;CLAIM:CLAIM_NUMBER&quot;. Right 
+     click the mouse inside the frame and select &quot;Show 
+     Attributes&quot; from the popup menu.</P>
+    <H4>
+     Show Samples</H4>
+    <P>
+     Displays the attributes as they would appear to the user. Right click 
+     the mouse inside the frame and select &quot;Show Samples&quot; from 
+     the popup menu.</P>
+    </DIV>
+   </BLOCKQUOTE>
+  <P>
+   <OBJECT
+    CLASSID="clsid:ADB880A6-D8FF-11CF-9377-00AA003B7A11"
+    ID="RelatedTopics"
+    ALIGN=BOTTOM
+    BORDER="0"
+    VSPACE="0"
+    HSPACE="0"><PARAM
+    NAME="Command" VALUE="Related Topics,MENU"><PARAM
+    NAME="Button" VALUE="Text:Related Topics"><PARAM
+    NAME="Font" VALUE="MS Sans Serif,8,,,"><PARAM
+    NAME="Item1" VALUE="Routing Plan Components;Routing Plan Components.htm"></OBJECT></P>
+  <P>
+   <!-- $MVD$:spaceretainer() -->&nbsp;
+ </BODY>
+</HTML>

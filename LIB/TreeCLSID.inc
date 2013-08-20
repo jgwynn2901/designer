@@ -1,0 +1,9 @@
+<%
+Sub GetTreeCLSID()
+%>
+ CLASSID='CLSID:DACBC157-5101-11D3-80B6-009027139D85' 
+ 
+<%
+End Sub
+%>
+

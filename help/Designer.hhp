@@ -1,0 +1,167 @@
+[OPTIONS]
+Compiled File=Designer.chm
+Title=Designer Help
+Contents File=Designer.hhc
+Index File=Designer.hhk
+Default topic=About FNSNet Designer.htm
+Default Window=NewWindow
+Error log file=
+Display compile progress=No
+Display compile notes=No
+Full-text search=Yes
+Binary Index=No
+Auto Index=No
+Enhanced decompilation=No
+Binary TOC=No
+Flat=No
+
+[WINDOWS]
+NewWindow="New Window Caption","Designer.hhc","Designer.hhk","","",,,,,0x420,0,0x200e,[0,0,500,400],0x0,0x0,,0,0,0
+
+[FILES]
+Searching.htm
+Credits.htm
+Technical Support.htm
+Tell Us What You Think.htm
+Welcome.htm
+Welcome To FNSNet Designer Help.htm
+Hierarchy Tree Icons.htm
+Expand Or Collapse Client And Account Information.htm
+Business Entity Search.htm
+Call Flow Search.htm
+Hierarchy Tree.htm
+About FNSNet Designer.htm
+New Call Flow.htm
+Retrieve Nodes.htm
+Show As Top Node.htm
+Business Entity Summary.htm
+Account Call Flows.htm
+Filter Call Flow.htm
+Paste Call Flow.htm
+Edit Call Flow.htm
+Filter Properties.htm
+Copy Call Flow.htm
+Add Child Node.htm
+Node Search.htm
+Add To Favorites.htm
+Routing Plan Search.htm
+Policy Search.htm
+Hierarchy Tree Popup Menu.htm
+Copy Frame as New.htm
+New Frame.htm
+Detach This Frame From Current Call Flow.htm
+Refresh Call Flow.htm
+Attach Call Flow.htm
+Delete Call Flow.htm
+Call Flow Editor.htm
+Attach Existing Frame To This Call Flow.htm
+Layout.htm
+General.htm
+Frame Order.htm
+Listing.htm
+Instance Properties.htm
+SQL Data.htm
+Attribute Properties.htm
+Rules.htm
+Designer Icons.htm
+Account Hierarchy.htm
+Call Flow Tasks.htm
+Maintenance Call Fow Search.htm
+Hierarchy Call Flow Search.htm
+Designer Interface.htm
+Attribute Rules.htm
+Lookup Types.htm
+Over Ride.htm
+Instance Properties Drop Down Hotspot.htm
+Attribute Properties Expanding Hotspot.htm
+Layout Bookmark Test.htm
+Overview.htm
+Address Book.htm
+Business Entity Summary Tasks.htm
+Settings.htm
+New Address Book.htm
+About Designer Help.htm
+Using Help.htm
+Index.htm
+Contents.htm
+Context Sensitive Help.htm
+Address Book Search.htm
+Settings And Exit.htm
+Exit.htm
+Designer and Call Flows.htm
+Copying and Pasting Call Flows.htm
+Editing and Refreshing Call Flows.htm
+Reviewing Attribute Instance Listing and General Information.htm
+Adding Frame Orders.htm
+Filtering and Deleting Call Flows.htm
+Sharing Call Flow Components.htm
+Call Flow Common Tasks.htm
+Creating New Call Flows.htm
+Call Flow Basics.htm
+Adding Frames to Call Flows.htm
+Adding Rules to Frames and Attributes.htm
+Adding Attributes to Frames.htm
+Searching Frames.htm
+Attaching Call Flows.htm
+Finding and Creating Escalation Plans.htm
+Finding and Creating Rules.htm
+Finding and Creating Attributes.htm
+Finding and Creating Call Flows.htm
+Finding and Creating Address Book.htm
+Call Flows.htm
+Finding and Creating Lookup Types.htm
+Overview of Creating Call Flows.htm
+Creating Call Flow Components.htm
+Copying Call Flows.htm
+Sharing Call Flows.htm
+Adding Rules to Call Flows, Frames and Attributes.htm
+About Call Flows.htm
+Call Flow Search and New Call Flow.htm
+Getting Help.htm
+Building Call Flows.htm
+Getting Started In Call Flows.htm
+Address Book Search and New Address Book.htm
+Frame Search.htm
+Attribute Search and New Attribute.htm
+Rule Search and New Rule.htm
+Escalation Search and New Escalation.htm
+Standard Call Flows.htm
+Building Call Flows Using Standard Call Flows.htm
+Building Call Flows Using New Call Flows.htm
+Building Call Flows Using Shared Call Flows.htm
+Find Attributes and Create Attributes.htm
+Lookup Type Search and New Lookup Type.htm
+Call Flow Maintenance.htm
+New Attribute.htm
+Adding and Removing Rules to Call Flows.htm
+Rule Types.htm
+General Information.htm
+Attribute Instance Listing.htm
+Refreshing Call Flows.htm
+Editing Call Flows.htm
+Adding and Removing Rules to Attributes.htm
+Filtering Call Flows.htm
+Instance Properties and Attribute Properties.htm
+Attribute Search.htm
+Lookup Type Search.htm
+Deleting Call Flows.htm
+Adding and Removing Rules to Frames.htm
+Layout Tab Icons and Popup Menu.htm
+Override and Remove.htm
+New Lookup Type.htm
+New Rule.htm
+Rule Search.htm
+New Escalation.htm
+Escalation Search.htm
+BSSCDHTM.js
+C:\RoboHTML\Designer\eHelp.xml
+
+Designer.brs
+[ALIAS]
+#include Designer.ali
+
+[MAP]
+
+[TEXT POPUPS]
+
+

@@ -1,0 +1,603 @@
+<script language=jscript>
+
+function CityZip()
+{
+	this.City = "";
+	this.State = "";
+	this.Zip = "";
+	this.County = "";
+	this.FIPS = "";
+}
+
+var oZip = new CityZip();
+
+</script>
+
+<script language=vbscript>
+sub fillZip
+dim cURL
+
+oZip.Zip = ""
+oZip.State = ""
+oZip.City = ""
+oZip.County = ""
+oZip.FIPS = ""
+cURL = "../LIB/ZIPLookupIFrame.asp?ZIP=" & document.all.ZIP.value
+showModalDialog  cURL, oZip ,"center"
+on error resume next
+document.all.ZIP.value = oZip.Zip
+document.all.STATE.value = oZip.State
+document.all.CITY.value = oZip.City
+document.all.COUNTY.value = oZip.County
+document.all.FIPS.value = oZip.FIPS
+on error goto 0
+end sub
+
+sub ZIP_onblur
+dim x, oZip, z, lFocusSet
+
+fillZIP
+on error resume next
+for x=0 to document.all.length-1
+	if uCase(Trim(document.all(x).name)) = "ZIP" then
+		if err.number = 0 then
+			set oZip = document.all(x)
+			exit for
+		elseif err.number <> 438 then	'	no such property
+			msgbox "Internal Error: " & err.number & " - " & err.description
+			exit for
+		else
+			err.clear
+		end if
+	end if
+next
+lFocusSet = false
+for z=x+1 to document.all.length-1
+	document.all(z).focus
+	if err.number = 0 then
+		lFocusSet = true
+		exit for
+	else
+		err.clear
+	end if
+next
+on error goto 0
+if lFocusSet then
+	'msgbox "Focus switched to " & document.all(z).tagname
+else
+	' start from the beginning
+	on error resume next
+	for z=0 to document.all.length-1
+		document.all(z).focus
+		if uCase(Trim(document.all(z).name)) <> "ZIP" then
+			if err.number = 0 then
+				lFocusSet = true
+				exit for
+			else
+				err.clear
+			end if
+		end if
+	next
+	on error goto 0
+	if lFocusSet then
+		'msgbox "Focus switched to " & document.all(z).tagname
+	else
+		msgbox "Couldn't find an element to switch focus to."
+	end if	
+end if
+end sub
+
+</script>
+<html>
+<head>
+<meta name="VI60_defaultClientScript" content="VBScript">
+<title>Branch Details</title>
+<link rel="stylesheet" type="text/css" href="..\FNSDESIGN.css">
+<script>
+var g_StatusInfoAvailable = false;
+var lServiceTypeChangeDetected = false;
+var lServiceDaysChangeDetected = false;
+
+function SelectOption(objSelect, strValue)
+{
+	var i, iRetVal=-1;
+
+	for (i=0; i < objSelect.length; i ++)
+	{
+		if (strValue == objSelect(i).value)
+		{
+			objSelect(i).selected = true;
+			return;
+		}
+	}
+}
+</script>
+
+<script ID="clientEventHandlersVBS" LANGUAGE="vbscript">
+sub fillZip1
+dim cURL
+
+oZip.Zip = ""
+oZip.State = ""
+oZip.City = ""
+cURL = "../LIB/ZIPLookupIFrame.asp?ZIP=" & document.all.TxtOZip.value
+showModalDialog  cURL, oZip ,"center"
+document.all.TxtOZip.value = oZip.Zip
+document.all.TxtOState.value = oZip.State
+document.all.TxtOCity.value = oZip.City
+end sub
+
+sub TxtOZip_onblur
+dim x, lFocusSet
+
+fillZIP1
+on error resume next
+for x=0 to document.all.length-1
+	if uCase(Trim(document.all(x).name)) = "TXTOZIP" then
+		if err.number = 0 then
+			exit for
+		elseif err.number <> 438 then	'	no such property
+			msgbox "Internal Error: " & err.number & " - " & err.description
+			exit for
+		else
+			err.clear
+		end if
+	end if
+next
+lFocusSet = false
+for z=x+1 to document.all.length-1
+	document.all(z).focus
+	if err.number = 0 then
+		lFocusSet = true
+		exit for
+	else
+		err.clear
+	end if
+next
+on error goto 0
+end sub
+
+function getServiceTypes
+	dim i, cResult
+	
+	cResult = ""
+	if lServiceTypeChangeDetected then
+		for i=1 to tblFields.rows.length - 1
+			if tblFields.rows(i).cells(2).children(0).checked then
+				if len(cResult) <> 0 then
+					cResult = cResult & ";"
+				end if 
+				cResult = cResult & tblFields.rows(i).getAttribute("STID")
+			end if
+		next
+	end if
+	getServiceTypes = cResult
+end function
+
+function getServiceDays
+	dim i, cResult
+	
+	cResult = ""
+	if lServiceDaysChangeDetected then
+		for i=1 to 7
+			if ServiceDays.rows(1).cells(i).children(0).checked then
+				if len(cResult) <> 0 then
+					cResult = cResult & "~"
+				end if 
+				cResult = cResult & UCase(ServiceDays.rows(0).cells(i).innerText) & "$"
+				cResult = cResult & ServiceDays.rows(2).cells(i).children(0).value & "$"
+				cResult = cResult & ServiceDays.rows(3).cells(i).children(0).value
+			end if
+		next
+	end if
+	getServiceDays = cResult
+end function
+
+Sub window_onload
+
+	document.all("chkEnabled").checked = False
+	document.all("chkPayWithCheck").checked = False
+	document.all("chkPayWithCC").checked = False
+		document.all("txtOpensAtMon").disabled = true
+		document.all("txtClosesAtMon").disabled = true
+
+End Sub
+
+Sub PostTo(strURL)
+	FrmDetails.action = "VendorSearch-f.asp"
+	FrmDetails.method = "GET"
+	FrmDetails.target = "_parent"	
+	FrmDetails.submit
+End Sub
+
+Sub UpdateVID(inVID)
+	document.all.VID.value = inVID
+	document.all.spanVID.innerText = inVID
+End Sub
+
+Sub UpdateStatus(inStatus)
+	document.all.SpanStatus.innerHTML = inStatus
+End Sub
+
+Sub SetStatusInfoAvailableFlag(bAvailable)
+	g_StatusInfoAvailable = bAvailable
+	If bAvailable = true Then 
+		document.all.StatusRpt.style.cursor = "HAND"
+	Else
+		document.all.StatusRpt.style.cursor = "DEFAULT"
+	End If
+End Sub
+
+Function GetVID
+	if document.all.VID.value <> "NEW" then
+		GetVID = document.all.VID.value
+	else
+		GetVID = ""
+	end if 
+End Function
+
+Function CheckDirty
+	if CStr(document.body.getAttribute("ScreenDirty")) = "YES" then 
+		CheckDirty = true
+	else
+		CheckDirty = false
+	end if
+End Function
+
+Sub SetDirty
+	document.body.setAttribute "ScreenDirty", "YES"
+End Sub
+
+Sub ClearDirty
+	document.body.setAttribute "ScreenDirty", "NO"
+End Sub
+
+Function ValidateScreenData
+	If  document.all.TxtAHLoadID.value = "" then
+		MsgBox "AH Load ID is a required field.",0,"FNSNetDesigner"
+		ValidateScreenData = false
+		exit Function
+	end if
+	If  document.all.TxtBranchType.value = "" then
+		MsgBox "Branch type is a required field.",0,"FNSNetDesigner"
+		ValidateScreenData = false
+		exit Function
+	end if
+	if IsNumeric(document.all.TxtAHLoadID.value) = false then
+		MsgBox "Please enter a number in the AH Load ID field.",0,"FNSNetDesigner"
+		ValidateScreenData = false
+		exit Function
+	end if
+
+	ValidateScreenData = true
+End Function
+
+Function ExeSave
+	sResult = ""
+	bRet = false
+	
+	if CStr(document.body.getAttribute("ScreenMode")) = "RO" then
+		MsgBox "Edit mode not selected.",0,"FNSNetDesigner"
+		ExeSave = bRet
+		exit Function
+	end if
+	
+	if document.all.VID.value = "" then
+		ExeSave = false
+		exit function
+	end if
+	
+'	If CStr(document.body.getAttribute("ScreenDirty")) = "YES" Then
+		If document.all.VID.value = "NEW" then
+			document.all.TxtAction.value = "INSERT"
+		else
+			document.all.TxtAction.value = "UPDATE"
+		end if
+		
+		if ValidateScreenData = false then 
+			ExeSave = false
+			exit function
+		end if
+		
+		sResult = sResult & "VENDOR_ID"& Chr(129) & document.all.spanVID.innerText & Chr(129) & "1" & Chr(128)
+
+		sResult = sResult & "NAME"& Chr(129) & document.all.TxtName.value & Chr(129) & "1" & Chr(128)
+		sResult = sResult & "OWNER_NAME"& Chr(129) & document.all.TxtOwner.value & Chr(129) & "1" & Chr(128)
+		sResult = sResult & "MANAGER_NAME"& Chr(129) & document.all.TxtManager.value & Chr(129) & "1" & Chr(128)
+		sResult = sResult & "ADDRESS_1"& Chr(129) & document.all.TxtAddress1.value & Chr(129) & "1" & Chr(128)
+		sResult = sResult & "ADDRESS_2"& Chr(129) & document.all.TxtAddress2.value & Chr(129) & "1" & Chr(128)
+		sResult = sResult & "CITY"& Chr(129) & document.all.TxtCity.value & Chr(129) & "1" & Chr(128)
+		sResult = sResult & "STATE"& Chr(129) & document.all.TxtState.value & Chr(129) & "1" & Chr(128)
+		sResult = sResult & "ZIP"& Chr(129) & document.all.Txt0Zip.value & Chr(129) & "1" & Chr(128)
+		sResult = sResult & "BILLING_ADDRESS_1"& Chr(129) & document.all.TxtBillingAddress1.value & Chr(129) & "1" & Chr(128)
+		sResult = sResult & "BILLING_ADDRESS_2"& Chr(129) & document.all.TxtBillingAddress2.value & Chr(129) & "1" & Chr(128)
+		sResult = sResult & "BILLING_CITY"& Chr(129) & document.all.TxtBillingCity.value & Chr(129) & "1" & Chr(128)
+		sResult = sResult & "BILLING_STATE"& Chr(129) & document.all.TxtBillingState.value & Chr(129) & "1" & Chr(128)
+		sResult = sResult & "BILLING_ZIP"& Chr(129) & document.all.Txt1Zip.value & Chr(129) & "1" & Chr(128)
+		sResult = sResult & "PHONE"& Chr(129) & document.all.TxtPhone.value & Chr(129) & "1" & Chr(128)
+		sResult = sResult & "PHONE_PM"& Chr(129) & document.all.TxtAfterHoursPhone.value & Chr(129) & "1" & Chr(128)
+		sResult = sResult & "FAX"& Chr(129) & document.all.TxtFax.value & Chr(129) & "1" & Chr(128)
+		sResult = sResult & "EMAIL"& Chr(129) & document.all.TxtEmail.value & Chr(129) & "1" & Chr(128)
+		sResult = sResult & "PHONE_BEEPER"& Chr(129) & document.all.TxtBeeperPhone.value & Chr(129) & "1" & Chr(128)
+		sResult = sResult & "PHONE_PAGER"& Chr(129) & document.all.TxtPagerPhone.value & Chr(129) & "1" & Chr(128)
+		sResult = sResult & "MAX_SERVICE_RADIUS"& Chr(129) & document.all.TxtServiceRadius.value & Chr(129) & "1" & Chr(128)
+		sResult = sResult & "STATE_LICENSE_NUMBER"& Chr(129) & document.all.TxtStateLicense.value & Chr(129) & "1" & Chr(128)
+		sResult = sResult & "CITY_LICENSE_NUMBER"& Chr(129) & document.all.TxtCityLicense.value & Chr(129) & "1" & Chr(128)
+		if document.all.chkEnabled.checked then
+			cFlag = "Y"
+		else
+			cFlag = "N"
+		end if
+		sResult = sResult & "ENABLED_FLG"& Chr(129) & cFlag & Chr(129) & "1" & Chr(128)
+		if document.all.chkPayWithCC.checked then
+			cFlag = "Y"
+		else
+			cFlag = "N"
+		end if
+		sResult = sResult & "PAY_TYPE_CREDIT"& Chr(129) & cFlag & Chr(129) & "1" & Chr(128)
+		if document.all.chkPayWithCheck.checked then
+			cFlag = "Y"
+		else
+			cFlag = "N"
+		end if
+		sResult = sResult & "PAY_TYPE_CHECK"& Chr(129) & cFlag & Chr(129) & "1" & Chr(128)
+		sResult = sResult & "NOTES"& Chr(129) & document.all.TxtNotes.value & Chr(129) & "1" & Chr(128)
+		document.all.TxtSaveData.Value = sResult
+		document.all.ServiceTypes.Value = getServiceTypes
+		document.all.ServiceDays.Value = getServiceDays
+		document.all.FrmDetails.Submit()
+		bRet = true
+'	Else
+'		SpanStatus.innerHTML = "Nothing to Save"
+'	End If
+
+	ExeSave = bRet
+End Function
+
+sub Control_OnChange
+	if document.body.getAttribute("ScreenMode") <> "RO" then
+		document.body.setAttribute "ScreenDirty", "YES"	
+	end if
+end sub
+
+sub ServiceType_OnChange
+	lServiceTypeChangeDetected = true
+end sub
+
+sub ServiceDays_OnChange
+	lServiceDaysChangeDetected = true
+end sub
+
+sub SetScreenFieldsReadOnly(bReadOnly, strNewClass)
+
+	for iCount = 0 to document.all.length-1
+		if document.all(iCount).getAttribute("ScrnInput") = "TRUE" then
+			document.all(iCount).readOnly = bReadOnly
+			document.all(iCount).className = strNewClass
+		elseif document.all(iCount).getAttribute("ScrnBtn") = "TRUE" then
+			document.all(iCount).disabled = bReadOnly
+		end if
+	next
+
+end sub
+
+Sub StatusRpt_OnClick
+	If g_StatusInfoAvailable = true Then
+		lret = window.showModalDialog ("..\StatusRpt\StatusRpt.asp", Null,  "dialogWidth=580px; dialogHeight=380px; center=yes")
+	Else
+		MsgBox "No other detail status reported.",0,"FNSNetDesigner"	
+	End If		
+End Sub
+Function LaunchHelp( URL )
+	strURL = "HTTP://chad2057/FNSdesigner/Help/" & URL
+	lret = window.showHelp(strURL)
+End Function
+
+</script>
+</head>
+<body topmargin="0" leftmargin="0" rightmargin="0" BGCOLOR="#d6cfbd" ScreenDirty="NO" ScreenMode="RW">
+<table WIDTH="100%" CELLPADDING="0" CELLSPACING="0">
+<tr><td colspan="2" HEIGHT="4"></td></tr>
+<tr><td CLASS="GrpLabel" WIDTH="134" HEIGHT="10"><nobr>&nbsp;» Vendor Details&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img SRC="../Images/HelpIcon2.gif" STYLE="CURSOR:HAND" align="absmiddle" title="Help" OnClick="LaunchHelp(&quot;Welcome.htm&quot;)" WIDTH="7" HEIGHT="8"></td>
+<td HEIGHT="5" ALIGN="LEFT">
+<table CELLPADDING="0" CELLSPACING="0" HEIGHT="100%">
+<tr><td WIDTH="3" HEIGHT="4"></td><td WIDTH="300" HEIGHT="4"></td></tr>
+<tr><td CLASS="GrpLabelDrk" WIDTH="3" HEIGHT="8" VALIGN="BOTTOM" ALIGN="LEFT"></td>
+<td WIDTH="300" HEIGHT="8"></td></tr>
+</table></td></tr>
+<tr><td CLASS="GrpLabelLine" colspan="2" HEIGHT="1"></td></tr>
+<tr><td colspan="2" HEIGHT="1"></td></tr>
+</table>
+
+<form Name="FrmDetails" METHOD="POST" ACTION="VendorSave.asp" TARGET="hiddenPage">
+<input TYPE="HIDDEN" NAME="TxtSaveData">
+<input TYPE="HIDDEN" NAME="TxtAction">
+<input type="hidden" name="ServiceTypes">
+<input type="hidden" name="ServiceDays">
+
+
+<input type="hidden" name="SearchVendorID" value="">
+<input type="hidden" name="SearchName" value="">
+<input type="hidden" name="SearchAddress" value="">
+<input type="hidden" name="SearchCity" value="">
+<input type="hidden" name="SearchState" value="">
+<input type="hidden" name="SearchZip" value="">
+<input type="hidden" name="SearchServiceType" value="">
+<input type="hidden" name="SearchEnabled" value="">
+<input type="hidden" name="SearchType" value="">
+<input type="hidden" NAME="MODE" value="RW">
+<input type="hidden" NAME="VID" value="NEW">
+		
+<table LANGUAGE="JScript" ONDRAGSTART="return false;" style="{position:absolute;top:20;}" class="Label">
+<tr>
+<td VALIGN="CENTER" WIDTH="5">
+<img ID="StatusRpt" SRC="..\images\StatusRpt.gif" width="16" height="16" VALIGN="CENTER" ALT="View Status Report">
+</td>
+<td width="485">
+:<span VALIGN="CENTER" ID="SpanStatus" STYLE="COLOR:#006699" CLASS="LABEL">Ready</span>
+</td>
+</tr>
+</table>
+
+<table class="LABEL">
+<tr>
+<td COLSPAN="6">Vendor ID:&nbsp;<span id="spanBID">NEW</span></td>
+</tr> 
+
+<tr>
+<td >Name:<br><input size="25" ScrnInput="TRUE" CLASS="LABEL" MAXLENGTH="30" TYPE="TEXT" NAME="TxtName" VALUE="" ONKEYPRESS="VBScript::Control_OnChange" ONCHANGE="VBScript::Control_OnChange"></td>
+<td>Owner name:<br><input ScrnInput="TRUE" size="12" CLASS="LABEL" MAXLENGTH="20" TYPE="TEXT" NAME="TxtOwner" VALUE="" ONKEYPRESS="VBScript::Control_OnChange" ONCHANGE="VBScript::Control_OnChange"></td>
+<td colspan=4>Manager name:<br><input ScrnInput="TRUE" size="12" CLASS="LABEL" MAXLENGTH="20" TYPE="TEXT" NAME="TxtManager" VALUE="" ONKEYPRESS="VBScript::Control_OnChange" ONCHANGE="VBScript::Control_OnChange"></td>
+</tr>
+
+<tr>
+<td>Address 1:<br><input ScrnInput="TRUE" size="25" CLASS="LABEL" MAXLENGTH="45" TYPE="TEXT" NAME="TxtAddress1" VALUE="" ONKEYPRESS="VBScript::Control_OnChange" ONCHANGE="VBScript::Control_OnChange"></td>
+<td>Address 2:<br><input size="25" ScrnInput="TRUE" CLASS="LABEL" MAXLENGTH="45" TYPE="TEXT" NAME="TxtAddress2" VALUE="" ONKEYPRESS="VBScript::Control_OnChange" ONCHANGE="VBScript::Control_OnChange"></td>
+<td>ZIP:<br><input size="6" ScrnInput="TRUE" CLASS="LABEL" MAXLENGTH="10" TYPE="TEXT" NAME="Txt0ZIP" VALUE="" ONKEYPRESS="VBScript::Control_OnChange" ONCHANGE="VBScript::Control_OnChange"></td>
+<td>City:<br><input CLASS="READONLY" TABINDEX=-1 READONLY MAXLENGTH="20" TYPE="TEXT" NAME="Txt0City" VALUE="" ></td>
+<td colspan=2>State:<br><input CLASS="READONLY" TABINDEX=-1 READONLY MAXLENGTH="3" SIZE=3 TYPE="TEXT" NAME="Txt0State" VALUE="" ></td>
+</tr>
+
+<tr> 
+<td >Billing address 1:<br><input ScrnInput="TRUE" size="25" CLASS="LABEL" MAXLENGTH="45" TYPE="TEXT" NAME="TxtBillingAddress1" VALUE="" ONKEYPRESS="VBScript::Control_OnChange" ONCHANGE="VBScript::Control_OnChange"></td>
+<td>Billing address 2:<br><input ScrnInput="TRUE" size="25" CLASS="LABEL" MAXLENGTH="45" TYPE="TEXT" NAME="TxtBillingAddress2" VALUE="" ONKEYPRESS="VBScript::Control_OnChange" ONCHANGE="VBScript::Control_OnChange"></td>
+<td>Billing ZIP:<br><input size="6" ScrnInput="TRUE" CLASS="LABEL" MAXLENGTH="10" TYPE="TEXT" NAME="Txt1ZIP" VALUE="" ONKEYPRESS="VBScript::Control_OnChange" ONCHANGE="VBScript::Control_OnChange"></td>
+<td>Billing city:<br><input CLASS="READONLY" TABINDEX=-1 READONLY MAXLENGTH="20" TYPE="TEXT" NAME="Txt1City" VALUE="" ></td>
+<td colspan=2>Billing state:<br><input CLASS="READONLY" TABINDEX=-1 READONLY MAXLENGTH="3" SIZE=3 TYPE="TEXT" NAME="Txt1State" VALUE="" ></td>
+</tr>
+
+<tr>
+<td >Phone:<br><input size="16" ScrnInput="TRUE" CLASS="LABEL" TYPE="TEXT" NAME="TxtPhone" VALUE="" ONKEYPRESS="VBScript::Control_OnChange" ONCHANGE="VBScript::Control_OnChange"></td>
+<td colspan=2>After hours phone:<br><input size="16" ScrnInput="TRUE" CLASS="LABEL" TYPE="TEXT" NAME="TxtAfterHoursPhone" VALUE="" ONKEYPRESS="VBScript::Control_OnChange" ONCHANGE="VBScript::Control_OnChange"></td>
+<td>Fax:<br><input size="16" ScrnInput="TRUE" CLASS="LABEL" TYPE="TEXT" NAME="TxtFax" VALUE="" ONKEYPRESS="VBScript::Control_OnChange" ONCHANGE="VBScript::Control_OnChange"></td>
+<td colspan=2>Email:<br><input size=15 ScrnInput="TRUE" CLASS="LABEL" MAXLENGTH="20" TYPE="TEXT" NAME="TxtEmail" VALUE="" ONKEYPRESS="VBScript::Control_OnChange" ONCHANGE="VBScript::Control_OnChange"></td>
+</tr>
+
+<tr>
+<td>Beeper phone:<br><input size="16" ScrnInput="TRUE" CLASS="LABEL"  TYPE="TEXT" NAME="TxtBeeperPhone" VALUE="" ONKEYPRESS="VBScript::Control_OnChange" ONCHANGE="VBScript::Control_OnChange"></td>
+<td colspan=2>Pager phone:<br><input size="16" ScrnInput="TRUE" CLASS="LABEL"  TYPE="TEXT" NAME="TxtPagerPhone" VALUE="" ONKEYPRESS="VBScript::Control_OnChange" ONCHANGE="VBScript::Control_OnChange"></td>
+<td colspan=3>Max. service radius:<br><input size=5 ScrnInput="TRUE" CLASS="LABEL" MAXLENGTH="10" TYPE="TEXT" NAME="TxtServiceRadius" VALUE="" ONKEYPRESS="VBScript::Control_OnChange" ONCHANGE="VBScript::Control_OnChange"></td>
+</tr>
+
+<tr> 
+<td >State license no.:<br><input size=10 ScrnInput="TRUE" CLASS="LABEL" MAXLENGTH="15" TYPE="TEXT" NAME="TxtStateLicense" VALUE="" ONKEYPRESS="VBScript::Control_OnChange" ONCHANGE="VBScript::Control_OnChange"></td>
+<td colspan=5>City license no.:<br><input size="10" ScrnInput="TRUE" CLASS="LABEL" MAXLENGTH="15" TYPE="TEXT" NAME="TxtCityLicense" VALUE="" ONKEYPRESS="VBScript::Control_OnChange" ONCHANGE="VBScript::Control_OnChange"></td>
+</tr>
+
+<tr>
+<td colspan=3>
+<div align="LEFT" style="display:block;height:94px;width:320px;overflow:auto">
+	<table border="1" class="LABEL" ID="tblFields" name="tblFields" width="100%" >
+	<tr align="left">
+		<th ><nobr>Service type</th>
+		<th ><nobr>Description</th>
+		<th ><nobr>Provided</th>
+	</tr>
+	<tbody ID="TableRows">
+	
+		<tr ID="FieldRow" CLASS="ResultRow" DYNKEY="1" STID='1'>
+			<td NOWRAP CLASS="ResultCell">Rent</td>
+			<td NOWRAP CLASS="ResultCell">&nbsp;</td>
+			
+			<td align="center" CLASS="ResultCell"><input type="checkbox"  ONCLICK="VBScript::ServiceType_OnChange"></td>
+		</tr>
+		
+		<tr ID="FieldRow" CLASS="ResultRow" DYNKEY="1" STID='2'>
+			<td NOWRAP CLASS="ResultCell">Body</td>
+			<td NOWRAP CLASS="ResultCell">&nbsp;</td>
+			
+			<td align="center" CLASS="ResultCell"><input type="checkbox"  ONCLICK="VBScript::ServiceType_OnChange"></td>
+		</tr>
+		
+		<tr ID="FieldRow" CLASS="ResultRow" DYNKEY="1" STID='3'>
+			<td NOWRAP CLASS="ResultCell">Service</td>
+			<td NOWRAP CLASS="ResultCell">&nbsp;</td>
+			
+			<td align="center" CLASS="ResultCell"><input type="checkbox"  ONCLICK="VBScript::ServiceType_OnChange"></td>
+		</tr>
+		
+		<tr ID="FieldRow" CLASS="ResultRow" DYNKEY="1" STID='4'>
+			<td NOWRAP CLASS="ResultCell">Tow</td>
+			<td NOWRAP CLASS="ResultCell">&nbsp;</td>
+			
+			<td align="center" CLASS="ResultCell"><input type="checkbox"  ONCLICK="VBScript::ServiceType_OnChange"></td>
+		</tr>
+		
+	</tbody>
+	</table>
+</div>
+</td>
+
+<td colspan="3">
+<table border="1" class="LABEL" COLSPAN="4" ID="ServiceDays" name="ServiceDays">
+	
+  <tr>
+    <td>&nbsp;</td>
+    <th align="center">Mon</th>
+    <th align="center">Tue</th>
+    <th align="center">Wed</th>
+    <th align="center">Thu</th>
+    <th align="center">Fri</th>
+    <th align="center">Sat</th>
+    <th align="center">Sun</th>
+  </tr>
+  <tr>
+    <td>Open</td>
+    <td align="center"><input type="checkbox" name="chkOpenMon" ONCLICK="VBScript::ServiceDays_OnChange"></td>
+    <td align="center"><input type="checkbox" name="chkOpenTue" ONCLICK="VBScript::ServiceDays_OnChange"></td>
+    <td align="center"><input type="checkbox" name="chkOpenWed" ONCLICK="VBScript::ServiceDays_OnChange"></td>
+    <td align="center"><input type="checkbox" name="chkOpenThu" ONCLICK="VBScript::ServiceDays_OnChange"></td>
+    <td align="center"><input type="checkbox" name="chkOpenFri" ONCLICK="VBScript::ServiceDays_OnChange"></td>
+    <td align="center"><input type="checkbox" name="chkOpenSat" ONCLICK="VBScript::ServiceDays_OnChange"></td>
+    <td align="center"><input type="checkbox" name="chkOpenSun" ONCLICK="VBScript::ServiceDays_OnChange"></td>
+  </tr>
+  <tr>
+    <td>Opens at</td>
+    <td align="center"><input type="text" CLASS="LABEL" name="txtOpensAtMon" value="" size="5" ONCHANGE="VBScript::ServiceDays_OnChange"></td>
+    <td align="center"><input type="text" CLASS="LABEL" name="txtOpensAtTue" value="" size="5" ONCHANGE="VBScript::ServiceDays_OnChange"></td>
+    <td align="center"><input type="text" CLASS="LABEL" name="txtOpensAtWed" value="" size="5" ONCHANGE="VBScript::ServiceDays_OnChange"></td>
+    <td align="center"><input type="text" CLASS="LABEL" name="txtOpensAtThu" value="" size="5" ONCHANGE="VBScript::ServiceDays_OnChange"></td>
+    <td align="center"><input type="text" CLASS="LABEL" name="txtOpensAtFri" value="" size="5" ONCHANGE="VBScript::ServiceDays_OnChange"></td>
+    <td align="center"><input type="text" CLASS="LABEL" name="txtOpensAtSat" value="" size="5" ONCHANGE="VBScript::ServiceDays_OnChange"></td>
+    <td align="center"><input type="text" CLASS="LABEL" name="txtOpensAtSun" value="" size="5" ONCHANGE="VBScript::ServiceDays_OnChange"></td>
+  </tr>
+  <tr>
+    <td>Closes at</td>
+    <td align="center"><input type="text" CLASS="LABEL" name="txtClosesAtMon" value="" size="5" ONCHANGE="VBScript::ServiceDays_OnChange"></td>
+    <td align="center"><input type="text" CLASS="LABEL" name="txtClosesAtTue" value="" size="5" ONCHANGE="VBScript::ServiceDays_OnChange"></td>
+    <td align="center"><input type="text" CLASS="LABEL" name="txtClosesAtWed" value="" size="5" ONCHANGE="VBScript::ServiceDays_OnChange"></td>
+    <td align="center"><input type="text" CLASS="LABEL" name="txtClosesAtThu" value="" size="5" ONCHANGE="VBScript::ServiceDays_OnChange"></td>
+    <td align="center"><input type="text" CLASS="LABEL" name="txtClosesAtFri" value="" size="5" ONCHANGE="VBScript::ServiceDays_OnChange"></td>
+    <td align="center"><input type="text" CLASS="LABEL" name="txtClosesAtSat" value="" size="5" ONCHANGE="VBScript::ServiceDays_OnChange"></td>
+    <td align="center"><input type="text" CLASS="LABEL" name="txtClosesAtSun" value="" size="5" ONCHANGE="VBScript::ServiceDays_OnChange"></td>
+  </tr>
+</table>
+</td>
+</tr>
+
+
+<tr>
+<td colspan=6>
+<input type="checkbox" name="chkPayWithCC">Pay w/Credit card
+</td>
+</tr>
+
+<tr>
+<td colspan=4>
+<input type="checkbox" name="chkPayWithCheck">Pay w/Check
+</td>
+<td colspan="2">
+<input type="checkbox" name="chkEnabled">Enabled
+</td>
+</tr>
+
+<tr>
+<td colspan=6>Notes:<br><input size="60" ScrnInput="TRUE" CLASS="LABEL" MAXLENGTH="100" TYPE="TEXT" NAME="TxtNotes" VALUE=""></td>
+</tr>
+</table>
+
+</form>
+</body>
+</html>
+
+

@@ -1,0 +1,371 @@
+<HTML>
+<HEAD>
+<TITLE>ATL 3.0 test page for object LayoutCtl!</TITLE>
+</HEAD>
+<BODY>
+<INPUT TYPE=button ID=PBUTTON VALUE="Set Control New Properties">
+<INPUT TYPE=button ID=RBUTTON VALUE="Get Control Result"><BR>
+<INPUT TYPE=button ID=COLBUTTON VALUE="Create Page Items"><BR>
+<INPUT TYPE=button ID=COLDATABUTTON VALUE="Show Page Items data">
+<INPUT TYPE=button ID=ZOOMINBUTTON VALUE="Zoom In">
+<INPUT TYPE=button ID=ZOOMOUTBUTTON VALUE="Zoom Out"><BR>
+<INPUT TYPE=button ID=SHOWSELECTEDBUTTON VALUE="Show Selected Item Data"><INPUT TYPE=button ID=DELALLBUTTON VALUE="Delete All">
+<BR>
+<INPUT TYPE=button ID=SHOWSAMPLE VALUE="Show Sample"><BR>
+<INPUT TYPE=button ID=MODIFYALLBUTTON VALUE="Modify Selected"><BR>
+<INPUT TYPE=button ID=SEL1BUTTON VALUE="Select RefID1"><BR>
+<INPUT TYPE=button ID=DELSELBUTTON VALUE="Delete Selected"><BR>
+<INPUT TYPE=button ID=READ1BUTTON VALUE="Set ReadOnly"><BR>
+<INPUT TYPE=button ID=SETMENU VALUE="Set Menu">
+<INPUT TYPE=button ID=SELECTEDONLY VALUE="Show Selected (on/off)"><BR>
+<INPUT TYPE=button ID=UNDOITEMDATA VALUE="Get Undo Item data"><INPUT TYPE=button ID=UNDOITEM VALUE="Do Undo"><BR>
+<OBJECT classid=CLSID:13A2FD71-9ECC-11D2-AF73-0060082408D7 height=1040 
+id=LayoutCtl  width=800>
+	<PARAM NAME="DefaultSampleValue" VALUE="Sample Value">
+	<PARAM NAME="ShowSampleValue" VALUE="TRUE">
+	<PARAM NAME="DefaultAttributeKey" VALUE="Caller:Name:LastName">
+	<PARAM NAME="ShowAttribute" VALUE="TRUE">
+	<PARAM NAME="DefaultItemType" VALUE="Output Field">
+	<PARAM NAME="DefaultFontName" VALUE="Arial">
+	<PARAM NAME="DefaultFontPointSize" VALUE="8">
+	<PARAM NAME="DefaultXPos" VALUE="1">
+	<PARAM NAME="DefaultYPos" VALUE="1">
+	<PARAM NAME="DefaultWidth" VALUE="200">
+	<PARAM NAME="DefaultHeight" VALUE="30">
+	<PARAM NAME="DefaultBorderColor" VALUE="16711680">
+	<PARAM NAME="DefaultSelectedBorderColor" VALUE="255">
+	<PARAM NAME="AutoCreateItem" VALUE="TRUE">
+	<PARAM NAME="XLogicalExtent" VALUE="4800">
+	<PARAM NAME="YLogicalExtent" VALUE="6324">
+	<PARAM NAME="ZoomIn" VALUE="FALSE">
+	<PARAM NAME="XViewExtent" VALUE="768">
+	<PARAM NAME="YViewExtent" VALUE="1012">
+	<PARAM NAME="DefaultFormatString" VALUE="DefaultFormatString">
+	<PARAM NAME="DefaultMultiLine" VALUE="FALSE">
+	<PARAM NAME="DefaultStrikeout" VALUE="FALSE">
+	<PARAM NAME="DefaultUnderline" VALUE="FALSE">
+	<PARAM NAME="DefaultItalic" VALUE="FALSE">
+	<PARAM NAME="DefaultBold" VALUE="TRUE">
+	<PARAM NAME="MinWidth" VALUE="80">
+	<PARAM NAME="MinHeight" VALUE="80">
+	<PARAM NAME="XSelectedSensitivity" VALUE="30">
+	<PARAM NAME="YSelectedSensitivity" VALUE="30">
+	<PARAM NAME="DefaultBorderThickness" VALUE="10">
+	<PARAM NAME="DefaultItemTextColor" VALUE="39219">
+	<PARAM NAME="UseAnisotropicMapMode" VALUE="FALSE">
+	<PARAM NAME="BackImageFilePath" VALUE="C:\WC_ACORD.BMP">
+	<PARAM NAME="DefaultHighlightedBorderColor" VALUE="16119260">
+	<PARAM NAME="UseTransparentItemBackground" VALUE="FALSE">
+
+</OBJECT>
+<BR>
+<DIV ID=RESULT>
+</DIV>
+</BODY>
+</HTML>
+
+<script LANGUAGE="VBSCRIPT">
+
+Sub RBUTTON_onClick()
+	Dim sResult
+	sResult = ""
+
+	sResult = sResult & "ZoomIn=" & LayoutCtl.ZoomIn & "<br>"
+	sResult = sResult & "XLogicalExtent=" & LayoutCtl.XLogicalExtent & "<br>"
+	sResult = sResult & "YLogicalExtent=" & LayoutCtl.YLogicalExtent & "<br>"
+	sResult = sResult & "AutoCreateItem=" & LayoutCtl.AutoCreateItem & "<br>"
+	sResult = sResult & "DefaultHeight=" & LayoutCtl.DefaultHeight & "<br>"
+	sResult = sResult & "DefaultWidth=" & LayoutCtl.DefaultWidth & "<br>"
+	sResult = sResult & "DefaultYPos=" & LayoutCtl.DefaultYPos & "<br>"
+	sResult = sResult & "DefaultXPos=" & LayoutCtl.DefaultXPos & "<br>"
+	sResult = sResult & "DefaultFontPointSize=" & LayoutCtl.DefaultFontPointSize & "<br>"
+	sResult = sResult & "DefaultFontName=" & LayoutCtl.DefaultFontName & "<br>"
+
+	sResult = sResult & "DefaultFormatString=" & LayoutCtl.DefaultFormatString & "<br>"
+	sResult = sResult & "DefaultMultiLine=" & LayoutCtl.DefaultMultiLine & "<br>"
+	sResult = sResult & "DefaultStrikeout=" & LayoutCtl.DefaultStrikeout & "<br>"
+	sResult = sResult & "DefaultUnderline=" & LayoutCtl.DefaultUnderline & "<br>"
+	sResult = sResult & "DefaultItalic=" & LayoutCtl.DefaultItalic & "<br>"
+	sResult = sResult & "DefaultBold=" & LayoutCtl.DefaultBold & "<br>"
+
+	sResult = sResult & "DefaultItemType=" & LayoutCtl.DefaultItemType & "<br>"
+	sResult = sResult & "DefaultAttributeKey=" & LayoutCtl.DefaultAttributeKey & "<br>"
+	sResult = sResult & "DefaultLabel=" & LayoutCtl.DefaultLabel & "<br>"
+	sResult = sResult & "BackImageURL=" & LayoutCtl.BackImageURL & "<br>"
+	sResult = sResult & "BackImageFilePath=" & LayoutCtl.BackImageFilePath & "<br>"
+	sResult = sResult & "NextSequenceNumber=" & LayoutCtl.NextSequenceNumber & "<br>"
+	RESULT.innerHTML = sResult
+End Sub
+
+Sub PBUTTON_onClick()
+	LayoutCtl.ZoomIn = True
+	LayoutCtl.YLogicalExtent = 300
+	LayoutCtl.YLogicalExtent = 300
+	LayoutCtl.AutoCreateItem = True
+	LayoutCtl.DefaultHeight = 20
+	LayoutCtl.DefaultWidth = 300
+	LayoutCtl.DefaultYPos = 8
+	LayoutCtl.DefaultXPos  = 5
+	LayoutCtl.DefaultFontPointSize = "12"
+	LayoutCtl.DefaultFontName = "Arial"
+	LayoutCtl.DefaultItemType = "Temp type"
+	LayoutCtl.DefaultAttributeKey = "temp attr"
+	LayoutCtl.DefaultLabel = "Temp Label"
+	LayoutCtl.BackImageURL = "http://Test/test.bmp"
+	LayoutCtl.BackImageFilePath = "x:\temp.bmp"
+	LayoutCtl.NextSequenceNumber = 5
+End Sub
+
+
+
+Sub LayoutCtl_OnItemRightClick(px, py, x, y, att, id)
+	'MsgBox "OnItemRightClick : " & " px=" & px &  " py=" & py &  " x=" & x &  " y=" & y &  " att=" & att &  " id=" & id
+End Sub
+
+
+sub COLBUTTON_onClick()
+	
+	Dim objCol
+	Set objCol = LayoutCtl.PageItems
+
+	For i=0 To 15
+		Set objNew = objCol.AddItem ("refID"&i, "attrKey"&i, "Sample"&i, 69+(i*30), 200+(i*30), 600, 94+(i*30), "Arial", 8, False, False, False, False, True, 0, "Field", "MODIFY", "Format String"&i, False)
+
+		objNew.UseTransparentItemBackground = True
+	Next
+
+	'LayoutCtl.ShowSampleValue = True
+	LayoutCtl.ShowAttribute = True
+
+	LayoutCtl.CleanAllDirty
+	LayoutCtl.RedrawItems
+
+End Sub
+
+
+sub COLDATABUTTON_onClick()
+	
+	Dim objCol
+	Set objCol = LayoutCtl.PageItems
+
+	Dim sResult
+	sResult = ""
+
+	For Each x In objCol
+		sResult = sResult & "Status="		& x.Status & "<br>"
+		sResult = sResult & "Dirty="		& x.Dirty & "<br>"
+		sResult = sResult & "AttributeKey=" & x.AttributeKey & "<br>"
+		sResult = sResult & "Label="		& x.Label & "<br>"
+		sResult = sResult & "XPos="			& x.XPos & "<br>"
+		sResult = sResult & "YPos="			& x.YPos & "<br>"
+		sResult = sResult & "Width="		& x.Width & "<br>"
+		sResult = sResult & "Height="		& x.Height & "<br>"		
+		sResult = sResult & "FontName="		& x.FontName & "<br>"
+
+		sResult = sResult & "Bold="			& x.Bold & "<br>"
+		sResult = sResult & "Italic="		& x.Italic & "<br>"
+		sResult = sResult & "Underline="	& x.Underline & "<br>"
+		sResult = sResult & "Strikeout="	& x.Strikeout & "<br>"
+		sResult = sResult & "MultiLine="	& x.MultiLine & "<br>"
+		sResult = sResult & "FormatString="	& x.FormatString & "<br>"
+
+
+		sResult = sResult & "FontPointSize="& x.FontPointSize & "<br>"
+		sResult = sResult & "RefID="		& x.RefID & "<br>"
+		sResult = sResult & "ReadOnly="		& x.ReadOnly & "<br>"		
+		sResult = sResult & "Sequence="		& x.Sequence & "<br>"
+		sResult = sResult & "ItemType="		& x.ItemType & "<br>"
+		sResult = sResult & "UseTransparentItemBackgrounde="		& x.UseTransparentItemBackground & "<br>"
+
+		sResult = sResult & "<BR><BR>"
+	Next
+	RESULT.innerHTML = sResult
+
+End Sub
+
+
+
+Sub ZOOMINBUTTON_onclick
+		LayoutCtl.ZoomIn = True
+		LayoutCtl.width = LayoutCtl.XViewExtent * 2
+		LayoutCtl.height = LayoutCtl.YViewExtent * 2
+End Sub
+
+Sub ZOOMOUTBUTTON_onclick
+		LayoutCtl.ZoomIn = False
+		LayoutCtl.width = LayoutCtl.XViewExtent
+		LayoutCtl.height = LayoutCtl.YViewExtent
+End Sub
+
+Sub SHOWSELECTEDBUTTON_onClick()
+	Dim x
+	Dim sResult
+
+	Set x = LayoutCtl.GetSelectedItem
+
+	If IsObject(x) Then
+		
+		sResult = ""
+		sResult = sResult & "Status="		& x.Status & "<br>"
+		sResult = sResult & "Dirty="		& x.Dirty & "<br>"
+		sResult = sResult & "AttributeKey=" & x.AttributeKey & "<br>"
+		sResult = sResult & "Label="		& x.Label & "<br>"
+		sResult = sResult & "XPos="			& x.XPos & "<br>"
+		sResult = sResult & "YPos="			& x.YPos & "<br>"
+		sResult = sResult & "Width="		& x.Width & "<br>"
+		sResult = sResult & "Height="		& x.Height & "<br>"		
+		sResult = sResult & "FontName="		& x.FontName & "<br>"
+		sResult = sResult & "FontPointSize="& x.FontPointSize & "<br>"
+		sResult = sResult & "Bold="			& x.Bold & "<br>"
+		sResult = sResult & "Italic="		& x.Italic & "<br>"
+		sResult = sResult & "Underline="	& x.Underline & "<br>"
+		sResult = sResult & "Strikeout="	& x.Strikeout & "<br>"
+		sResult = sResult & "MultiLine="	& x.MultiLine & "<br>"
+		sResult = sResult & "FormatString="	& x.FormatString & "<br>"
+		sResult = sResult & "RefID="		& x.RefID & "<br>"
+		sResult = sResult & "ReadOnly="		& x.ReadOnly & "<br>"		
+		sResult = sResult & "Sequence="		& x.Sequence & "<br>"
+		sResult = sResult & "ItemType="		& x.ItemType & "<br>"
+
+		sResult = sResult & "XPixPos="		& LayoutCtl.GetXPixelPos(x.XPos) & "<br>"
+		sResult = sResult & "YPixPos="		& LayoutCtl.GetYPixelPos(x.YPos) & "<br>"
+
+		sResult = sResult & "<BR><BR>"
+
+		RESULT.innerHTML = sResult
+	Else
+		RESULT.innerHTML = "No Object Selected"
+	End If
+
+End Sub
+
+Sub DELALLBUTTON_onClick()
+	Dim objCol
+	Set objCol = LayoutCtl.PageItems
+
+	Dim sResult
+	sResult = ""
+
+	For Each x In objCol
+		x.Deleted = TRUE
+	Next
+	RESULT.innerHTML = sResult
+
+End Sub
+
+Sub MODIFYALLBUTTON_onClick()
+	Dim x
+	Set x = LayoutCtl.GetSelectedItem
+
+	x.Bold = TRUE
+	x.FormatString = "New Format String"
+
+End Sub
+
+Sub SEL1BUTTON_onClick()
+	LayoutCtl.SetSelectedItem("refID1")
+End Sub
+
+Sub DELSELBUTTON_onClick()
+
+	Dim obj
+	Set obj = LayoutCtl.GetSelectedItem
+
+	LayoutCtl.DeleteItem(obj.RefID)	
+End Sub
+
+Sub READ1BUTTON_onClick()
+	Dim obj
+	Set obj = LayoutCtl.GetSelectedItem
+
+	If IsObject(obj) Then
+		obj.ReadOnly = True
+	End If
+End Sub
+
+Sub SETMENU_onClick()
+	LayoutCtl.SetContextMenu "DEFAULT", "COMMAND|Zoom|100|COMMAND|Options...|101", "|"
+	LayoutCtl.SetContextMenu "FIELD", "SEPARATOR|0|1|COMMAND|Remove|400|COMMAND|Properties...|401|SEPARATOR|0|2|COMMAND|Remove|402", "|"
+End Sub
+
+
+Sub LayoutCtl_OnMenuCommand(id)
+	MsgBox "Menu Command ID=" & id
+End Sub
+
+Dim SelectedOn
+SelectedOn = False
+
+Sub SELECTEDONLY_onclick()
+	SelectedOn = Not SelectedOn
+	LayoutCtl.ShowSelectedOnly = SelectedOn
+End Sub
+
+Dim ShowSampleOn
+ShowSampleOn = False
+
+Sub SHOWSAMPLE_onclick()
+	ShowSampleOn = Not ShowSampleOn
+	LayoutCtl.ShowSampleValue = ShowSampleOn
+	LayoutCtl.ShowAttribute = Not ShowSampleOn
+End Sub
+
+
+Sub UNDOITEM_onClick()
+	LayoutCtl.Undo
+End Sub
+
+
+Sub UNDOITEMDATA_onClick()
+	Dim x
+	Dim sResult
+	Dim obj
+
+	Set obj = LayoutCtl.GetSelectedItem
+
+	If Not IsObject(obj) Then
+		Exit Sub
+	End If
+	Set x = obj.GetUndoItem
+
+	If IsObject(x) Then
+		
+		sResult = ""
+		sResult = sResult & "Status="		& x.Status & "<br>"
+		sResult = sResult & "Dirty="		& x.Dirty & "<br>"
+		sResult = sResult & "AttributeKey=" & x.AttributeKey & "<br>"
+		sResult = sResult & "Label="		& x.Label & "<br>"
+		sResult = sResult & "XPos="			& x.XPos & "<br>"
+		sResult = sResult & "YPos="			& x.YPos & "<br>"
+		sResult = sResult & "Width="		& x.Width & "<br>"
+		sResult = sResult & "Height="		& x.Height & "<br>"		
+		sResult = sResult & "FontName="		& x.FontName & "<br>"
+		sResult = sResult & "FontPointSize="& x.FontPointSize & "<br>"
+		sResult = sResult & "Bold="			& x.Bold & "<br>"
+		sResult = sResult & "Italic="		& x.Italic & "<br>"
+		sResult = sResult & "Underline="	& x.Underline & "<br>"
+		sResult = sResult & "Strikeout="	& x.Strikeout & "<br>"
+		sResult = sResult & "MultiLine="	& x.MultiLine & "<br>"
+		sResult = sResult & "FormatString="	& x.FormatString & "<br>"
+		sResult = sResult & "RefID="		& x.RefID & "<br>"
+		sResult = sResult & "ReadOnly="		& x.ReadOnly & "<br>"		
+		sResult = sResult & "Sequence="		& x.Sequence & "<br>"
+		sResult = sResult & "ItemType="		& x.ItemType & "<br>"
+
+		sResult = sResult & "XPixPos="		& LayoutCtl.GetXPixelPos(x.XPos) & "<br>"
+		sResult = sResult & "YPixPos="		& LayoutCtl.GetYPixelPos(x.YPos) & "<br>"
+
+		sResult = sResult & "<BR><BR>"
+
+		RESULT.innerHTML = sResult
+	Else
+		RESULT.innerHTML = "No Object Selected"
+	End If
+
+End Sub
+
+Sub window_onLoad
+	COLBUTTON_onClick
+	LayoutCtl.EnableTrackUndo = TRUE
+End Sub
+</script>

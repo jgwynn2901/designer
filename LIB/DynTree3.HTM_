@@ -1,0 +1,92 @@
+<HTML>
+<HEAD>
+<TITLE>DynTree.CAB</TITLE>
+</HEAD>
+<BODY>
+<BUTTON onclick="ctlDynTree1.ExpandNode('root')">Expand Root Node Programmatically </BUTTON>
+<BR>
+<BUTTON onclick="ctlDynTree1.ExpandNode('Level1k')">Expand Sub-Node Level1k Programmatically </BUTTON>
+<BR>
+<BUTTON ID=GETNODESCOUNT>Get Nodes.Count</BUTTON>
+<BR>
+<!--	If any of the controls on this page require licensing, you must
+	create a license package file. Run LPK_TOOL.EXE to create the
+	required LPK file. LPK_TOOL.EXE can be found on the ActiveX SDK,
+	http://www.microsoft.com/intdev/sdk/sdk.htm. If you have the Visual
+	Basic 6.0 CD, it can also be found in the \Tools\LPK_TOOL directory.
+
+	The following is an example of the Object tag:
+
+<OBJECT CLASSID="clsid:5220cb21-c88d-11cf-b347-00aa00a28331">
+	<PARAM NAME="LPKPath" VALUE="LPKfilename.LPK">
+</OBJECT>
+-->
+
+<OBJECT ID="ctlDynTree1"
+CLASSID="CLSID:F4E61AA1-AF1D-11D2-BB74-00A0C984A370">
+</OBJECT>
+</BODY>
+</HTML>
+<SCRIPT LANGUAGE=VBSCRIPT>
+
+	Dim lret
+    lret = ctlDynTree1.AddNode(, , "root", "NODETYPE111", "test Root", "ACCOUNTFIL", "ACCOUNTFILSEL")
+    lret = ctlDynTree1.AddNode("root", 4, "Level1a", "NODETYPE222", "test Level1a", "RISKLOCATIONFIL", "RISKLOCATIONFILSEL")
+    lret = ctlDynTree1.AddNode("root", 4, "Level1b", "NODETYPE222", "test Level1b", "RISKLOCATIONGRP", "RISKLOCATIONGRPSEL")
+    lret = ctlDynTree1.AddNode("root", 4, "Level1c", "NODETYPE222", "test Level1c", "CLIENTFIL", "CLIENTFILSEL")
+    lret = ctlDynTree1.AddNode("root", 4, "Level1d", "NODETYPE222", "test Level1d", "FIELD", "FIELDSEL")
+    lret = ctlDynTree1.AddNode("root", 4, "Level1e", "NODETYPE222", "test Level1e", "TRIGGER", "TRIGGERSEL")
+    lret = ctlDynTree1.AddNode("root", 4, "Level1f", "NODETYPE222", "test Level1f", "TPAFIL", "TPAFILSEL")
+    lret = ctlDynTree1.AddNode("root", 4, "Level1g", "NODETYPE222", "test Level1g", "FRAME", "FRAMESEL")
+    lret = ctlDynTree1.AddNode("root", 4, "Level1h", "NODETYPE222", "test Level1h", "FIELDGRP", "FIELDGRPSEL")
+    lret = ctlDynTree1.AddNode("root", 4, "Level1i", "NODETYPE222", "test Level1i", "PAGEGRP", "PAGEGRPSEL")
+    lret = ctlDynTree1.AddNode("root", 4, "Level1j", "NODETYPE222", "test Level1j", "PAGE", "PAGESEL")
+    lret = ctlDynTree1.AddNode("root", 4, "Level1k", "NODETYPE222", "test Level1k", "TRANSMISSION", "TRANSMISSIONSEL")
+    lret = ctlDynTree1.AddNode("Level1k", 4, "Level1kOne", "NODETYPE222", "test Level1kOne", "OUTPUTITEM", "OUTPUTITEMSEL")
+    lret = ctlDynTree1.AddNode("Level1k", 4, "Level1kTWO", "NODETYPE222", "test Level1ktwo", "OUTPUTDEFINITION", "OUTPUTDEFINITIONSEL")
+ 
+    lret = ctlDynTree1.AddMenuItem("NODETYPE222", "&New", ErrStr)
+    lret = ctlDynTree1.AddMenuItem("NODETYPE222", "-", ErrStr)
+    lret = ctlDynTree1.AddMenuItem("NODETYPE222", "&Verify", ErrStr)
+    lret = ctlDynTree1.AddMenuItem("NODETYPE222", "&Save", ErrStr)
+    lret = ctlDynTree1.AddMenuItem("NODETYPE222", "-", ErrStr)
+    lret = ctlDynTree1.AddMenuItem("NODETYPE222", "&Remove", ErrStr)
+    
+    lret = ctlDynTree1.AddMenuItem("NODETYPE111", "&Properties", ErrStr)
+    lret = ctlDynTree1.AddMenuItem("NODETYPE111", "&New", ErrStr)
+    lret = ctlDynTree1.AddMenuItem("NODETYPE111", "&Verify", ErrStr)
+    lret = ctlDynTree1.AddMenuItem("NODETYPE111", "&Save", ErrStr)
+
+
+Sub ctlDynTree1_NodeClicked( NodeType, NodeKey, NodeText , IsLoaded , Shift )
+    MsgBox "vb: NodeText=" & NodeText & " NodeKey=" & NodeKey & " NodeType=" & NodeType& " IsLoaded=" & IsLoaded & " Shift=" & Shift
+End Sub
+
+Sub ctlDynTree1_NodeMenuClicked( NodeType,  NodeKey ,  NodeText ,  MenuItem )
+
+    MsgBox "vb: NodeText=" & NodeText & " NodeKey=" & NodeKey & " NodeType=" & NodeType& " MenuItem=" & MenuItem
+
+End Sub
+
+
+Sub GETNODESCOUNT_onclick()
+	Dim theNodes
+	Set theNodes = ctlDynTree1.Nodes
+	MsgBox theNodes.Count
+End Sub
+
+</SCRIPT>
+
+<SCRIPT LANGUAGE=JAVASCRIPT>
+function ctlDynTree1.NodeClicked(NodeType, NodeKey, NodeText , IsLoaded , Shift)
+{
+    alert("NodeText=" + NodeText + " NodeKey=" + NodeKey + " NodeType=" + NodeType + " IsLoaded=" + IsLoaded + " Shift=" + Shift);
+}
+
+function ctlDynTree1.NodeMenuClicked(NodeType,  NodeKey ,  NodeText ,  MenuItem)
+{
+    alert("NodeText=" + NodeText + " NodeKey=" + NodeKey + " NodeType=" + NodeType + " MenuItem=" + MenuItem);
+}
+
+
+</SCRIPT>

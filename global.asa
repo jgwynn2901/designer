@@ -1,0 +1,227 @@
+<SCRIPT LANGUAGE="VBScript" RUNAT="Server"> 
+Sub Application_OnStart()
+
+	SQL = "Select * From DBConnection Where ENABLED = 'Y' Order By ENVIRONMENT"
+	Set Connect = Server.CreateObject("ADODB.Connection")
+	Connect.Open "DSN=FNSANALYST;UID=FNSOWNER;PWD=CTOWN_DESIGNER"
+	Set RS = Connect.Execute(SQL)
+	IF Not RS.EOF AND Not RS.BOF THEN
+		RS.MoveFirst
+		Do While NOT RS.EOF
+			Application(RS("ENVIRONMENT")) = RS("CONNECTSTRING")
+			Call AddConnOptionHTML(RS("ENVIRONMENT"), RS("CONNECTSTRING"))
+			RS.MoveNext
+		Loop
+	END IF
+	RS.close
+	Connect.Close
+	set RS = nothing
+	set Connect = nothing
+	
+''	Application("ANALYST") = "DSN=FNSANALYST;UID=FNSOWNER;PWD=CTOWN_DESIGNER"
+''	Application("INTEGRATION") = "DSN=FNSINTEGRATION;UID=FNSOWNER;PWD=CTOWN_RELEASE"
+''	Application("DEV")   = "DSN=FNSDEV;UID=FNSOWNER;PWD=CTOWN"
+''	Application("QA") = "DSN=FNSQA;UID=FNSOWNER;PWD=CTOWN_QA"
+''	Application("PRODUCTION") = "DSN=FNSPRODUCTION;UID=FNSOWNER;PWD=CTOWN_PROD"
+''	Application("iNETDev")   = "DSN=FNSiNETDev;UID=FNSOWNER;PWD=CTOWN"
+
+''	Application("CONNECT_OPTIONS") = ""
+
+'	Call AddConnOptionHTML("ANALYST", Application("ANALYST"))
+'	Call AddConnOptionHTML("INTEGRATION", Application("INTEGRATION"))
+'	Call AddConnOptionHTML("DEV", Application("DEV"))
+'	Call AddConnOptionHTML("QA", Application("QA"))
+'	Call AddConnOptionHTML("PRODUCTION", Application("PRODUCTION"))
+'	Call AddConnOptionHTML("iNETDev", Application("iNETDev"))
+
+	Application("VirtualRoot") = "/FNSDesigner"
+	Application("MAXIMUMSHAREDCOUNT") = "150"
+	Application("lExecutingBillingReport") = false
+	
+End Sub
+
+
+Sub Session_OnStart()
+
+	Session("ConnectionString") = Application("DEV")
+
+	Set Session("SecurityObj")	= Server.CreateObject("FNSDSecurity.CSecurity")
+	InitStatusRptRS()
+	InitRefCountRptRS()
+
+	Set Session("AHSTreeProperties") = Server.CreateObject("Scripting.Dictionary")
+	Set Session("AHSTreeCurExpandedNodes") = Server.CreateObject("Scripting.Dictionary")
+
+	Set Session("AHSTreeShowAllNodes") = Server.CreateObject("Scripting.Dictionary")
+	
+	Set Session("AHSTreeShowNodes") = Server.CreateObject("Scripting.Dictionary")
+
+	Set Session("AHSTreeFilter") = Server.CreateObject("Scripting.Dictionary")
+
+	Session("CurAHSTreeTopID") = "1"
+	Session("CurAHSTreeTopDesc") = "FNS"
+	
+	Set Session("ScriptControl") = Server.CreateObject("ScriptControl")
+	Session("lIsCISG") = isServer( "CISG" )
+
+End Sub
+
+
+Sub Session_OnEnd()
+	CleanupStatusRptRS()
+	CleanupRefCountRptRS()
+	
+	If IsObject(Session("SecurityObj")) Then
+		If Session("SecurityObj").IsLoggedOn() Then	Session("SecurityObj").LogOff()
+		Set Session("SecurityObj")= nothing
+	End If
+
+	If IsObject(Session("AHSTreeProperties")) Then
+		Session("AHSTreeProperties").RemoveAll
+		Set Session("AHSTreeProperties") = Nothing
+	End If
+
+	If IsObject(Session("AHSTreeCurExpandedNodes")) Then
+		Session("AHSTreeCurExpandedNodes").RemoveAll
+		Set Session("AHSTreeCurExpandedNodes") =  Nothing
+	End If
+
+	Session("AHSTreeShowAllNodes").RemoveAll
+	Set Session("AHSTreeShowAllNodes") =  Nothing
+
+	Session("AHSTreeShowNodes").RemoveAll
+	Set Session("AHSTreeShowNodes") =  Nothing
+
+	If IsObject(Session("AHSTreeFilter")) Then
+		Session("AHSTreeFilter").RemoveAll
+		Set Session("AHSTreeFilter") =  Nothing
+	End If
+	
+	If IsObject(Session("ScriptControl")) Then
+		Set Session("ScriptControl") =  Nothing
+	End If
+		
+End Sub
+
+
+Sub Application_OnEnd()
+
+End Sub
+
+Sub AddConnOptionHTML(Name, Value)
+	Application("CONNECT_OPTIONS") = Application("CONNECT_OPTIONS") + "<OPTION VALUE='" & Value & "'>" & Name & "</OPTION>"
+End Sub
+
+Sub InitStatusRptRS()
+	Const adOpenDynamic = 2
+	Const adLockOptimistic = 3
+	Const adUseClient = 3
+	Const adInteger = 3
+	Const adDouble = 5
+	Const adNumeric = 131
+	Const adVarChar = 200
+	
+	Session("StatusRptMsgNextID") = 0
+	Session("StatusRptMsgNextGrpID") = 0
+	Session("StatusRptMaxGrpCount") = 25
+	Session("StatusRptLogGrpEnabled") = False
+
+	Set Session("StatusRptRS") = Server.CreateObject("ADODB.Recordset")
+	Session("StatusRptRS").CursorLocation = adUseClient
+
+	Session("StatusRptRS").Fields.Append "MsgID", adInteger
+	Session("StatusRptRS").Fields.Append "GrpID", adInteger
+	Session("StatusRptRS").Fields.Append "Severity", adVarChar, 20
+	Session("StatusRptRS").Fields.Append "Message", adVarChar, 400
+
+	Session("StatusRptRS").Fields.Append "SourceTable", adVarChar, 50
+	Session("StatusRptRS").Fields.Append "SourceField", adVarChar, 50
+	Session("StatusRptRS").Fields.Append "SourceRowID", adDouble
+	Session("StatusRptRS").Fields.Append "SourceRowDesc", adVarChar, 400
+
+	Session("StatusRptRS").Fields.Append "AssocTable", adVarChar, 50
+	Session("StatusRptRS").Fields.Append "AssocField", adVarChar, 50
+	Session("StatusRptRS").Fields.Append "AssocRowID", adDouble
+	Session("StatusRptRS").Fields.Append "AssocRowDesc", adVarChar, 400
+
+	Session("StatusRptRS").Open ,,adOpenDynamic,adLockOptimistic
+End Sub
+
+
+Sub CleanupStatusRptRS()
+	If IsObject(Session("StatusRptRS")) Then
+		Session("StatusRptRS").Close
+	End If
+	Set Session("StatusRptRS")	= Nothing
+End Sub
+
+
+Sub InitRefCountRptRS()
+	Const adOpenDynamic = 2
+	Const adLockOptimistic = 3
+	Const adUseClient = 3
+	Const adInteger = 3
+	Const adDouble = 5
+	Const adNumeric = 131
+	Const adVarChar = 200
+	
+	Dim RsObj
+	
+	Session("RefCountRptMsgNextID") = 0
+	Session("RefCountRptMsgNextGrpID") = 0
+	Session("RefCountRptMaxGrpCount") = 25
+	Session("RefCountRptLogGrpEnabled") = False
+
+	Set Session("RefCountRptRS") = Server.CreateObject("ADODB.Recordset")
+	Session("RefCountRptRS").CursorLocation = adUseClient
+
+	Set RsObj = Session("RefCountRptRS")
+	RsObj.Fields.Append "MsgID", adInteger
+	RsObj.Fields.Append "GrpID", adInteger
+	RsObj.Fields.Append "Severity", adVarChar, 20
+	RsObj.Fields.Append "Message", adVarChar, 400
+
+	RsObj.Fields.Append "SourceTable", adVarChar, 50
+	RsObj.Fields.Append "SourceField", adVarChar, 50
+	RsObj.Fields.Append "SourceRowID", adDouble
+	RsObj.Fields.Append "SourceRowDesc", adVarChar, 400
+
+	RsObj.Fields.Append "AssocTable", adVarChar, 50
+	RsObj.Fields.Append "AssocField", adVarChar, 50
+	RsObj.Fields.Append "AssocRowID", adDouble
+	RsObj.Fields.Append "AssocRowDesc", adVarChar, 400
+
+	RsObj.Open ,,adOpenDynamic,adLockOptimistic
+	
+	Set RsObj = Nothing
+End Sub
+
+
+Sub CleanupRefCountRptRS()
+	If IsObject(Session("RefCountRptRS")) Then
+		Session("RefCountRptRS").Close
+	End If
+	Set Session("RefCountRptRS") = Nothing
+End Sub
+
+function isServer( cWhatServer )
+dim oFS, oFile, cFilename
+
+on error resume next
+if len( cWhatServer ) = 0 then
+	isServer = false
+else
+	cFilename = "C:\" & cWhatServer & ".txt"
+	set oFS = Server.CreateObject("Scripting.FileSystemObject")
+	Set oFile = oFS.GetFile( cFilename )
+	if err.number <> 0 then
+		isServer = false
+	else
+		isServer = true
+	end if	
+	set oFile = nothing
+	set oFS = nothing
+end if	
+end function
+
+</SCRIPT>

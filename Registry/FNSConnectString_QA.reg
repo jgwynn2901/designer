@@ -1,0 +1,4 @@
+REGEDIT4
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Edgewater\FNS]
+"ConnectString"="DSN=FNS5;UID=FNSOWNER;PWD=ctown_qa;Server=FNS5"

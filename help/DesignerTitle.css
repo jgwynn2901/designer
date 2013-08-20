@@ -1,0 +1,61 @@
+
+ /* $MVD$:color("18","e1ffff","MS Soft Yellow","1") */
+ /* $MVD$:color("19","408000","Concentra Green","1") */
+ /* $MVD$:color("20","4000","Concentra 2","1") */
+ /* $MVD$:fontset("Verdana","Verdana") */
+ P { font-family : "Verdana";
+     font-size : 8.0pt;
+     background-color : transparent;
+     text-transform : capitalize;}
+ .mvd-P { font-family : "Verdana";
+          font-size : 8.0pt;
+          background-color : transparent;
+          text-transform : capitalize;}
+ BODY { background-color : transparent;}
+ .mvd-BODY { background-color : transparent;}
+ H1 { font-family : "Verdana";
+      font-weight : bold;
+      font-size : 10.0pt;
+      background-color : transparent;
+      text-transform : capitalize;
+      color : #006699;}
+ .mvd-H1 { font-family : "Verdana";
+           font-weight : bold;
+           font-size : 10.0pt;
+           background-color : transparent;
+           text-transform : capitalize;
+           color : teal;}
+ H2 { font-family : "Verdana";
+      font-weight : bold;
+      font-size : 10.0pt;
+      text-transform : capitalize;
+      color : #006699;}
+ .mvd-H2 { font-family : "Verdana";
+           font-weight : bold;
+           font-size : 10.0pt;
+           text-transform : capitalize;
+           color : teal;}
+   CITE.expandspot { font-style : normal;
+            color : green;
+            cursor: hand;}
+ .mvd-CITE-expandspot { font-style : normal;
+                 color : green;
+                 cursor: hand;}
+ DFN.collapsed { font-style : italic;
+                 font-weight : normal;
+                 display :      'none';
+                 color : red;}
+.mvd-DFN-collapsed { font-style : italic;
+                      font-weight : normal;
+                      display :      'none';
+                      color : red;}
+ DFN.expanded { font-style : italic;
+                 font-weight : normal;
+                color : red;}
+ .mvd-DFN-expanded { font-style : italic;
+                 font-weight : normal;
+                     color : red;}
+EM.dropspot	{ cursor : hand;
+ 		  color : green;}
+.mvd-EM-dropspot { cursor : hand;
+ 		  color : green;}

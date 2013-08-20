@@ -1,0 +1,875 @@
+<!--#include file="billing.inc"-->
+<%
+Response.Buffer = False
+Response.Expires = -1
+
+const FNSDesigner = "FNSDesigner"
+dim cAHS, cStartDate, cSP, oConn, cSQL, oExcel, cTmpFile, cDownloadLocation
+dim lWithError
+
+nTimeOut = Server.ScriptTimeout
+Server.ScriptTimeout = 3600	'	60 min
+if Application("lExecutingBillingReport") then
+	Response.redirect "inUse.htm"
+else	
+	Application.Lock 
+	Application("lExecutingBillingReport") = true
+	Application.UnLock 
+end if
+cAHS = Request.QueryString("AHS")
+cStartDate = UCase(Request.QueryString("DATE"))
+cStartDate = "1-" & left(cStartDate,3) & "-" & right(cStartDate,4)
+set oConn = server.CreateObject("ADODB.Connection")
+
+oConn.Open "DSN=FNSPRODUCTION;UID=FNSOWNER;PWD=CTOWN_PROD"
+oConn.Execute "ALTER SESSION SET NLS_DATE_FORMAT = 'DD-MON-YYYY HH:MI:SS'"
+
+deletePreviousReport
+Set oExcel = Server.CreateObject("ExcelClass.XLSClass")
+with oExcel
+	.cBackground = "#d6cfbd"
+	.writeMsg "Retrieving data from database"
+end with	
+select case CInt(cAHS)
+	case MARNo
+		cSP = "{call billingReportMarriot.ProcessCallInfo('" 
+	case CCENo
+		cSP = "{call billingReportCCE.ProcessCallInfo('" 
+	case MCDNo
+		cSP = "{call billingReportMAC.ProcessCallInfo('" 	
+	case else
+		cSP = "{call billingReport.ProcessCallInfo('" & cAHS & "', '"
+end select
+cSP = cSP & cStartDate & "')}"
+oConn.Execute cSP
+select case CInt(cAHS)
+	case FRENo, FMTNo	'	Fremont
+		doFremont
+		genFremontXLS
+	case MCDNo
+		lWithError = genMAC
+	case CCENo
+		lWithError = genCCE
+	case else
+		lWithError = genXLS
+end select
+'
+if not lWithError then
+	'	update history table
+	cSQL = "INSERT INTO BILLING_HISTORY (MMM_YYYY,CREATED_BY,CREATED_ON,FILENAME,FILE_PATH,SERVER_NAME,AHS_ID) " & _
+			"VALUES('" & UCase(Request.QueryString("DATE")) & "','" & _
+			Session("NAME") & "','" & _
+			now & "','" & _
+			cTmpFile & "','" & _
+			cDownloadLocation & "','" & _
+			" '," & _
+			cAHS & ")"
+	with oConn
+		.Execute(cSQL)
+		.Close
+	end with
+else
+	oConn.Close 
+end if		
+Set oConn = Nothing
+Set oExcel = Nothing
+Server.ScriptTimeout = nTimeOut
+Application.Lock 
+Application("lExecutingBillingReport") = false
+Application.UnLock 
+if lWithError then
+	with response
+		.Write "<script language=""JScript"">" & vbCRLF
+		.write "document.location.href = ""blank.htm""" & vbCRLF
+		.Write "</script>" & vbCRLF
+	end with
+end if
+'
+'
+sub deletePreviousReport
+dim cSQL, oRS, nBillID
+
+cSQL = "SELECT BILLING_ID From BILLING Where accnt_hrcy_step_id=" & cAHS
+set oRS = oConn.Execute(cSQL)
+with oRS
+	do while not .eof
+		nBillID = CInt(.fields(0))
+		cSQL = "DELETE From BILLING_DETAIL Where BILLING_ID=" & nBillID
+		oConn.Execute cSQL
+		cSQL = "DELETE From BILLING Where BILLING_ID=" & nBillID
+		oConn.Execute cSQL
+		.moveNext
+	loop	
+	.close
+end with	
+set oRS = nothing
+end sub
+
+function genXLS
+dim cAHS, cStartDate, cSP, oRS, cSQL
+dim dRepDate, cBillID, cCustName, cCustCode
+dim cFields, cValues, cTime
+dim aNameParts(), cParent, nCalls, nTotSvcFee, nTotAdnFee, nTotalFee
+dim nTotalFaxFee, nTempFee, nEscalateFee, nVendorFee
+dim cCmpParent
+dim lErrorTriggered
+dim nGrandTotal
+dim nTotalNoCalls
+
+cAHS = Request.QueryString("AHS")
+cStartDate = Request.QueryString("DATE")
+cCustCode = Request.QueryString("CUSTCODE")
+cCustName = Request.QueryString("CUSTNAME")
+lErrorTriggered = false
+nGrandTotal = 0
+nTotalNoCalls = 0
+'
+dRepDate = cDate("1-" & left(cStartDate,3) & "-" & right(cStartDate,4))
+cSQL = "SELECT BILLING_ID From BILLING Where accnt_hrcy_step_id=" & cAHS
+set oRS = oConn.Execute(cSQL)
+with oRS
+	cBillID = .fields(0)
+	.close
+end with	
+'
+cSQL = "SELECT BILLING_DETAIL.* " & _
+			"FROM BILLING_DETAIL " & _
+			"WHERE (BILLING_DETAIL.BILLING_ID = " & cBillID & _
+			" AND BILLING_DETAIL.STATUS='ACTIVE') " & _
+			"Order by CLIENT_NAME,PARENT_NAME, CALL_TYPE, LOB_CD, CALL_END_TIME"
+set oRS = oConn.Execute(cSQL)
+'
+cTime = CStr(FormatDateTime( Time, vbShortTime))
+cTime = Replace(cTime, ":", "")
+cTmpFile = cCustCode & "-" & cStartDate & "-" & cTime & ".xls"
+with oExcel
+	.cDestinationFileName = cTmpFile
+	.cSourceFilename = Request.ServerVariables("APPL_PHYSICAL_PATH") & "Reports\Billing\Billing.xls"
+	.cExcelRangeName = "ODBCRange"
+	.cDownloadDir = Request.ServerVariables("APPL_PHYSICAL_PATH") & "Reports\Download\"
+	cDownloadLocation = "http://" & Request.ServerVariables("SERVER_NAME") & "/" & FNSDesigner & "/Reports/Download"
+	.cDownloadLocation = cDownloadLocation
+	.openXLS
+	.writeMsg "Generating spreadsheet"
+	.writeCell "Account", cCustName
+	.writeCell "Period", Left(cStartDate,3) & " " & right(cStartDate,4)
+end with
+cFields = "Account,Call_No,T,Status,Loss_Dt,Call_Dt,Claim_No,LOB,Policy_No,Risk_Location,Caller_Name,Employee_Name,Service,Total_Fax,Temp,Escalate,Vendor,Total"
+with oRS
+	Do While Not .EOF
+		if isNull(.Fields("PARENT_NAME").Value) then
+			cParent = ""
+		else
+			cParent = .Fields("PARENT_NAME").Value
+		end if
+		nCalls = 0
+		nTotSvcFee = 0
+		nTotalFee = 0
+		do while Not .EOF 
+			if isNull(.Fields("PARENT_NAME").Value) then
+				cCmpParent = ""
+			else
+				cCmpParent = .Fields("PARENT_NAME").Value
+			end if
+			if cParent = cCmpParent then
+				nCalls = nCalls + 1
+				nTotalFaxFee = CSng(.Fields("TOTAL_FAX_FEE").Value)
+				nTempFee = CSng(.Fields("TEMP_FEE").Value)
+				nEscalateFee = cSng(.Fields("ESCALATE_FEE").Value)
+				nVendorFee = CSng(.Fields("VENDOR_FEE").Value)
+				nTotSvcFee = nTotSvcFee + CSng(.Fields("SERVICE_FEE").Value)
+				nTotalFee = nTotalFee + CSng(.Fields("SERVICE_FEE").Value) + nTotalFaxFee + nTempFee + nEscalateFee + nVendorFee
+				cValues =	"'" & removeSngQuote(.Fields("PARENT_NAME").Value) & "'," & _
+					CStr(.Fields("Call_ID").Value) & ",'" & _
+					.Fields("Call_Type").Value & "','" & _
+					.Fields("CALLSTATUS").Value & "','"
+					on error resume next
+					if isNull(.Fields("LOSS_DATE").Value) then
+						cValues = cValues & ""
+					else
+						cValues = cValues & .Fields("LOSS_DATE").Value
+					end if
+
+					if err.number <> 0 then 
+						if err.number = -2147217887 then
+							writeError .Fields("Call_ID").Value
+						end if
+						lErrorTriggered = true
+						exit do
+					end if
+								
+					cValues = cValues & "','" & _
+					CStr(.Fields("CALL_END_TIME").Value) & "','"
+					if isNull(.Fields("CLAIM_NUMBER").Value) then
+						cValues = cValues & ""
+					else
+						cValues = cValues & .Fields("CLAIM_NUMBER").Value
+					end if
+					cValues = cValues & "','" & _
+					.Fields("LOB_CD").Value & "','"
+					if isNull(.Fields("POLICY_NUMBER").Value) then
+						cValues = cValues & ""
+					else
+						cValues = cValues & .Fields("POLICY_NUMBER").Value
+					end if
+					cValues = cValues & "','" & _
+					removeSngQuote(.Fields("ACCOUNT_NAME").Value) & "','"
+					redim aNameParts(1)
+					aNameParts(0) = .Fields("CALLER_FIRST_NAME").Value
+					aNameParts(1) = .Fields("CALLER_LAST_NAME").Value
+					cValues = cValues & getName(aNameParts) & "','"
+					redim aNameParts(1)
+					aNameParts(0) = .Fields("EMPLOYEE_FIRST_NAME").Value
+					aNameParts(1) = .Fields("EMPLOYEE_LAST_NAME").Value
+					cValues = cValues & getName(aNameParts) & "','" & _
+					FormatNumber(.Fields("SERVICE_FEE").Value) & "','" & _
+					FormatNumber(nTotalFaxFee) & "','" & _
+					FormatNumber(nTempFee) & "','" & _
+					FormatNumber(nEscalateFee) & "','" & _
+					FormatNumber(nVendorFee) & "','" & _
+					FormatNumber(CSng(.Fields("SERVICE_FEE").Value) + nTotalFaxFee + nTempFee + nEscalateFee + nVendorFee) & "'"
+				oExcel.addRow cFields, cValues
+				.MoveNext
+			else
+				exit do
+			end if
+		loop
+		if not lErrorTriggered then
+			cValues = "'SubTotal'," & nCalls & ",'','','','','','','','','','','" & FormatCurrency(nTotSvcFee) & "','','','','','" & FormatCurrency(nTotalFee) & "'"
+			oExcel.addRow cFields, cValues
+			cValues = "'','','','','','','','','','','','','','','','','',''"
+			oExcel.addRow cFields, cValues
+		else
+			exit do
+		end if
+		nGrandTotal = nGrandTotal + nTotalFee
+		nTotalNoCalls = nTotalNoCalls + nCalls
+	Loop
+	.Close
+end with
+cValues = "'','','','','','','','','','','','','','','','','',''"
+oExcel.addRow cFields, cValues
+cValues = "'Grand Total','" & nTotalNoCalls & "','','','','','','','','','','','','','','','','" & FormatCurrency(nGrandTotal) & "'"
+oExcel.addRow cFields, cValues
+oExcel.closeXLS
+if not lErrorTriggered then
+	oExcel.sendFile
+end if	
+Set oRS = Nothing
+genXLS = lErrorTriggered
+end function
+
+' *********************************************************************
+'	CCE
+' *********************************************************************
+function genCCE
+dim cAHS, cStartDate, cSP, oRS, cSQL
+dim dRepDate, cBillID, cCustName, cCustCode
+dim cFields, cValues, cTime
+dim aNameParts(), cParent, nCalls, nTotSvcFee, nTotAdnFee, nTotalFee
+dim nTotalFaxFee, nTempFee, nEscalateFee, nVendorFee
+dim cCmpParent
+dim lErrorTriggered
+dim nGrandTotal
+dim nTotalNoCalls
+dim cBranchName, cCmpBranch
+dim nCallsByBranch, nTotalByBranch
+dim nFeeSum
+
+cAHS = Request.QueryString("AHS")
+cStartDate = Request.QueryString("DATE")
+cCustCode = Request.QueryString("CUSTCODE")
+cCustName = Request.QueryString("CUSTNAME")
+lErrorTriggered = false
+nGrandTotal = 0
+nTotalNoCalls = 0
+'
+dRepDate = cDate("1-" & left(cStartDate,3) & "-" & right(cStartDate,4))
+cSQL = "SELECT BILLING_ID From BILLING Where accnt_hrcy_step_id=" & cAHS
+set oRS = oConn.Execute(cSQL)
+with oRS
+	cBillID = .fields(0)
+	.close
+end with	
+'
+cSQL = "SELECT BILLING_DETAIL.* " & _
+			"FROM BILLING_DETAIL " & _
+			"WHERE (BILLING_DETAIL.BILLING_ID = " & cBillID & _
+			" AND BILLING_DETAIL.STATUS='ACTIVE') " & _
+			"Order by PARENT_NAME, BRANCH_NAME, CLIENT_NAME, CALL_TYPE"
+set oRS = oConn.Execute(cSQL)
+'
+cTime = CStr(FormatDateTime( Time, vbShortTime))
+cTime = Replace(cTime, ":", "")
+cTmpFile = cCustCode & "-" & cStartDate & "-" & cTime & ".xls"
+with oExcel
+	.cDestinationFileName = cTmpFile
+	.cSourceFilename = Request.ServerVariables("APPL_PHYSICAL_PATH") & "Reports\Billing\BillingCCE.xls"
+	.cExcelRangeName = "ODBCRange"
+	.cDownloadDir = Request.ServerVariables("APPL_PHYSICAL_PATH") & "Reports\Download\"
+	cDownloadLocation = "http://" & Request.ServerVariables("SERVER_NAME") & "/" & FNSDesigner & "/Reports/Download"
+	.cDownloadLocation = cDownloadLocation
+	.openXLS
+	.writeMsg "Generating spreadsheet"
+	.writeCell "Account", cCustName
+	.writeCell "Period", Left(cStartDate,3) & " " & right(cStartDate,4)
+end with
+cFields = "Branch,Account,Call_No,T,Status,Loss_Dt,Call_Dt,Claim_No,LOB,Policy_No,Risk_Location,Insured,Caller_Name,Employee_Name,Service,Total_Fax,Temp,Escalate,Vendor,Total"
+with oRS
+	Do While Not .EOF
+		cParent = .Fields("PARENT_NAME").Value
+		nCalls = 0
+		nTotSvcFee = 0
+		nTotalFee = 0
+		do while not .eof
+			if cParent = .Fields("PARENT_NAME").Value then
+				' brake by branch
+				if isNull(.Fields("BRANCH_NAME").Value) then
+					cBranchName = ""
+				else
+					cBranchName = .Fields("BRANCH_NAME").Value
+				end if
+				nCallsByBranch = 0
+				nTotalByBranch = 0
+				do while not .eof 
+					if cParent = .Fields("PARENT_NAME").Value then
+						if isNull(.Fields("BRANCH_NAME").Value) then
+							cCmpBranch = ""
+						else
+							cCmpBranch = .Fields("BRANCH_NAME").Value
+						end	if
+						if cBranchName = cCmpBranch then
+							nCallsByBranch = nCallsByBranch + 1
+							nCalls = nCalls + 1
+							nTotalFaxFee = CSng(.Fields("TOTAL_FAX_FEE").Value)
+							nTempFee = CSng(.Fields("TEMP_FEE").Value)
+							nEscalateFee = CSng(.Fields("ESCALATE_FEE").Value)
+							nVendorFee = CSng(.Fields("VENDOR_FEE").Value)
+							nTotSvcFee = nTotSvcFee + CSng(.Fields("SERVICE_FEE").Value)
+							nFeeSum = CSng(.Fields("SERVICE_FEE").Value) + nTotalFaxFee + nTempFee + nEscalateFee + nVendorFee
+							nTotalByBranch = nTotalByBranch + nFeeSum
+							nTotalFee = nTotalFee + nFeeSum
+							cValues =	"'" & .Fields("BRANCH_NAME").Value & "','" & _
+								removeSngQuote(.Fields("PARENT_NAME").Value) & "','" & _
+								CStr(.Fields("Call_ID").Value) & "','" & _
+								.Fields("Call_Type").Value & "','" & _
+								.Fields("CALLSTATUS").Value & "','"
+							on error resume next
+							if isNull(.Fields("LOSS_DATE").Value) then
+								cValues = cValues & ""
+							else
+								cValues = cValues & .Fields("LOSS_DATE").Value
+							end if
+
+							if err.number <> 0 then 
+								if err.number = -2147217887 then
+									writeError .Fields("Call_ID").Value
+								end if
+								lErrorTriggered = true
+								exit do
+							end if
+							
+							cValues = cValues & "','" & _
+								CStr(.Fields("CALL_END_TIME").Value) & "','"
+							if isNull(.Fields("CLAIM_NUMBER").Value) then
+								cValues = cValues & ""
+							else
+								cValues = cValues & .Fields("CLAIM_NUMBER").Value
+							end if
+							cValues = cValues & "','" & _
+								.Fields("LOB_CD").Value & "','"
+							if isNull(.Fields("POLICY_NUMBER").Value) then
+								cValues = cValues & ""
+							else
+								cValues = cValues & .Fields("POLICY_NUMBER").Value
+							end if
+							cValues = cValues & "','" & _
+								removeSngQuote(.Fields("ACCOUNT_NAME").Value) & "','"
+							cValues = cValues & removeSngQuote(.Fields("INSURED_NAME").Value) & "','"
+							redim aNameParts(1)
+							aNameParts(0) = .Fields("CALLER_FIRST_NAME").Value
+							aNameParts(1) = .Fields("CALLER_LAST_NAME").Value
+							cValues = cValues & getName(aNameParts) & "','"
+							redim aNameParts(1)
+							aNameParts(0) = .Fields("EMPLOYEE_FIRST_NAME").Value
+							aNameParts(1) = .Fields("EMPLOYEE_LAST_NAME").Value
+							cValues = cValues & getName(aNameParts) & "','" & _
+								FormatNumber(.Fields("SERVICE_FEE").Value) & "','" & _
+								FormatNumber(nTotalFaxFee) & "','" & _
+								FormatNumber(nTempFee) & "','" & _
+								FormatNumber(nEscalateFee) & "','" & _
+								FormatNumber(nVendorFee) & "','" & _
+								FormatNumber(CSng(.Fields("SERVICE_FEE").Value) + nTotalFaxFee + nTempFee + nEscalateFee + nVendorFee) & "'"
+							oExcel.addRow cFields, cValues
+							if err.number <> 0 then 
+								writeErrText
+								lErrorTriggered = true
+								exit do
+							end if
+							on error goto 0
+							.MoveNext
+						else
+							if not lErrorTriggered then
+								cValues = "'Branch SubTotal',''," & nCallsByBranch & ",'','','','','','','','','','','','','','','','','" & FormatCurrency(nTotalByBranch) & "'"
+								oExcel.addRow cFields, cValues
+								cValues = "'','','','','','','','','','','','','','','','','','','',''"
+								oExcel.addRow cFields, cValues
+							end if
+							exit do
+						end if
+					else
+						exit do
+					end if
+				loop
+			else
+				if not lErrorTriggered then
+					cValues = "'Account SubTotal',''," & nCalls & ",'','','','','','','','','','','','" & FormatCurrency(nTotSvcFee) & "','','','','','" & FormatCurrency(nTotalFee) & "'"
+					oExcel.addRow cFields, cValues
+					cValues = "'','','','','','','','','','','','','','','','','','','',''"
+					oExcel.addRow cFields, cValues
+				end if
+				exit do
+			end if
+		loop
+		nGrandTotal = nGrandTotal + nTotalFee
+		nTotalNoCalls = nTotalNoCalls + nCalls
+	Loop
+	.Close
+end with
+cValues = "'','','','','','','','','','','','','','','','','','','',''"
+oExcel.addRow cFields, cValues
+cValues = "'Grand Total','','" & nTotalNoCalls & "','','','','','','','','','','','','','','','','','" & FormatCurrency(nGrandTotal) & "'"
+oExcel.addRow cFields, cValues
+oExcel.closeXLS
+if not lErrorTriggered then
+	oExcel.sendFile
+end if	
+Set oRS = Nothing
+genCCE = lErrorTriggered
+end function
+
+' *********************************************************************
+'	McDonalds
+' *********************************************************************
+function genMAC
+dim cAHS, cStartDate, cSP, oRS, cSQL
+dim dRepDate, cBillID, cCustName, cCustCode
+dim cFields, cValues, cTime
+dim aNameParts(), cParent, nCalls, nTotSvcFee, nTotAdnFee, nTotalFee
+dim nTotalFaxFee, nTempFee, nEscalateFee, nVendorFee
+dim cCmpParent
+dim lErrorTriggered
+dim nGrandTotal
+dim nTotalNoCalls
+dim cCarrierName
+dim cBranchName, cCmpBranch
+
+cAHS = Request.QueryString("AHS")
+cStartDate = Request.QueryString("DATE")
+cCustCode = Request.QueryString("CUSTCODE")
+cCustName = Request.QueryString("CUSTNAME")
+lErrorTriggered = false
+nGrandTotal = 0
+nTotalNoCalls = 0
+'
+dRepDate = cDate("1-" & left(cStartDate,3) & "-" & right(cStartDate,4))
+cSQL = "SELECT BILLING_ID From BILLING Where accnt_hrcy_step_id=" & cAHS
+set oRS = oConn.Execute(cSQL)
+with oRS
+	cBillID = .fields(0)
+	.close
+end with	
+'
+cSQL = "SELECT BILLING_DETAIL.* " & _
+			"FROM BILLING_DETAIL " & _
+			"WHERE (BILLING_DETAIL.BILLING_ID = " & cBillID & _
+			" AND BILLING_DETAIL.STATUS='ACTIVE') " & _
+			"Order by BRANCH_NAME"
+set oRS = oConn.Execute(cSQL)
+'
+cTime = CStr(FormatDateTime( Time, vbShortTime))
+cTime = Replace(cTime, ":", "")
+cTmpFile = cCustCode & "-" & cStartDate & "-" & cTime & ".xls"
+with oExcel
+	.cDestinationFileName = cTmpFile
+	.cSourceFilename = Request.ServerVariables("APPL_PHYSICAL_PATH") & "Reports\Billing\McDonalds.xls"
+	.cExcelRangeName = "ODBCRange"
+	.cDownloadDir = Request.ServerVariables("APPL_PHYSICAL_PATH") & "Reports\Download\"
+	cDownloadLocation = "http://" & Request.ServerVariables("SERVER_NAME") & "/" & FNSDesigner & "/Reports/Download"
+	.cDownloadLocation = cDownloadLocation
+	.openXLS
+	.writeMsg "Generating spreadsheet"
+	.writeCell "Account", cCustName
+	.writeCell "Period", Left(cStartDate,3) & " " & right(cStartDate,4)
+end with
+cFields = "Branch,Carrier,Account,Call_No,T,Status,Loss_Dt,Call_Dt,Claim_No,LOB,Policy_No,Risk_Location,Caller_Name,Employee_Name,Service,Total_Fax,Temp,Escalate,Vendor,Total"
+with oRS
+	Do While Not .EOF
+		if isNull(.Fields("BRANCH_NAME").Value) then
+			cBranchName = ""
+		else
+			cBranchName = .Fields("BRANCH_NAME").Value
+		end if
+		nCalls = 0
+		nTotSvcFee = 0
+		nTotalFee = 0
+		do while Not .EOF 
+			if isNull(.Fields("BRANCH_NAME").Value) then
+				cCmpBranch = ""
+			else
+				cCmpBranch = .Fields("BRANCH_NAME").Value
+			end if
+			if cBranchName = cCmpBranch then
+				nCalls = nCalls + 1
+				cCarrierName = .Fields("CARRIER_NAME").Value
+				nTotalFaxFee = CSng(.Fields("TOTAL_FAX_FEE").Value)
+				nTempFee = CSng(.Fields("TEMP_FEE").Value)
+				nEscalateFee = cSng(.Fields("ESCALATE_FEE").Value)
+				nVendorFee = CSng(.Fields("VENDOR_FEE").Value)
+				nTotSvcFee = nTotSvcFee + CSng(.Fields("SERVICE_FEE").Value)
+				nTotalFee = nTotalFee + CSng(.Fields("SERVICE_FEE").Value) + nTotalFaxFee + nTempFee + nEscalateFee + nVendorFee
+				cValues =	"'" & cBranchName & "'," & _
+					"'" & cCarrierName & "'," & _
+					"'" & removeSngQuote(.Fields("PARENT_NAME").Value) & "'," & _
+					CStr(.Fields("Call_ID").Value) & ",'" & _
+					.Fields("Call_Type").Value & "','" & _
+					.Fields("CALLSTATUS").Value & "','"
+					on error resume next
+					if isNull(.Fields("LOSS_DATE").Value) then
+						cValues = cValues & ""
+					else
+						cValues = cValues & .Fields("LOSS_DATE").Value
+					end if
+
+					if err.number <> 0 then 
+						if err.number = -2147217887 then
+							writeError .Fields("Call_ID").Value
+						end if
+						lErrorTriggered = true
+						exit do
+					end if
+								
+					cValues = cValues & "','" & _
+					CStr(.Fields("CALL_END_TIME").Value) & "','"
+					if isNull(.Fields("CLAIM_NUMBER").Value) then
+						cValues = cValues & ""
+					else
+						cValues = cValues & .Fields("CLAIM_NUMBER").Value
+					end if
+					cValues = cValues & "','" & _
+					.Fields("LOB_CD").Value & "','"
+					if isNull(.Fields("POLICY_NUMBER").Value) then
+						cValues = cValues & ""
+					else
+						cValues = cValues & .Fields("POLICY_NUMBER").Value
+					end if
+					cValues = cValues & "','" & _
+					removeSngQuote(.Fields("ACCOUNT_NAME").Value) & "','"
+					redim aNameParts(1)
+					aNameParts(0) = .Fields("CALLER_FIRST_NAME").Value
+					aNameParts(1) = .Fields("CALLER_LAST_NAME").Value
+					cValues = cValues & getName(aNameParts) & "','"
+					redim aNameParts(1)
+					aNameParts(0) = .Fields("EMPLOYEE_FIRST_NAME").Value
+					aNameParts(1) = .Fields("EMPLOYEE_LAST_NAME").Value
+					cValues = cValues & getName(aNameParts) & "','" & _
+					FormatNumber(.Fields("SERVICE_FEE").Value) & "','" & _
+					FormatNumber(nTotalFaxFee) & "','" & _
+					FormatNumber(nTempFee) & "','" & _
+					FormatNumber(nEscalateFee) & "','" & _
+					FormatNumber(nVendorFee) & "','" & _
+					FormatNumber(CSng(.Fields("SERVICE_FEE").Value) + nTotalFaxFee + nTempFee + nEscalateFee + nVendorFee) & "'"
+				oExcel.addRow cFields, cValues
+				.MoveNext
+			else
+				exit do
+			end if
+		loop
+		if not lErrorTriggered then
+			cValues = "'SubTotal'," & _
+				"'',''," & nCalls & ",'','','','','','','','','','','" & FormatCurrency(nTotSvcFee,2) & "','','','','','" & FormatCurrency(nTotalFee) & "'"
+			oExcel.addRow cFields, cValues
+			cValues = "'','','','','','','','','','','','','','','','','','','',''"
+			oExcel.addRow cFields, cValues
+		else
+			exit do
+		end if
+		nGrandTotal = nGrandTotal + nTotalFee
+		nTotalNoCalls = nTotalNoCalls + nCalls
+	Loop
+	.Close
+end with
+cValues = "'','','','','','','','','','','','','','','','','','','',''"
+oExcel.addRow cFields, cValues
+cValues = "'Grand Total','',''," & nTotalNoCalls & ",'','','','','','','','','','','','','','','','" & FormatCurrency(nGrandTotal) & "'"
+oExcel.addRow cFields, cValues
+oExcel.closeXLS
+if not lErrorTriggered then
+	oExcel.sendFile
+end if	
+Set oRS = Nothing
+genMAC = lErrorTriggered
+end function
+
+
+sub writeError(nCallID)
+
+with response
+	  .Write "<script language=""JScript"">" & vbCRLF
+	  .Write "w = window.open("""",""error_window"",""width=500,height=300,toolbar=no,location=no,directories=no,status=no,menubar=no"")" & vbCRLF
+	  .Write "w.document.write(""<HTML>"");" & vbCRLF
+	  .Write "w.document.write(""<BODY bgColor=tomato>"");" & vbCRLF
+	  .Write "w.document.write(""<CENTER>"");" & vbCRLF
+	  .Write "w.document.write(""<H2><font size=4 face=Verdana, Tahoma, Arial>Incorrect Data Detected. The Report cannot continue:</font></H2>"");" & vbCRLF
+	  .Write "w.document.write(""<H2><font size=3 face=Verdana, Tahoma, Arial>Please correct the 'Loss Date' and rerun the report.</font></H2>"");" & vbCRLF	  
+	  .Write "w.document.write(""<TABLE border=1 cellpadding=10 bgcolor=#dddddd><TR><TD>"");" & vbCRLF
+	  .Write "w.document.write(""<font size=3 face=Verdana, Tahoma, Arial>Call ID = " & nCallID & "</font>"");" & vbCRLF
+	  .Write "w.document.write(""</TD></TR></TABLE>"");" & vbCRLF
+	  .Write "w.document.write(""<FORM id=form1 name=form1><INPUT type=button value=\"" OK \"" onclick=self.close()></FORM>"");" & vbCRLF
+	  .Write "w.document.write(""</CENTER>"");" & vbCRLF
+	  .Write "w.document.write(""</BODY>"");" & vbCRLF
+	  .Write "w.document.write(""</HTML>"");" & vbCRLF
+	  .Write "</script>" & vbCRLF
+end with	  
+end sub
+
+sub writeErrText()
+with response
+	  .Write "<script language=""JScript"">" & vbCRLF
+	  .Write "w = window.open("""",""error_window"",""width=500,height=300,toolbar=no,location=no,directories=no,status=no,menubar=no"")" & vbCRLF
+	  .Write "w.document.write(""<HTML>"");" & vbCRLF
+	  .Write "w.document.write(""<BODY bgColor=tomato>"");" & vbCRLF
+	  .Write "w.document.write(""<CENTER>"");" & vbCRLF
+	  .Write "w.document.write(""<H2><font size=4 face=Verdana, Tahoma, Arial>An error ocurred. The Report cannot continue:</font></H2>"");" & vbCRLF
+	  .Write "w.document.write(""<TABLE border=1 cellpadding=10 bgcolor=#dddddd><TR><TD>"");" & vbCRLF
+	  .Write "w.document.write(""<font size=3 face=Verdana, Tahoma, Arial>Error number = " & err.number & "</font></TD></TR>"");" & vbCRLF
+	  .Write "w.document.write(""<TR><TD><font size=3 face=Verdana, Tahoma, Arial>Error description = " & err.Description & "</font>"");" & vbCRLF
+	  .Write "w.document.write(""</TD></TR></TABLE>"");" & vbCRLF
+	  .Write "w.document.write(""<FORM id=form1 name=form1><INPUT type=button value=\"" OK \"" onclick=self.close()></FORM>"");" & vbCRLF
+	  .Write "w.document.write(""</CENTER>"");" & vbCRLF
+	  .Write "w.document.write(""</BODY>"");" & vbCRLF
+	  .Write "w.document.write(""</HTML>"");" & vbCRLF
+	  .Write "</script>" & vbCRLF
+end with	  
+end sub
+
+function getName(aParts)
+dim x,y
+
+getName = ""
+if isArray(aParts) then
+	x = uBound(aParts)
+	for y=lBound(aParts) to x
+		if not isNull(aParts(y)) then
+			getName = getName & Trim(removeSngQuote(aParts(y))) & " "
+		end if
+	next
+end if
+end function
+
+function removeSngQuote(cString)
+
+if isNull(cString) then
+	removeSngQuote = ""
+else
+	removeSngQuote = Trim(cString)
+	if InStr(1,cString,"'",1) then
+		removeSngQuote = replace(removeSngQuote,"'","''")
+	end if
+end if	
+end function
+
+' *********************************************************************
+'	FREMONT
+' *********************************************************************
+sub doFremont
+Dim cSQL
+Dim oRS
+Dim nCallCounter
+Dim nFaxCounter
+Dim nCallTotal
+Dim nFaxTotal
+Dim nPricePerCall
+Dim nMonth
+
+oExcel.writeMsg "Calculating averages for " & Request.QueryString("CUSTNAME")
+nMonth = Month(cStartDate)
+cSQL = "Select BILLING_DETAIL.CALL_TYPE,BILLING_DETAIL.STATUS From BILLING_DETAIL Where BILLING_DETAIL.CLIENT_NODE_ID = " & cAHS & " And BILLING_DETAIL.STATUS = 'ACTIVE'"
+nCallCounter = 0
+nFaxCounter = 0
+nCallTotal = 0
+nFaxTotal = 0
+
+Set oRS = oConn.Execute(cSQL)
+with oRS
+	Do While Not .EOF
+		If .Fields("CALL_TYPE").Value = "C" Then
+	        nCallCounter = nCallCounter + 1
+	    ElseIf .Fields("CALL_TYPE").Value = "F" Then
+			nFaxCounter = nFaxCounter + 1
+		End If
+		.MoveNext
+	Loop
+	.Close
+end with
+set oRS = nothing
+nCallTotal = nCallCounter * 18.5
+nFaxTotal = nFaxCounter * 12.75
+nPricePerCall = (nCallTotal + nFaxTotal) / (nCallCounter + nFaxCounter)
+If nPricePerCall > 16 Then
+    nPricePerCall = 16
+End If
+cSQL = "UPDATE BILLING_DETAIL SET BILLING_DETAIL.SERVICE_FEE = 0 Where BILLING_DETAIL.CLIENT_NODE_ID = " & cAHS & " And BILLING_DETAIL.STATUS = 'ACTIVE'"
+oConn.Execute cSQL
+cSQL = "UPDATE BILLING_DETAIL SET BILLING_DETAIL.SERVICE_FEE = " & nPricePerCall & " Where BILLING_DETAIL.CLIENT_NODE_ID = " & cAHS & " And BILLING_DETAIL.STATUS = 'ACTIVE' And BILLING_DETAIL.CALL_TYPE<>'I'"
+oConn.Execute cSQL
+end sub
+
+sub genFremontXLS
+dim cAHS, cStartDate, cSP, oRS, cSQL
+dim dRepDate, cBillID, cCustName, cCustCode
+dim cFields, cValues, cTime
+dim aNameParts(), nCalls, nTotSvcFee, nTotalFee
+dim nTotalFaxFee, nTempFee, nEscalateFee, nVendorFee
+dim nBranchNo, nNextBranchNo
+dim nGrandTotal
+dim nTotalNoCalls
+
+with Request
+	cAHS = .QueryString("AHS")
+	cStartDate = .QueryString("DATE")
+	cCustCode = .QueryString("CUSTCODE")
+	cCustName =.QueryString("CUSTNAME")
+end with
+nGrandTotal = 0
+nTotalNoCalls = 0
+'
+dRepDate = cDate("1-" & left(cStartDate,3) & "-" & right(cStartDate,4))
+cSQL = "SELECT BILLING_ID From BILLING Where accnt_hrcy_step_id=" & cAHS
+set oRS = oConn.Execute(cSQL)
+with oRS
+	cBillID = .fields(0)
+	.close
+end with	
+'
+cSQL = "SELECT BILLING_DETAIL.*, " & _
+		"CALL_BRANCH.BRANCH_NUMBER, " & _
+		"CALL_BRANCH.BRANCH_OFFICE_NUMBER, " & _
+		"CALL_BRANCH.BRANCH_OFFICE_NAME " & _
+			"FROM CALL_CLAIM, " & _		
+			"CALL_BRANCH, " & _
+			"BILLING_DETAIL " & _
+			"WHERE BILLING_DETAIL.CALL_ID = CALL_CLAIM.CALL_ID (+) " & _
+			"AND CALL_CLAIM.CALL_CLAIM_ID = CALL_BRANCH.CALL_CLAIM_ID (+) " & _
+			"AND BILLING_DETAIL.BILLING_ID = " & cBillID & _
+			" AND BILLING_DETAIL.STATUS='ACTIVE' " & _
+			"Order by CALL_BRANCH.BRANCH_NUMBER, CALL_TYPE, CALL_END_TIME"
+			
+set oRS = oConn.Execute(cSQL)
+'
+cTime = CStr(FormatDateTime( Time, vbShortTime))
+cTime = Replace(cTime, ":", "")
+cTmpFile = cCustCode & "-" & cStartDate & "-" & cTime & ".xls"
+with oExcel
+	.cDestinationFileName = cTmpFile
+	.cSourceFilename = Request.ServerVariables("APPL_PHYSICAL_PATH") & "Reports\Billing\Fremont.xls"
+	.cExcelRangeName = "ODBCRange"
+	.cDownloadDir = Request.ServerVariables("APPL_PHYSICAL_PATH") & "Reports\Download\"
+	cDownloadLocation = "http://" & Request.ServerVariables("SERVER_NAME") & "/" & FNSDesigner & "/Reports/Download"
+	.cDownloadLocation = cDownloadLocation
+	.openXLS
+	.writeMsg "Generating spreadsheet"
+	.writeCell "Account", cCustName
+	.writeCell "Period", Left(cStartDate,3) & " " & right(cStartDate,4)
+end with	
+cFields = "Branch_Name,Branch_No,Call_No,T,Status,Loss_Dt,Call_Dt,Claim_No,LOB,Policy_No,Risk_Location,Caller_Name,Employee_Name,Service,Total_Fax,Temp,Escalate,Vendor,Total"
+with oRS
+	Do While Not .EOF
+		if isNull(.Fields("BRANCH_NUMBER").Value) then
+			nBranchNo = ""
+		else
+			nBranchNo = .Fields("BRANCH_NUMBER").Value
+		end if
+		nCalls = 0
+		nTotSvcFee = 0
+		nTotalFee = 0
+		do while Not .EOF 
+			if isNull(.Fields("BRANCH_NUMBER").Value) then
+				nNextBranchNo = ""
+			else
+				nNextBranchNo = .Fields("BRANCH_NUMBER").Value
+			end if
+			if nBranchNo = nNextBranchNo then
+				nCalls = nCalls + 1
+				nTotalFaxFee = CSng(.Fields("TOTAL_FAX_FEE").Value)
+				nTempFee = CSng(.Fields("TEMP_FEE").Value)
+				nEscalateFee = cSng(.Fields("ESCALATE_FEE").Value)
+				nVendorFee = CSng(.Fields("VENDOR_FEE").Value)
+				nTotSvcFee = nTotSvcFee + CSng(.Fields("SERVICE_FEE").Value)
+				nTotalFee = nTotalFee + CSng(.Fields("SERVICE_FEE").Value) + nTotalFaxFee + nTempFee + nEscalateFee + nVendorFee
+				cValues =	"'" & removeSngQuote(.Fields("BRANCH_OFFICE_NAME").Value) & "','" & _
+					.Fields("BRANCH_NUMBER").Value & "'," & _
+					CStr(.Fields("Call_ID").Value) & ",'" & _
+					.Fields("Call_Type").Value & "','" & _
+					.Fields("CALLSTATUS").Value & "','"
+					if isNull(.Fields("LOSS_DATE").Value) then
+						cValues = cValues & ""
+					else
+						cValues = cValues & .Fields("LOSS_DATE").Value
+					end if
+					cValues = cValues & "','" & _
+					CStr(.Fields("CALL_END_TIME").Value) & "','"
+					if isNull(.Fields("CLAIM_NUMBER").Value) then
+						cValues = cValues & ""
+					else
+						cValues = cValues & .Fields("CLAIM_NUMBER").Value
+					end if
+					cValues = cValues & "','" & _
+					.Fields("LOB_CD").Value & "','"
+					if isNull(.Fields("POLICY_NUMBER").Value) then
+						cValues = cValues & ""
+					else
+						cValues = cValues & .Fields("POLICY_NUMBER").Value
+					end if
+					cValues = cValues & "','" & _
+					removeSngQuote(.Fields("ACCOUNT_NAME").Value) & "','"
+					redim aNameParts(1)
+					aNameParts(0) = .Fields("CALLER_FIRST_NAME").Value
+					aNameParts(1) = .Fields("CALLER_LAST_NAME").Value
+					cValues = cValues & getName(aNameParts) & "','"
+					redim aNameParts(1)
+					aNameParts(0) = .Fields("EMPLOYEE_FIRST_NAME").Value
+					aNameParts(1) = .Fields("EMPLOYEE_LAST_NAME").Value
+					cValues = cValues & getName(aNameParts) & "','" & _
+					FormatNumber(.Fields("SERVICE_FEE").Value) & "','" & _
+					FormatNumber(nTotalFaxFee) & "','" & _
+					FormatNumber(nTempFee) & "','" & _
+					FormatNumber(nEscalateFee) & "','" & _
+					FormatNumber(nVendorFee) & "','" & _
+					FormatNumber(CSng(.Fields("SERVICE_FEE").Value) + nTotalFaxFee + nTempFee + nEscalateFee + nVendorFee) & "'"
+				oExcel.addRow cFields, cValues
+				.MoveNext
+			else
+				exit do
+			end if
+		loop
+		nGrandTotal = nGrandTotal + nTotalFee
+		nTotalNoCalls = nTotalNoCalls + nCalls
+		cValues = "'SubTotal'," & nCalls & ",'','','','','','','','','','','','" & FormatCurrency(nTotSvcFee) & "','','','','','" & FormatCurrency(nTotalFee) & "'"
+		oExcel.addRow cFields, cValues
+		cValues = "'','','','','','','','','','','','','','','','','','',''"
+		oExcel.addRow cFields, cValues
+	Loop
+	.Close
+end with
+cValues = "'','','','','','','','','','','','','','','','','','',''"
+oExcel.addRow cFields, cValues
+cValues = "'Grand Total','" & nTotalNoCalls & "','','','','','','','','','','','','','','','','','" & FormatCurrency(nGrandTotal) & "'"
+oExcel.addRow cFields, cValues
+with oExcel
+	.closeXLS
+	.sendFile
+end with
+Set oRS = Nothing
+end sub
+%>

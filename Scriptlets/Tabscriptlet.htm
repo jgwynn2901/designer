@@ -1,0 +1,196 @@
+<html>
+<head>
+<meta NAME="GENERATOR" Content="Microsoft Developer Studio">
+<title>Tab Scriptlet</title>
+<link rel="stylesheet" type="text/css" href="..\FNSDESIGN.css">
+
+<script LANGUAGE="JavaScript">
+
+////Globals:
+
+var nCurrentTabNum = -1;
+var nPreviousTabNum = -1;
+var oCurrentTab;
+var oTabBase;
+var lFirstFlag = true;
+
+
+//a public function that the container uses to pass in values for the labels
+function public_labels(cLabel1, nWidth1, lEnabled1, cLabel2, nWidth2, lEnabled2, cLabel3, nWidth3, lEnabled3, cLabel4, nWidth4, lEnabled4, cLabel5, nWidth5, lEnabled5, cLabel6, nWidth6, lEnabled6, cLabel7, nWidth7, lEnabled7)
+{
+	if (cLabel1 != "")
+	{
+		t1.innerText = cLabel1;
+		t1.width = nWidth1;
+		t1.disabled = !lEnabled1;
+	}
+
+	if (cLabel2 != "")
+	{
+		t2.innerText = cLabel2;
+		t2.width = nWidth2;
+		t2.disabled = !lEnabled2;
+	}
+
+	if (cLabel3 != "")
+	{
+		t3.innerText = cLabel3;
+		t3.width = nWidth3;
+		t3.disabled = !lEnabled3;
+	}
+
+	if (cLabel4 != "")
+	{
+		t4.innerText = cLabel4;
+		t4.width = nWidth4;
+		t4.disabled = !lEnabled4;
+	}
+
+	if (cLabel5 != "")
+	{
+		t5.innerText = cLabel5;
+		t5.width = nWidth5;
+		t5.disabled = !lEnabled5;
+	}
+
+	if (cLabel6 != "")
+	{
+		t6.innerText = cLabel6;
+		t6.width = nWidth6;
+		t6.disabled = !lEnabled6;
+	}
+	if (cLabel7 != "")
+	{
+		t7.innerText = cLabel7;
+		t7.width = nWidth7;
+		t7.disabled = !lEnabled7;
+	}
+}
+
+
+function public_getPreviousTabNum()
+{
+	return nPreviousTabNum;
+}	
+
+function public_getCurrentTabNum()
+{
+	return nCurrentTabNum;
+}	
+
+function changeTabs(){
+
+	var nTabBaseID;
+	
+	if(lFirstFlag == true){
+		oCurrentTab = t1;
+		oTabBase = t1base;
+		lFirstFlag = false;
+	}
+
+	if (window.event.srcElement.className == "tab")
+		{
+		if (!window.event.srcElement.disabled)
+			{
+			oCurrentTab.className = "tab";
+			oTabBase.style.backgroundColor = "white";
+
+			oCurrentTab = window.event.srcElement;
+			nTabBaseID = oCurrentTab.id + "base";
+			oTabBase = document.all(nTabBaseID);
+
+			oCurrentTab.className = "selTab";		
+			oTabBase.style.backgroundColor = "";
+
+			var str = new String(oCurrentTab.id);
+
+			nPreviousTabNum = nCurrentTabNum;
+			nCurrentTabNum = str.charAt(1);
+
+			if (!window.external.frozen)
+				window.external.raiseEvent("OnTabClick", nCurrentTabNum);
+			delete str;
+			}
+		}
+}
+
+function public_enableTab(nIndex)
+{
+	var cCurTabID = "t" + nIndex;
+	document.all(cCurTabID).disabled = false;
+}
+
+function public_disableTab(nIndex)
+{
+	var cCurTabID = "t" + nIndex;
+	document.all(cCurTabID).disabled = true;
+}
+
+function public_setActiveTab(nIndex)
+{
+	var nTabBaseID;
+
+	if(lFirstFlag == true){
+		oCurrentTab = t1;
+		oTabBase = t1base;
+		lFirstFlag = false;
+	}
+
+	var cCurrTabID = "t" + nIndex
+	var oNewTab = document.all(cCurrTabID)
+	
+	if (!oNewTab.disabled)
+		{
+		if ((null != oNewTab) && (null != oCurrentTab))
+			{
+			oCurrentTab.className = "tab";
+
+			oTabBase.style.backgroundColor = "white";
+			oCurrentTab = oNewTab;
+			nTabBaseID = oCurrentTab.id + "base";
+			oTabBase = document.all(nTabBaseID);
+			oCurrentTab.className = "selTab";		
+			oTabBase.style.backgroundColor = "";
+
+			var str = new String(oCurrentTab.id);
+
+			if (-1 == nCurrentTabNum)
+				nPreviousTabNum = str.charAt(1);
+			else
+				nPreviousTabNum = nCurrentTabNum;
+
+			nCurrentTabNum = str.charAt(1);
+			delete str;
+			}
+		}
+}
+</script>
+</head>
+<body onclick="changeTabs()" BGCOLOR="#d6cfbd">
+<table height="100%" CELLPADDING="0" CELLSPACING="0" STYLE="position:absolute; top:4; left:0">
+	<tr>
+		<td width=2>&nbsp;</td>
+		<td ID="t1" CLASS="selTab" HEIGHT="20"></td>
+		<td ID="t2" CLASS="tab"></td>
+		<td ID="t3" CLASS="tab"></td>
+		<td ID="t4" CLASS="tab"></td>
+		<td ID="t5" CLASS="tab"></td>
+		<td ID="t6" CLASS="tab"></td>
+		<td ID="t7" CLASS="tab"></td>
+	</tr>
+	<tr>
+		<td STYLE="height:1; background-color:white"></td>
+		<td ID="t1base" STYLE="height:1; border-left:solid thin white"></td>
+		<td ID="t2base" STYLE="height:1; background-color:white"></td>
+		<td ID="t3base" STYLE="height:1; background-color:white"></td>
+		<td ID="t4base" STYLE="height:1; background-color:white"></td>
+		<td ID="t5base" STYLE="height:1; background-color:white"></td>
+		<td ID="t6base" STYLE="height:1; background-color:white"></td>
+		<td ID="t7base" STYLE="height:1; background-color:white"></td>	
+	</tr>
+	<td span=8>&nbsp;</td>
+	<tr>
+	</tr>
+</table>
+</body>
+</html>

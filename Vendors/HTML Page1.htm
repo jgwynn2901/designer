@@ -1,0 +1,193 @@
+<HTML>
+<HEAD>
+<META NAME="GENERATOR" Content="Microsoft Visual Studio 6.0">
+<meta name="VI60_defaultClientScript" content="VBScript">
+<title>Branch Details</title>
+<link rel="stylesheet" type="text/css" href="..\FNSDESIGN.css">
+<TITLE></TITLE>
+<script language=vbscript>
+sub Control_OnChange
+
+		for i=1 to 7
+			if ServiceDays.rows(1).cells(i).children(0).checked then
+				if len(cResult) <> 0 then
+					cResult = cResult & ";"
+				end if 
+				cResult = cResult & UCase(ServiceDays.rows(0).cells(i).innerText)
+				cResult = ServiceDays.rows(2).cells(i).children(0).innerText
+			end if
+		next
+
+end sub
+</script>
+</HEAD>
+
+<body topmargin="0" leftmargin="0" rightmargin="0" BGCOLOR="<%=BODYBGCOLOR%>" ScreenDirty="NO" ScreenMode="<%=Request.QueryString("MODE")%>">
+<table WIDTH="100%" CELLPADDING="0" CELLSPACING="0">
+<tr><td colspan="2" HEIGHT="4"></td></tr>
+<tr><td CLASS="GrpLabel" WIDTH="134" HEIGHT="10"><nobr>&nbsp;» Vendor Details&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img SRC="../Images/HelpIcon2.gif" STYLE="CURSOR:HAND" align="absmiddle" title="Help" OnClick="LaunchHelp(&quot;Welcome.htm&quot;)" WIDTH="7" HEIGHT="8"></td>
+<td HEIGHT="5" ALIGN="LEFT">
+<table CELLPADDING="0" CELLSPACING="0" HEIGHT="100%">
+<tr><td WIDTH="3" HEIGHT="4"></td><td WIDTH="300" HEIGHT="4"></td></tr>
+<tr><td CLASS="GrpLabelDrk" WIDTH="3" HEIGHT="8" VALIGN="BOTTOM" ALIGN="LEFT"></td>
+<td WIDTH="300" HEIGHT="8"></td></tr>
+</table></td></tr>
+<tr><td CLASS="GrpLabelLine" colspan="2" HEIGHT="1"></td></tr>
+<tr><td colspan="2" HEIGHT="1"></td></tr>
+</table>
+
+<form Name="FrmDetails" METHOD="POST" ACTION="VendorSave.asp" TARGET="hiddenPage">
+<table>
+<tr>
+<td VALIGN="CENTER" WIDTH="5">
+<img ID="StatusRpt" SRC="..\images\StatusRpt.gif" width="16" height="16" VALIGN="CENTER" ALT="View Status Report">
+</td>
+<td width="485">
+:<span VALIGN="CENTER" ID="SpanStatus" STYLE="COLOR:#006699" CLASS="LABEL">Ready</span>
+</td>
+</tr>
+</table>
+
+<table class="LABEL">
+<tr>
+<td COLSPAN="4">Vendor ID:&nbsp;<span id="spanBID"><%=Request.QueryString("VID")%></span></td>
+</tr> 
+
+<tr>
+<td >Name:<br><input size="25" ScrnInput="TRUE" CLASS="LABEL" MAXLENGTH="30" TYPE="TEXT" NAME="TxtName" VALUE="<%=RS_NAME%>" ONKEYPRESS="VBScript::Control_OnChange" ONCHANGE="VBScript::Control_OnChange"></td>
+<td>Owner name:<br><input ScrnInput="TRUE" size="12" CLASS="LABEL" MAXLENGTH="20" TYPE="TEXT" NAME="TxtOwner" VALUE="<%=RS_OWNER%>" ONKEYPRESS="VBScript::Control_OnChange" ONCHANGE="VBScript::Control_OnChange"></td>
+<td colspan=4>Manager name:<br><input ScrnInput="TRUE" size="12" CLASS="LABEL" MAXLENGTH="20" TYPE="TEXT" NAME="TxtManager" VALUE="<%=RS_MANAGER%>" ONKEYPRESS="VBScript::Control_OnChange" ONCHANGE="VBScript::Control_OnChange"></td>
+</tr>
+
+<tr>
+<td >Address 1:<br><input ScrnInput="TRUE" size="25" CLASS="LABEL" MAXLENGTH="45" TYPE="TEXT" NAME="TxtAddress1" VALUE="<%=RS_ADDRESS1%>" ONKEYPRESS="VBScript::Control_OnChange" ONCHANGE="VBScript::Control_OnChange"></td>
+<td>Address 2:<br><input size="25" ScrnInput="TRUE" CLASS="LABEL" MAXLENGTH="45" TYPE="TEXT" NAME="TxtAddress2" VALUE="<%=RS_ADDRESS2%>" ONKEYPRESS="VBScript::Control_OnChange" ONCHANGE="VBScript::Control_OnChange"></td>
+<td>ZIP:<br><input size="6" ScrnInput="TRUE" CLASS="LABEL" MAXLENGTH="10" TYPE="TEXT" NAME="TxtZIP" VALUE="<%=RS_ZIP%>" ONKEYPRESS="VBScript::Control_OnChange" ONCHANGE="VBScript::Control_OnChange"></td>
+<td>City:<br><input CLASS="READONLY" TABINDEX=-1 READONLY MAXLENGTH="20" TYPE="TEXT" NAME="TxtCity" VALUE="<%=RS_CITY%>" ></td>
+<td colspan=2>State:<br><input CLASS="READONLY" TABINDEX=-1 READONLY MAXLENGTH="3" SIZE=3 TYPE="TEXT" NAME="TxtState" VALUE="<%=RS_STATE%>" ></td>
+</tr>
+
+<tr> 
+<td >Billing address 1:<br><input ScrnInput="TRUE" size="25" CLASS="LABEL" MAXLENGTH="45" TYPE="TEXT" NAME="TxtBillingAddress1" VALUE="<%=RS_BILLINGADDRESS1%>" ONKEYPRESS="VBScript::Control_OnChange" ONCHANGE="VBScript::Control_OnChange"></td>
+<td>Billing address 2:<br><input ScrnInput="TRUE" size="25" CLASS="LABEL" MAXLENGTH="45" TYPE="TEXT" NAME="TxtBillingAddress2" VALUE="<%=RS_BILLINGBADDRESS2%>" ONKEYPRESS="VBScript::Control_OnChange" ONCHANGE="VBScript::Control_OnChange"></td>
+<td>Billing ZIP:<br><input size="6" ScrnInput="TRUE" CLASS="LABEL" MAXLENGTH="10" TYPE="TEXT" NAME="TxtBillingZIP" VALUE="<%=RS_BILLINGZIP%>" ONKEYPRESS="VBScript::Control_OnChange" ONCHANGE="VBScript::Control_OnChange"></td>
+<td>Billing city:<br><input CLASS="READONLY" TABINDEX=-1 READONLY MAXLENGTH="20" TYPE="TEXT" NAME="TxtBillingCity" VALUE="<%=RS_BILLINGCITY%>" ></td>
+<td colspan=2>Billing state:<br><input CLASS="READONLY" TABINDEX=-1 READONLY MAXLENGTH="3" SIZE=3 TYPE="TEXT" NAME="TxtBillingState" VALUE="<%=RS_BILLINGSTATE%>" ></td>
+</tr>
+
+<tr>
+<td >Phone:<br><input size="16" ScrnInput="TRUE" CLASS="LABEL" TYPE="TEXT" NAME="TxtPhone" VALUE="<%=RS_PHONE%>" ONKEYPRESS="VBScript::Control_OnChange" ONCHANGE="VBScript::Control_OnChange"></td>
+<td colspan=2>After hours phone:<br><input size="16" ScrnInput="TRUE" CLASS="LABEL" TYPE="TEXT" NAME="TxtAfterHoursPhone" VALUE="<%=RS_AFTERHOURSPHONE%>" ONKEYPRESS="VBScript::Control_OnChange" ONCHANGE="VBScript::Control_OnChange"></td>
+<td>Fax:<br><input size="16" ScrnInput="TRUE" CLASS="LABEL" TYPE="TEXT" NAME="TxtFax" VALUE="<%=RS_FAX%>" ONKEYPRESS="VBScript::Control_OnChange" ONCHANGE="VBScript::Control_OnChange"></td>
+<td colspan=2>Email:<br><input size=15 ScrnInput="TRUE" CLASS="LABEL" MAXLENGTH="20" TYPE="TEXT" NAME="TxtEmail" VALUE="<%=RS_EMAIL%>" ONKEYPRESS="VBScript::Control_OnChange" ONCHANGE="VBScript::Control_OnChange"></td>
+</tr>
+
+<tr>
+<td>Beeper phone:<br><input size="16" ScrnInput="TRUE" CLASS="LABEL"  TYPE="TEXT" NAME="TxtBeeperPhone" VALUE="<%=RS_BEEPERPHONE%>" ONKEYPRESS="VBScript::Control_OnChange" ONCHANGE="VBScript::Control_OnChange"></td>
+<td colspan=2>Pager phone:<br><input size="16" ScrnInput="TRUE" CLASS="LABEL"  TYPE="TEXT" NAME="TxtPagerPhone" VALUE="<%=RS_PAGERPHONE%>" ONKEYPRESS="VBScript::Control_OnChange" ONCHANGE="VBScript::Control_OnChange"></td>
+<td colspan=3>Max. service radius:<br><input size=5 ScrnInput="TRUE" CLASS="LABEL" MAXLENGTH="10" TYPE="TEXT" NAME="TxtServiceRadius" VALUE="<%=RS_SERVICERADIUS%>" ONKEYPRESS="VBScript::Control_OnChange" ONCHANGE="VBScript::Control_OnChange"></td>
+</tr>
+
+<tr> 
+<td >State license no.:<br><input size=10 ScrnInput="TRUE" CLASS="LABEL" MAXLENGTH="15" TYPE="TEXT" NAME="TxtStateLicense" VALUE="<%=RS_STATELICENSE%>" ONKEYPRESS="VBScript::Control_OnChange" ONCHANGE="VBScript::Control_OnChange"></td>
+<td colspan=5>City license no.:<br><input size="10" ScrnInput="TRUE" CLASS="LABEL" MAXLENGTH="15" TYPE="TEXT" NAME="TxtCityLicense" VALUE="<%=RS_CITYLICENSE%>" ONKEYPRESS="VBScript::Control_OnChange" ONCHANGE="VBScript::Control_OnChange"></td>
+</tr>
+
+<tr>
+<td colspan=3>
+<div align="LEFT" style="display:block;height:94px;width:320px;overflow:auto">
+	<table border="1" class="LABEL" ID="tblFields" name="tblFields" width="100%" >
+	<tr align="left">
+		<th ><nobr>Service type</th>
+		<th ><nobr>Description</th>
+		<th ><nobr>Provided</th>
+	</tr>
+	<tbody ID="TableRows">
+	<tr ID="FieldRow" CLASS="ResultRow" DYNKEY="1" OnClick="Javascript:multiselect(this);"  BID=120>
+		<td NOWRAP CLASS="ResultCell">1<%=renderCell(RS("BRANCH_ID"))%></td>
+		<td NOWRAP CLASS="ResultCell">2<%=renderCell(RS("BRANCH_NUMBER"))%></td>
+		<td NOWRAP CLASS="ResultCell"><input type="checkbox" ></td>
+	</tr>
+	<tr ID="FieldRow" CLASS="ResultRow" DYNKEY="1" OnClick="Javascript:multiselect(this);"  BID=130>
+		<td NOWRAP CLASS="ResultCell">1<%=renderCell(RS("BRANCH_ID"))%></td>
+		<td NOWRAP CLASS="ResultCell">2<%=renderCell(RS("BRANCH_NUMBER"))%></td>
+		<td NOWRAP CLASS="ResultCell"><input type="checkbox" checked></td>
+	</tr>
+	</tbody>
+	</table>
+</div>
+</td>
+
+<td colspan="3">
+<table border="1" class="LABEL" COLSPAN="4" ID="ServiceDays" name="ServiceDays">
+  <tr>
+    <td>&nbsp;</td>
+    <th align="center">Mon</th>
+    <th align="center">Tue</th>
+    <th align="center">Wed</th>
+    <th align="center">Thu</th>
+    <th align="center">Fri</th>
+    <th align="center">Sat</th>
+    <th align="center">Sun</th>
+  </tr>
+  <tr>
+    <td>Open</td>
+    <td align="center"><input type="checkbox" name="chkOpenMon" value="<%=RS_OPENMON%>" ONCLICK="VBScript::Control_OnChange"></td>
+    <td align="center"><input type="checkbox" name="chkOpenTue" value="<%=RS_OPENTUE%>"></td>
+    <td align="center"><input type="checkbox" name="chkOpenWed" value="<%=RS_OPENWED%>"></td>
+    <td align="center"><input type="checkbox" name="chkOpenThu" value="<%=RS_OPENTHU%>"></td>
+    <td align="center"><input type="checkbox" name="chkOpenFri" value="<%=RS_OPENFRI%>"></td>
+    <td align="center"><input type="checkbox" name="chkOpenSat" value="<%=RS_OPENSAT%>"></td>
+    <td align="center"><input type="checkbox" name="chkOpenSun" value="<%=RS_OPENSUN%>"></td>
+  </tr>
+  <tr>
+    <td>Opens at</td>
+    <td align="center"><input type="text" CLASS="LABEL" name="txtOpensAtMon" value="8:30" size="5"></td>
+    <td align="center"><input type="text" CLASS="LABEL" name="txtOpensAtTue" value="<%=RS_OPENSATTUE%>" size="5"></td>
+    <td align="center"><input type="text" CLASS="LABEL" name="txtOpensAtWed" value="<%=RS_OPENSATWED%>" size="5"></td>
+    <td align="center"><input type="text" CLASS="LABEL" name="txtOpensAtThu" value="<%=RS_OPENSATTHU%>" size="5"></td>
+    <td align="center"><input type="text" CLASS="LABEL" name="txtOpensAtFri" value="<%=RS_OPENSATFRI%>" size="5"></td>
+    <td align="center"><input type="text" CLASS="LABEL" name="txtOpensAtSat" value="<%=RS_OPENSATSAT%>" size="5"></td>
+    <td align="center"><input type="text" CLASS="LABEL" name="txtOpensAtSun" value="<%=RS_OPENSATSUN%>" size="5"></td>
+  </tr>
+  <tr>
+    <td>Closes at</td>
+    <td align="center"><input type="text" CLASS="LABEL" name="txtClosesAtMon" value="<%=RS_CLOSESATMON%>" size="5"></td>
+    <td align="center"><input type="text" CLASS="LABEL" name="txtClosesAtTue" value="<%=RS_CLOSESATTUE%>" size="5"></td>
+    <td align="center"><input type="text" CLASS="LABEL" name="txtClosesAtWed" value="<%=RS_CLOSESATWED%>" size="5"></td>
+    <td align="center"><input type="text" CLASS="LABEL" name="txtClosesAtThu" value="<%=RS_CLOSESATTHU%>" size="5"></td>
+    <td align="center"><input type="text" CLASS="LABEL" name="txtClosesAtFri" value="<%=RS_CLOSESATFRI%>" size="5"></td>
+    <td align="center"><input type="text" CLASS="LABEL" name="txtClosesAtSat" value="<%=RS_CLOSESATSAT%>" size="5"></td>
+    <td align="center"><input type="text" CLASS="LABEL" name="txtClosesAtSun" value="<%=RS_CLOSESATSUN%>" size="5"></td>
+  </tr>
+</table>
+</td>
+</tr>
+
+
+<tr>
+<td colspan=6>
+<input type="checkbox" name="chkPayWithCC" checked=true>Pay w/Credit card
+</td>
+</tr>
+
+<tr>
+<td colspan=4>
+<input type="checkbox" name="chkPayWithCheck" value="<%=RS_PAYWITHCHECK%>">Pay w/Check
+</td>
+<td colspan="2">
+<input type="checkbox" name="chkEnabled" value="<%=RS_ENABLED%>">Enabled
+</td>
+</tr>
+
+<tr>
+<td colspan=6>Notes:<br><input size="60" ScrnInput="TRUE" CLASS="LABEL" MAXLENGTH="100" TYPE="TEXT" NAME="TxtNotes" VALUE="<%=RS_NOTES%>"></td>
+</tr>
+
+</table>
+
+
+<P>&nbsp;</P>
+
+</BODY>
+</HTML>

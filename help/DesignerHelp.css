@@ -1,0 +1,119 @@
+
+ /* $MVD$:color("18","e1ffff","MS Soft Yellow","0") */
+ /* $MVD$:color("19","408000","Concentra Green","0") */
+ /* $MVD$:color("20","4000","Concentra 2","0") */
+ /* $MVD$:color("21","996600","Custom #1","0") */
+ /* $MVD$:fontset("Verdana","Verdana") */
+ P { font-family : "Verdana";
+     font-style : normal;
+     font-variant : normal;
+     font-weight : lighter;
+     font-size : 8.0pt;
+     background-color : white;
+     text-decoration : none;
+     text-transform : none;
+     text-align : left;
+     list-style-type : square;
+     list-style-image : none;
+     border : none;
+     vertical-align : baseline;
+     word-spacing : normal;
+     letter-spacing : normal;
+     padding : 1.0pt;}
+ .mvd-P { font-family : "Verdana";
+          font-style : normal;
+          font-variant : normal;
+          font-weight : lighter;
+          font-size : 8.0pt;
+          background-color : white;
+          text-decoration : none;
+          text-transform : none;
+          text-align : left;
+          list-style-type : square;
+          list-style-image : none;
+          vertical-align : baseline;
+          word-spacing : normal;
+          letter-spacing : normal;
+          padding : 1.0pt;}
+ H1 { font-family : "Verdana";
+      font-weight : bold;
+      font-size : 10.0pt;
+      background-color : transparent;
+      text-transform : none;
+      color : #006699;
+      vertical-align : baseline;}
+ .mvd-H1 { font-family : "Verdana";
+           font-weight : bold;
+           font-size : 10.0pt;
+           background-color : transparent;
+           text-transform : none;
+           color : #006699;
+           vertical-align : baseline;}
+ H2 { font-family : "Verdana";
+      font-weight : bold;
+      font-size : 8.0pt;
+      text-transform : none;
+      color : #006699;
+      vertical-align : baseline;}
+ .mvd-H2 { font-family : "Verdana";
+           font-weight : bold;
+           font-size : 8.0pt;
+           text-transform : none;
+           color : #006699;
+           vertical-align : baseline;}
+ BODY { background-color : white;}
+ .mvd-BODY { background-color : white;}
+ H3 { font-family : "Verdana";
+      font-size : 8.0pt;
+      color : #006699;}
+ .mvd-H3 { font-family : "Verdana";
+           font-size : 8.0pt;
+           color : #006699;}
+ A:link { font-family : "Verdana";
+          font-size : 8.0pt;
+          color : #006699;}
+ A:visited { font-family : "Verdana";
+             font-size : 8.0pt;
+             color : #006699;}
+ A:active { }
+ H4 { font-family : "Verdana";
+      font-weight : bold;
+      font-size : 8.0pt;
+      color : black;}
+ .mvd-H4 { font-family : "Verdana";
+           font-weight : bold;
+           font-size : 8.0pt;
+           color : black;}
+ CITE.expandspot { font-style : normal;
+                   font-weight : normal;
+                   text-decoration :underline;
+                   color : green;
+                   cursor: hand;}
+ .mvd-CITE-expandspot { font-style : normal;
+                        font-weight : normal;
+                        text-decoration :underline;
+                        color : green;
+                        cursor: hand;}
+ DFN.collapsed { font-style : italic;
+                 font-weight : normal;
+                 display :              'none';
+                 color : red;}
+ .mvd-DFN-collapsed { font-style : italic;
+                      font-weight : normal;
+                      display :              'none';
+                      color : red;}
+ DFN.expanded { font-style : normal;
+                font-weight : normal;
+                color : green;}
+ .mvd-DFN-expanded { font-style : normal;
+                     font-weight : normal;
+                     color : green;}
+ EM.dropspot { font-style : normal;
+               text-decoration : none;
+               color : green;
+               cursor: hand;}
+ .mvd-EM-dropspot { font-style : normal;
+                    text-decoration : none;
+                    color : green;
+                    cursor: hand;}
+ 
