@@ -148,15 +148,7 @@
                     BuildAction = "Compile"
                     DesignTime = "True"
                     AutoGen = "True"
-                />
-                <File
-                    RelPath = "Copy of Agent.vb"
-                    DependentUpon = "AgentM.rpt"
-                    SubType = "Component"
-                    BuildAction = "Compile"
-                    DesignTime = "True"
-                    AutoGen = "True"
-                />
+                />              
                 <File
                     RelPath = "AgentY.rpt"
                     BuildAction = "EmbeddedResource"
