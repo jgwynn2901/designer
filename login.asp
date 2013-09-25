@@ -420,7 +420,7 @@ if (top.frames.length > 0)
 			</tr>
 			<tr>
 				<td class="copyright">Copyright 1998-<%=YEAR(Now)%>, Innovation First Notice,
-				Inc. - All rights reserved. Version 2.65</td>
+				Inc. - All rights reserved. Version 2.66</td>
 			</tr>
 		</table>
 		</td>
