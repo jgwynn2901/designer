@@ -245,8 +245,12 @@ If AHSID <> "" Then
 			if RS.Fields("FIELD_NAME") = "CLAIM:ACCOUNT:POLICY_LOOKUP_STATE" Then
 				RSOLICY_LOOKUP_STATE = RS.Fields("FIELD_VALUE")
 			end if
-			
-' END MMAI-0023
+						
+			'BCAB-0906
+			if RS.Fields("FIELD_NAME") = "CLAIM:ACCOUNT:MASK_SSN" Then
+				RSMASK_SSN = RS.Fields("FIELD_VALUE")
+			end if
+
 			RS.Movenext
 		Wend
 		End If
@@ -1245,7 +1249,12 @@ rs_Type.Close
 		<input TYPE="CHECKBOX" ID = "CH_SECURE_EMAIL" ScrnBtn="TRUE" NAME="CH_SECURE_EMAIL" <%if RSSECURE_EMAIL="Y" then Response.write "checked"%> CLASS="LABEL" OnCLick="VBScript::Control_OnChange" ONCHANGE="VBScript::Control_OnChange">
 		Secure E-Mail</td>
 	</tr>
+	<tr>
+		<td CLASS="LABEL" VALIGN="BOTTOM">
+		<input TYPE="CHECKBOX" ID = "CH_MASK_SSN" ScrnBtn="TRUE" NAME="CH_MASK_SSN" <%if RSMASK_SSN="Y" then Response.write "checked"%> CLASS="LABEL" OnCLick="VBScript::Control_OnChange" ONCHANGE="VBScript::Control_OnChange">
+		Mask SSN</td>
 
+	</tr>
 	<tr>
 	<td CLASS="LABEL" VALIGN="BOTTOM">Account Type:
 <select NAME="ACCOUNT_TYPE" STYLE="WIDTH:100" ScrnBtn="TRUE" CLASS="LABEL" ONKEYPRESS="VBScript::Control_OnChange" ONCHANGE="VBScript::Control_OnChange">

@@ -14,8 +14,8 @@ DIM oRS, rs_UpdateParent, cAHS,ahs_field_name,ahs_field_value
 'Prashant Shekhar 05/21/2007
 'Declare the variables to be used by the functions.
 
-Dim rs,temp,tele_claim_value,cat_loss_value,expo_ppo_value,fist_script_value,tcm_ind_value,triage_ind_value,acc_rec_value,gen_rout_value,spec_lost_time_value,spec_med_value,osha_recordable_value,longshore_value,edi_value,severity_value,monopolistic_value,selfadminindicator_value,srsclient_value,fromdatetip_value,todatetip_value,account_type_value,employer_report_level_value,ro_override_value,secure_email_value,policy_lookup_state_value
-Dim tele_claim_field,cat_loss_field,expo_ppo_field,fist_script_field,tcm_ind_field,triage_ind_field,acc_rec_field,gen_rout_field,spec_lost_time_field,spec_med_field,osha_recordable_field,longshore_field,edi_field,severity_field,monopolistic_field,selfadminindicator_field,srsclient_field,fromdatetip_field,todatetip_field,account_type_field,employer_report_level_field,ro_override_field,secure_email_field,policy_lookup_state_field
+Dim rs,temp,tele_claim_value,cat_loss_value,expo_ppo_value,fist_script_value,tcm_ind_value,triage_ind_value,acc_rec_value,gen_rout_value,spec_lost_time_value,spec_med_value,osha_recordable_value,longshore_value,edi_value,severity_value,monopolistic_value,selfadminindicator_value,srsclient_value,fromdatetip_value,todatetip_value,account_type_value,employer_report_level_value,ro_override_value,secure_email_value,policy_lookup_state_value,mask_ssn_value
+Dim tele_claim_field,cat_loss_field,expo_ppo_field,fist_script_field,tcm_ind_field,triage_ind_field,acc_rec_field,gen_rout_field,spec_lost_time_field,spec_med_field,osha_recordable_field,longshore_field,edi_field,severity_field,monopolistic_field,selfadminindicator_field,srsclient_field,fromdatetip_field,todatetip_field,account_type_field,employer_report_level_field,ro_override_field,secure_email_field,policy_lookup_state_field,mask_ssn_field
 
 ACTION = Request.Form("TxtAction")
 cSQL = Request.Form("TxtSaveData")
@@ -217,11 +217,11 @@ If ACTION = "UPDATE" Then
 
 				'*********** KFAB-0808 ***********
 
-					account_type_value = Request.Form("ACCOUNT_TYPE")
-					account_type_field = "CLAIM:ACCOUNT:ACCOUNT_TYPE"
-					Insert_Update account_type_field,account_type_value
+				account_type_value = Request.Form("ACCOUNT_TYPE")
+				account_type_field = "CLAIM:ACCOUNT:ACCOUNT_TYPE"
+				Insert_Update account_type_field,account_type_value
 
-					'***********  END of KFAB-0808 ***********
+				'***********  END of KFAB-0808 ***********
 
 				employer_report_level_value = Request.Form("SEL_EMPLOYER_REPORT_LEVEL")
 				employer_report_level_field= "CLAIM:ACCOUNT:EMPLOYER_REPORT_LEVEL"
@@ -236,6 +236,12 @@ If ACTION = "UPDATE" Then
 				Insert_Update policy_lookup_state_field,policy_lookup_state_value
 
 				'***********  END of BCAB-0772 ***********
+				
+				'*********** BCAB-0906 ***********
+				mask_ssn_value = Swap(Request.Form("CH_MASK_SSN"))
+				mask_ssn_field= "CLAIM:ACCOUNT:MASK_SSN"
+				Insert_Update mask_ssn_field,mask_ssn_value
+				'*********** END BCAB-0906 ***********
 		end if
 	end if
 
@@ -423,7 +429,12 @@ Elseif ACTION = "INSERT" Then
 					Insert_New policy_lookup_state_field,policy_lookup_state_value
 
 					'***********  END of BCAB-0772 ***********
-
+					
+					'*********** BCAB-0906 ***********
+					mask_ssn_value = Swap(Request.Form("CH_MASK_SSN"))
+					mask_ssn_field = "CLAIM:ACCOUNT:MASK_SSN"
+					Insert_New mask_ssn_field,mask_ssn_value
+					'*********** END BCAB-0906 ***********
 				'end if
 			end if
 		end if
