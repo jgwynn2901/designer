@@ -239,7 +239,7 @@ If ACTION = "UPDATE" Then
 				
 				'*********** BCAB-0906 ***********
 				mask_ssn_value = Swap(Request.Form("CH_MASK_SSN"))
-				mask_ssn_field= "CLAIM:ACCOUNT:MASK_SSN"
+				mask_ssn_field= "CLAIM:ACCOUNT:MASK_SSNO"
 				Insert_Update mask_ssn_field,mask_ssn_value
 				'*********** END BCAB-0906 ***********
 		end if
@@ -432,7 +432,7 @@ Elseif ACTION = "INSERT" Then
 					
 					'*********** BCAB-0906 ***********
 					mask_ssn_value = Swap(Request.Form("CH_MASK_SSN"))
-					mask_ssn_field = "CLAIM:ACCOUNT:MASK_SSN"
+					mask_ssn_field = "CLAIM:ACCOUNT:MASK_SSNO"
 					Insert_New mask_ssn_field,mask_ssn_value
 					'*********** END BCAB-0906 ***********
 				'end if

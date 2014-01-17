@@ -247,7 +247,7 @@ If AHSID <> "" Then
 			end if
 						
 			'BCAB-0906
-			if RS.Fields("FIELD_NAME") = "CLAIM:ACCOUNT:MASK_SSN" Then
+			if RS.Fields("FIELD_NAME") = "CLAIM:ACCOUNT:MASK_SSNO" Then
 				RSMASK_SSN = RS.Fields("FIELD_VALUE")
 			end if
 
