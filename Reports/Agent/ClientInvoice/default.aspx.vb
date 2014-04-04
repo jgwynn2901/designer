@@ -12,15 +12,14 @@
 
 
 
-Option Explicit On 
+Option Explicit On
 Option Strict Off
 
 Imports System.Data.OracleClient
 Imports System.Web.Mail
 
-Public Class WebForm1
+Partial Class WebForm1
     Inherits System.Web.UI.Page
-    Protected WithEvents Panel1 As System.Web.UI.WebControls.Panel
 
 #Region " Web Form Designer Generated Code "
 
@@ -97,7 +96,7 @@ Public Class WebForm1
         Dim oCmd As New OracleCommand()
 
         'cAHS = "23"
-		'cAHS = "10757117"		 '   FNS Test
+        'cAHS = "10757117"		 '   FNS Test
         'cAHS = "13908410"
         'cStartDate = "Nov2003"
         cAHS = Request.QueryString("AHS")
