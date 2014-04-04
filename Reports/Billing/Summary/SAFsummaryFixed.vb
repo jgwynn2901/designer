@@ -142,7 +142,7 @@ Module SAFBillingSummary
         If oReader.HasRows Then
             Do
                 lIsINFO = False
-                Select Case oReader.GetValue(oReader.GetOrdinal("LOB_CD"))
+                Select Case CType(oReader.GetValue(oReader.GetOrdinal("LOB_CD")), String)
                     Case "PPR"
                         oParamFld = oRpt.DataDefinition.FormulaFields.Item("nPPRCalls")
                         getFees(oConn, oRpt, cAHS_ID, "PPR", "C", nSERVICE_FEE, "nPPRPriceC")
@@ -181,7 +181,7 @@ Module SAFBillingSummary
         If oReader.HasRows Then
             Do
                 lIsINFO = False
-                Select Case oReader.GetValue(oReader.GetOrdinal("LOB_CD"))
+                Select Case CType(oReader.GetValue(oReader.GetOrdinal("LOB_CD")), String)
                     Case "PPR"
                         oParamFld = oRpt.DataDefinition.FormulaFields.Item("nPPRFaxes")
                         getFees(oConn, oRpt, cAHS_ID, "PPR", "F", nSERVICE_FEE, "nPPRPriceF")
@@ -218,7 +218,7 @@ Module SAFBillingSummary
         If oReader.HasRows Then
             Do
                 lIsINFO = False
-                Select Case oReader.GetValue(oReader.GetOrdinal("LOB_CD"))
+                Select Case CType(oReader.GetValue(oReader.GetOrdinal("LOB_CD")), String)
                     Case "PPR"
                         oParamFld = oRpt.DataDefinition.FormulaFields.Item("nPPRInternet")
                         getFees(oConn, oRpt, cAHS_ID, "PPR", "N", nSERVICE_FEE, "nPPRPriceI")

@@ -133,7 +133,7 @@ Module RTWSummaryFixed
             Do
                 lIsINFO = False
 
-                Select Case oReader.GetValue(oReader.GetOrdinal("LOB_CD"))
+                Select Case CType(oReader.GetValue(oReader.GetOrdinal("LOB_CD")), String)
 
                     Case "WOR"
                         oParamFld = oRpt.DataDefinition.FormulaFields.Item("nWORCalls")
@@ -168,7 +168,7 @@ Module RTWSummaryFixed
         If oReader.HasRows Then
             Do
                 lIsINFO = False
-                Select Case oReader.GetValue(oReader.GetOrdinal("LOB_CD"))
+                Select Case CType(oReader.GetValue(oReader.GetOrdinal("LOB_CD")), String)
                     Case "WOR"
                         oParamFld = oRpt.DataDefinition.FormulaFields.Item("nWORFaxes")
                         getFees(oConn, oRpt, cAHS_ID, "WOR", "F", nSERVICE_FEE, "nWORPriceF")
@@ -202,7 +202,7 @@ Module RTWSummaryFixed
         If oReader.HasRows Then
             Do
                 lIsINFO = False
-                Select Case oReader.GetValue(oReader.GetOrdinal("LOB_CD"))
+                Select Case CType(oReader.GetValue(oReader.GetOrdinal("LOB_CD")), String)
                     Case "WOR"
                         oParamFld = oRpt.DataDefinition.FormulaFields.Item("nWORInternet")
                         getFees(oConn, oRpt, cAHS_ID, "WOR", "N", nSERVICE_FEE, "nWORPriceI")
@@ -237,7 +237,7 @@ Module RTWSummaryFixed
         If oReader.HasRows Then
             Do
                 lIsINFO = False
-                Select Case oReader.GetValue(oReader.GetOrdinal("LOB_CD"))
+                Select Case CType(oReader.GetValue(oReader.GetOrdinal("LOB_CD")), String)
                     Case "WOR"
                         oParamFld = oRpt.DataDefinition.FormulaFields.Item("nWORMails")
                         getFeesForMail(oConn, oRpt, cAHS_ID, "WOR", "M", nSERVICE_FEE, "nWORPriceM")

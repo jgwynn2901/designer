@@ -159,7 +159,7 @@ Module TGCASPBillingSummary
         If oReader.HasRows Then
             Do
                 lIsINFO = False
-                Select Case oReader.GetValue(oReader.GetOrdinal("LOB_CD"))
+                Select Case CType(oReader.GetValue(oReader.GetOrdinal("LOB_CD")), String)
                     Case "PAU"
                         oParamFld = oRpt.DataDefinition.FormulaFields.Item("nPAUCalls")
                         getFees(oConn, oRpt, cAHS_ID, "PAU", "C", nSERVICE_FEE, "nPAUPriceC")
@@ -221,7 +221,7 @@ Module TGCASPBillingSummary
         If oReader.HasRows Then
             Do
                 lIsINFO = False
-                Select Case oReader.GetValue(oReader.GetOrdinal("LOB_CD"))
+                Select Case CType(oReader.GetValue(oReader.GetOrdinal("LOB_CD")), String)
                     Case "PAU"
                         oParamFld = oRpt.DataDefinition.FormulaFields.Item("nPAUFaxes")
                         getFees(oConn, oRpt, cAHS_ID, "PAU", "F", nSERVICE_FEE, "nPAUPriceF")
@@ -281,7 +281,7 @@ Module TGCASPBillingSummary
         If oReader.HasRows Then
             Do
                 lIsINFO = False
-                Select Case oReader.GetValue(oReader.GetOrdinal("LOB_CD"))
+                Select Case CType(oReader.GetValue(oReader.GetOrdinal("LOB_CD")), String)
                     Case "PAU"
                         oParamFld = oRpt.DataDefinition.FormulaFields.Item("nPAUInternet")
                         getFees(oConn, oRpt, cAHS_ID, "PAU", "N", nSERVICE_FEE, "nPAUPriceI")
@@ -339,7 +339,7 @@ Module TGCASPBillingSummary
         If oReader.HasRows Then
             Do
                 lIsINFO = False
-                Select Case oReader.GetValue(oReader.GetOrdinal("LOB_CD"))
+                Select Case CType(oReader.GetValue(oReader.GetOrdinal("LOB_CD")), String)
                     Case "PAU"
                         oParamFld = oRpt.DataDefinition.FormulaFields.Item("nPAUWeb")
                         getFees(oConn, oRpt, cAHS_ID, "PAU", "W", nSERVICE_FEE, "nPAUPriceW")

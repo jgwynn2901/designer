@@ -1,21 +1,19 @@
-Microsoft Visual Studio Solution File, Format Version 8.00
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "billingSummary", "http://localhost/billingSummary/billingSummary.vbproj", "{4FBC399D-5767-482F-9BD6-D4363D64E30D}"
-	ProjectSection(ProjectDependencies) = postProject
-	EndProjectSection
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "billingSummary", "billingSummary.vbproj", "{4FBC399D-5767-482F-9BD6-D4363D64E30D}"
 EndProject
 Global
-	GlobalSection(SolutionConfiguration) = preSolution
-		Debug = Debug
-		Release = Release
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
-	GlobalSection(ProjectConfiguration) = postSolution
-		{4FBC399D-5767-482F-9BD6-D4363D64E30D}.Debug.ActiveCfg = Debug|.NET
-		{4FBC399D-5767-482F-9BD6-D4363D64E30D}.Debug.Build.0 = Debug|.NET
-		{4FBC399D-5767-482F-9BD6-D4363D64E30D}.Release.ActiveCfg = Release|.NET
-		{4FBC399D-5767-482F-9BD6-D4363D64E30D}.Release.Build.0 = Release|.NET
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4FBC399D-5767-482F-9BD6-D4363D64E30D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4FBC399D-5767-482F-9BD6-D4363D64E30D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4FBC399D-5767-482F-9BD6-D4363D64E30D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4FBC399D-5767-482F-9BD6-D4363D64E30D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
-	GlobalSection(ExtensibilityGlobals) = postSolution
-	EndGlobalSection
-	GlobalSection(ExtensibilityAddIns) = postSolution
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 EndGlobal

@@ -115,7 +115,7 @@ Module summaryTieredEMC
         If oReader.HasRows Then
             Do
                 lIsINFO = False
-                Select Case oReader.GetValue(oReader.GetOrdinal("LOB_CD"))
+                Select Case CType(oReader.GetValue(oReader.GetOrdinal("LOB_CD")), String)
                     Case "PAU"
                         oParamFld = oRpt.DataDefinition.FormulaFields.Item("nPAUCalls")
                     Case "PLI"
@@ -160,7 +160,7 @@ Module summaryTieredEMC
         If oReader.HasRows Then
             Do
                 lIsINFO = False
-                Select Case oReader.GetValue(oReader.GetOrdinal("LOB_CD"))
+                Select Case CType(oReader.GetValue(oReader.GetOrdinal("LOB_CD")), String)
                     Case "PAU"
                         oParamFld = oRpt.DataDefinition.FormulaFields.Item("nPAUFaxes")
                     Case "PLI"
@@ -203,7 +203,7 @@ Module summaryTieredEMC
         If oReader.HasRows Then
             Do
                 lIsINFO = False
-                Select Case oReader.GetValue(oReader.GetOrdinal("LOB_CD"))
+                Select Case CType(oReader.GetValue(oReader.GetOrdinal("LOB_CD")), String)
                     Case "PAU"
                         oParamFld = oRpt.DataDefinition.FormulaFields.Item("nPAUInternet")
                     Case "PLI"

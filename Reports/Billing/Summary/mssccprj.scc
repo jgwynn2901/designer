@@ -1,9 +1,0 @@
-SCC = This is a Source Code Control file
-
-[billingSummary.sln]
-SCC_Aux_Path = "\\new1saapr\FNS_CLAIM_CAPTURE"
-SCC_Project_Name = "$/FNS_DESIGNER/Release/C-INetPub/Designer/Reports/Billing/Summary", CQNBAAAA
-
-[billingSummary.vbproj]
-SCC_Aux_Path = "\\new1saapr\FNS_CLAIM_CAPTURE"
-SCC_Project_Name = "$/FNS_DESIGNER/Release/C-INetPub/Designer/Reports/Billing/Summary", CQNBAAAA

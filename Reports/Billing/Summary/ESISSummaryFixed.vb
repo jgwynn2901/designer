@@ -145,7 +145,7 @@ Module ESISSummaryFixed
         If oReader.HasRows Then
             Do
                 lIsINFO = False
-                Select Case oReader.GetValue(oReader.GetOrdinal("LOB_CD"))
+                Select Case CType(oReader.GetValue(oReader.GetOrdinal("LOB_CD")), String)
                     'Case "PAU"
                     '    oParamFld = oRpt.DataDefinition.FormulaFields.Item("nPAUCalls")
                     '    getFees(oConn, oRpt, cAHS_ID, "PAU", "C", nSERVICE_FEE, "nPAUPriceC")
@@ -155,7 +155,7 @@ Module ESISSummaryFixed
                     'Case "PPR"
                     '    oParamFld = oRpt.DataDefinition.FormulaFields.Item("nPPRCalls")
                     '    getFees(oConn, oRpt, cAHS_ID, "PPR", "C", nSERVICE_FEE, "nPPRPriceC")
-                Case "CAU"
+                    Case "CAU"
                         oParamFld = oRpt.DataDefinition.FormulaFields.Item("nCAUCalls")
                         getFees(oConn, oRpt, cAHS_ID, "CAU", "C", nSERVICE_FEE, "nCAUPriceC")
                     Case "CLI"
@@ -266,7 +266,7 @@ Module ESISSummaryFixed
         If oReader.HasRows Then
             Do
                 lIsINFO = False
-                Select Case oReader.GetValue(oReader.GetOrdinal("LOB_CD"))
+                Select Case CType(oReader.GetValue(oReader.GetOrdinal("LOB_CD")), String)
                     'Case "PAU"
                     '    oParamFld = oRpt.DataDefinition.FormulaFields.Item("nPAUFaxes")
                     '    getFees(oConn, oRpt, cAHS_ID, "PAU", "F", nSERVICE_FEE, "nPAUPriceF")
@@ -276,7 +276,7 @@ Module ESISSummaryFixed
                     'Case "PPR"
                     '    oParamFld = oRpt.DataDefinition.FormulaFields.Item("nPPRFaxes")
                     '    getFees(oConn, oRpt, cAHS_ID, "PPR", "F", nSERVICE_FEE, "nPPRPriceF")
-                Case "CAU"
+                    Case "CAU"
                         oParamFld = oRpt.DataDefinition.FormulaFields.Item("nCAUFaxes")
                         getFees(oConn, oRpt, cAHS_ID, "CAU", "F", nSERVICE_FEE, "nCAUPriceF")
                     Case "CLI"
@@ -324,7 +324,7 @@ Module ESISSummaryFixed
         If oReader.HasRows Then
             Do
                 lIsINFO = False
-                Select Case oReader.GetValue(oReader.GetOrdinal("LOB_CD"))
+                Select Case CType(oReader.GetValue(oReader.GetOrdinal("LOB_CD")), String)
                     'Case "PAU"
                     '    oParamFld = oRpt.DataDefinition.FormulaFields.Item("nPAUTrans")
                     '    getFees(oConn, oRpt, cAHS_ID, "PAU", "T", nSERVICE_FEE, "nPAUPriceT")
@@ -334,7 +334,7 @@ Module ESISSummaryFixed
                     'Case "PPR"
                     '    oParamFld = oRpt.DataDefinition.FormulaFields.Item("nPPRTrans")
                     '    getFees(oConn, oRpt, cAHS_ID, "PPR", "T", nSERVICE_FEE, "nPPRPriceT")
-                Case "CAU"
+                    Case "CAU"
                         oParamFld = oRpt.DataDefinition.FormulaFields.Item("nCAUTrans")
                         getFees(oConn, oRpt, cAHS_ID, "CAU", "T", nSERVICE_FEE, "nCAUPriceT")
                     Case "CLI"
@@ -381,7 +381,7 @@ Module ESISSummaryFixed
         If oReader.HasRows Then
             Do
                 lIsINFO = False
-                Select Case oReader.GetValue(oReader.GetOrdinal("LOB_CD"))
+                Select Case CType(oReader.GetValue(oReader.GetOrdinal("LOB_CD")), String)
                     Case "PAU"
                         oParamFld = oRpt.DataDefinition.FormulaFields.Item("nPAUInternet")
                         getFees(oConn, oRpt, cAHS_ID, "PAU", "N", nSERVICE_FEE, "nPAUPriceI")

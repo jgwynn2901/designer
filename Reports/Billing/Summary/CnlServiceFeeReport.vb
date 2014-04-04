@@ -139,7 +139,7 @@ Module CnlServiceFeeReport
             Do
                 lIsINFO = False
 
-                Select Case oReader.GetValue(oReader.GetOrdinal("LOB_CD"))
+                Select Case CType(oReader.GetValue(oReader.GetOrdinal("LOB_CD")), String)
                     Case "APC"
                         oParamFld = oRpt.DataDefinition.FormulaFields.Item("nAPCCalls")
                         oParamFld1 = oRpt.DataDefinition.FormulaFields.Item("nAPDCalls")
@@ -202,7 +202,7 @@ Module CnlServiceFeeReport
         If oReader.HasRows Then
             Do
                 lIsINFO = False
-                Select Case oReader.GetValue(oReader.GetOrdinal("LOB_CD"))
+                Select Case CType(oReader.GetValue(oReader.GetOrdinal("LOB_CD")), String)
                     Case "APC"
                         oParamFld = oRpt.DataDefinition.FormulaFields.Item("nAPCFaxes")
                         oParamFld1 = oRpt.DataDefinition.FormulaFields.Item("nAPDFaxes")
@@ -260,7 +260,7 @@ Module CnlServiceFeeReport
         If oReader.HasRows Then
             Do
                 lIsINFO = False
-                Select Case oReader.GetValue(oReader.GetOrdinal("LOB_CD"))
+                Select Case CType(oReader.GetValue(oReader.GetOrdinal("LOB_CD")), String)
                     Case "APC"
                         oParamFld = oRpt.DataDefinition.FormulaFields.Item("nAPCInternet")
                         oParamFld1 = oRpt.DataDefinition.FormulaFields.Item("nAPDInternet")

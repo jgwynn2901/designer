@@ -110,7 +110,7 @@ Module CRAWsummaryTiered
         If oReader.HasRows Then
             Do
 
-                Select Case oReader.GetValue(oReader.GetOrdinal("COVERAGE_CODE"))
+                Select Case CType(oReader.GetValue(oReader.GetOrdinal("COVERAGE_CODE")), String)
                     Case "AL"
                         oParamFld = oRpt.DataDefinition.FormulaFields.Item("nALCalls")
                     Case "VC"

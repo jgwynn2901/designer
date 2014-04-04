@@ -131,7 +131,7 @@ Module SELSummaryFixed
             Do
                 lIsINFO = False
 
-                Select Case oReader.GetValue(oReader.GetOrdinal("LOB_CD"))
+                Select Case CType(oReader.GetValue(oReader.GetOrdinal("LOB_CD")), String)
                     Case "WOR"
                         oParamFld = oRpt.DataDefinition.FormulaFields.Item("nWORCalls")
                         getFees(oConn, oRpt, cAHS_ID, "WOR", "C", nSERVICE_FEE, "nWORPriceC")
@@ -167,7 +167,7 @@ Module SELSummaryFixed
         If oReader.HasRows Then
             Do
                 lIsINFO = False
-                Select Case oReader.GetValue(oReader.GetOrdinal("LOB_CD"))
+                Select Case CType(oReader.GetValue(oReader.GetOrdinal("LOB_CD")), String)
 
                     Case "WOR"
                         oParamFld = oRpt.DataDefinition.FormulaFields.Item("nWORFaxes")
@@ -203,7 +203,7 @@ Module SELSummaryFixed
         If oReader.HasRows Then
             Do
                 lIsINFO = False
-                Select Case oReader.GetValue(oReader.GetOrdinal("LOB_CD"))
+                Select Case CType(oReader.GetValue(oReader.GetOrdinal("LOB_CD")), String)
                     Case "WOR"
                         oParamFld = oRpt.DataDefinition.FormulaFields.Item("nWORInternet")
                         getFees(oConn, oRpt, cAHS_ID, "WOR", "N", nSERVICE_FEE, "nWORPriceI")

@@ -1,808 +1,601 @@
-<VisualStudioProject>
-    <VisualBasic
-        ProjectType = "Web"
-        ProductVersion = "7.10.3077"
-        SchemaVersion = "2.0"
-        ProjectGuid = "{4FBC399D-5767-482F-9BD6-D4363D64E30D}"
-    >
-        <Build>
-            <Settings
-                ApplicationIcon = ""
-                AssemblyKeyContainerName = ""
-                AssemblyName = "billingSummary"
-                AssemblyOriginatorKeyFile = ""
-                AssemblyOriginatorKeyMode = "None"
-                DefaultClientScript = "JScript"
-                DefaultHTMLPageLayout = "Grid"
-                DefaultTargetSchema = "IE50"
-                DelaySign = "false"
-                OutputType = "Library"
-                OptionCompare = "Binary"
-                OptionExplicit = "On"
-                OptionStrict = "Off"
-                RootNamespace = "billingSummary"
-                StartupObject = ""
-            >
-                <Config
-                    Name = "Debug"
-                    BaseAddress = "285212672"
-                    ConfigurationOverrideFile = ""
-                    DefineConstants = ""
-                    DefineDebug = "true"
-                    DefineTrace = "true"
-                    DebugSymbols = "true"
-                    IncrementalBuild = "true"
-                    Optimize = "false"
-                    OutputPath = "bin\"
-                    RegisterForComInterop = "false"
-                    RemoveIntegerChecks = "false"
-                    TreatWarningsAsErrors = "false"
-                    WarningLevel = "1"
-                />
-                <Config
-                    Name = "Release"
-                    BaseAddress = "285212672"
-                    ConfigurationOverrideFile = ""
-                    DefineConstants = ""
-                    DefineDebug = "false"
-                    DefineTrace = "true"
-                    DebugSymbols = "false"
-                    IncrementalBuild = "false"
-                    Optimize = "true"
-                    OutputPath = "bin\"
-                    RegisterForComInterop = "false"
-                    RemoveIntegerChecks = "false"
-                    TreatWarningsAsErrors = "false"
-                    WarningLevel = "1"
-                />
-            </Settings>
-            <References>
-                <Reference
-                    Name = "System"
-                    AssemblyName = "System"
-                />
-                <Reference
-                    Name = "System.Data"
-                    AssemblyName = "System.Data"
-                />
-                <Reference
-                    Name = "System.Drawing"
-                    AssemblyName = "System.Drawing"
-                />
-                <Reference
-                    Name = "System.Web"
-                    AssemblyName = "System.Web"
-                />
-                <Reference
-                    Name = "System.XML"
-                    AssemblyName = "System.Xml"
-                />
-                <Reference
-                    Name = "System.Data.OracleClient"
-                    AssemblyName = "System.Data.OracleClient"
-                    HintPath = "..\..\..\Program Files\Microsoft.NET\OracleClient.Net\System.Data.OracleClient.dll"
-                />
-                <Reference
-                    Name = "CrystalDecisions.Shared"
-                    AssemblyName = "CrystalDecisions.Shared"
-                    HintPath = "..\..\..\Program Files\Common Files\Crystal Decisions\1.0\Managed\CrystalDecisions.Shared.dll"
-                />
-                <Reference
-                    Name = "CrystalDecisions.ReportSource"
-                    AssemblyName = "CrystalDecisions.ReportSource"
-                    HintPath = "..\..\..\Program Files\Common Files\Crystal Decisions\1.0\Managed\CrystalDecisions.ReportSource.dll"
-                />
-                <Reference
-                    Name = "CrystalDecisions.CrystalReports.Engine"
-                    AssemblyName = "CrystalDecisions.CrystalReports.Engine"
-                    HintPath = "..\..\..\Program Files\Common Files\Crystal Decisions\1.0\Managed\CrystalDecisions.CrystalReports.Engine.dll"
-                />
-                <Reference
-                    Name = "crystaldecisions.web"
-                    AssemblyName = "CrystalDecisions.Web"
-                    HintPath = "..\..\..\winnt\assembly\gac\crystaldecisions.web\9.1.3300.0__692fbea5521e1304\crystaldecisions.web.dll"
-                />
-                <Reference
-                    Name = "System.Web.Services"
-                    AssemblyName = "System.Web.Services"
-                    HintPath = "..\..\..\WINNT\Microsoft.NET\Framework\v1.0.3705\System.Web.Services.dll"
-                />
-                <Reference
-                    Name = "CrystalEnterpriseLib"
-                    AssemblyName = "CrystalEnterpriseLib"
-                    HintPath = "..\..\..\Program Files\Common Files\Crystal Decisions\1.0\Managed\CrystalEnterpriseLib.dll"
-                />
-                <Reference
-                    Name = "CrystalReportPluginLib"
-                    AssemblyName = "CrystalReportPluginLib"
-                    HintPath = "..\..\..\Program Files\Common Files\Crystal Decisions\1.0\Managed\CrystalReportPluginLib.dll"
-                />
-                <Reference
-                    Name = "CrystalInfoStoreLib"
-                    AssemblyName = "CrystalInfoStoreLib"
-                    HintPath = "..\..\..\Program Files\Common Files\Crystal Decisions\1.0\Managed\CrystalInfoStoreLib.dll"
-                />
-            </References>
-            <Imports>
-                <Import Namespace = "Microsoft.VisualBasic" />
-                <Import Namespace = "System" />
-                <Import Namespace = "System.Collections" />
-                <Import Namespace = "System.Configuration" />
-                <Import Namespace = "System.Data" />
-                <Import Namespace = "System.Drawing" />
-                <Import Namespace = "System.Web" />
-                <Import Namespace = "System.Web.UI" />
-                <Import Namespace = "System.Web.UI.HtmlControls" />
-                <Import Namespace = "System.Web.UI.WebControls" />
-            </Imports>
-        </Build>
-        <Files>
-            <Include>
-                <File
-                    RelPath = "AAABillingSummaryFixed.rpt"
-                    BuildAction = "EmbeddedResource"
-                    Generator = "CrystalDecisions.VSShell.CodeGen.ReportCodeGenerator"
-                    LastGenOutput = "AAABillingSummaryFixed.vb"
-                />
-                <File
-                    RelPath = "AAABillingSummaryFixed.vb"
-                    DependentUpon = "AAABillingSummaryFixed.rpt"
-                    SubType = "Component"
-                    BuildAction = "Compile"
-                    DesignTime = "True"
-                    AutoGen = "True"
-                />
-                <File
-                    RelPath = "AAASummaryFixed.vb"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "AFFBillingSummaryTiered.rpt"
-                    BuildAction = "EmbeddedResource"
-                    Generator = "CrystalDecisions.VSShell.CodeGen.ReportCodeGenerator"
-                    LastGenOutput = "AFFBillingSummaryTiered1.vb"
-                />
-                <File
-                    RelPath = "AFFBillingSummaryTiered1.vb"
-                    DependentUpon = "AFFBillingSummaryTiered.rpt"
-                    SubType = "Component"
-                    BuildAction = "Compile"
-                    DesignTime = "True"
-                    AutoGen = "True"
-                />
-                <File
-                    RelPath = "AFFBillingSummaryTiered1.resx"
-                    DependentUpon = "AFFBillingSummaryTiered1.vb"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "AFFsummaryTiered.vb"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "ALMBillingSummary.rpt"
-                    BuildAction = "EmbeddedResource"
-                    Generator = "CrystalDecisions.VSShell.CodeGen.ReportCodeGenerator"
-                    LastGenOutput = "ALMBillingSummary1.vb"
-                />
-                <File
-                    RelPath = "ALMBillingSummary1.vb"
-                    DependentUpon = "ALMBillingSummary.rpt"
-                    SubType = "Component"
-                    BuildAction = "Compile"
-                    DesignTime = "True"
-                    AutoGen = "True"
-                />
-                <File
-                    RelPath = "ALMServiceFeeReport.vb"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "AMCBillingSummaryFixed.rpt"
-                    BuildAction = "EmbeddedResource"
-                    Generator = "CrystalDecisions.VSShell.CodeGen.ReportCodeGenerator"
-                    LastGenOutput = "AMCBillingSummaryFixed.vb"
-                />
-                <File
-                    RelPath = "AMCBillingSummaryFixed.vb"
-                    DependentUpon = "AMCBillingSummaryFixed.rpt"
-                    SubType = "Component"
-                    BuildAction = "Compile"
-                    DesignTime = "True"
-                    AutoGen = "True"
-                />
-                <File
-                    RelPath = "AMCsummaryFixed.vb"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "AMEBillingSummary.rpt"
-                    BuildAction = "EmbeddedResource"
-                    Generator = "CrystalDecisions.VSShell.CodeGen.ReportCodeGenerator"
-                    LastGenOutput = "AMEBillingSummary2.vb"
-                />
-                <File
-                    RelPath = "AMEBillingSummary2.vb"
-                    DependentUpon = "AMEBillingSummary.rpt"
-                    SubType = "Component"
-                    BuildAction = "Compile"
-                    DesignTime = "True"
-                    AutoGen = "True"
-                />
-                <File
-                    RelPath = "AMEBillingSummaryFixed.vb"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "AssemblyInfo.vb"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "billingSummary.vsdisco"
-                    BuildAction = "None"
-                />
-                <File
-                    RelPath = "BillingSummaryFixed.rpt"
-                    BuildAction = "EmbeddedResource"
-                    Generator = "CrystalDecisions.VSShell.CodeGen.ReportCodeGenerator"
-                    LastGenOutput = "BillingSummaryFixed.vb"
-                />
-                <File
-                    RelPath = "BillingSummaryFixed.vb"
-                    DependentUpon = "BillingSummaryFixed.rpt"
-                    SubType = "Component"
-                    BuildAction = "Compile"
-                    DesignTime = "True"
-                    AutoGen = "True"
-                />
-                <File
-                    RelPath = "BillingSummaryTiered.rpt"
-                    BuildAction = "EmbeddedResource"
-                    Generator = "CrystalDecisions.VSShell.CodeGen.ReportCodeGenerator"
-                    LastGenOutput = "BillingSummaryTiered1.vb"
-                />
-                <File
-                    RelPath = "BillingSummaryTiered1.vb"
-                    DependentUpon = "BillingSummaryTiered.rpt"
-                    SubType = "Component"
-                    BuildAction = "Compile"
-                    DesignTime = "True"
-                    AutoGen = "True"
-                />
-                <File
-                    RelPath = "ChubBillingSummary.rpt"
-                    BuildAction = "EmbeddedResource"
-                    Generator = "CrystalDecisions.VSShell.CodeGen.ReportCodeGenerator"
-                    LastGenOutput = "ChubBillingSummary1.vb"
-                />
-                <File
-                    RelPath = "ChubBillingSummary1.vb"
-                    DependentUpon = "ChubBillingSummary.rpt"
-                    SubType = "Component"
-                    BuildAction = "Compile"
-                    DesignTime = "True"
-                    AutoGen = "True"
-                />
-                <File
-                    RelPath = "ChubSummaryFixed.vb"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "CISGSummaryFixed.vb"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "CnlBillingSummary.rpt"
-                    BuildAction = "EmbeddedResource"
-                    Generator = "CrystalDecisions.VSShell.CodeGen.ReportCodeGenerator"
-                    LastGenOutput = "CnlBillingSummary1.vb"
-                />
-                <File
-                    RelPath = "CnlBillingSummary1.vb"
-                    DependentUpon = "CnlBillingSummary.rpt"
-                    SubType = "Component"
-                    BuildAction = "Compile"
-                    DesignTime = "True"
-                    AutoGen = "True"
-                />
-                <File
-                    RelPath = "CnlServiceFeeReport.vb"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "COVBillingSummary.vb"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "COVBillingSummaryFixed.rpt"
-                    BuildAction = "EmbeddedResource"
-                    Generator = "CrystalDecisions.VSShell.CodeGen.ReportCodeGenerator"
-                    LastGenOutput = "COVBillingSummaryFixed3.vb"
-                />
-                <File
-                    RelPath = "COVBillingSummaryFixed3.vb"
-                    DependentUpon = "COVBillingSummaryFixed.rpt"
-                    SubType = "Component"
-                    BuildAction = "Compile"
-                    DesignTime = "True"
-                    AutoGen = "True"
-                />
-                <File
-                    RelPath = "CRAWBillingSummaryTiered.rpt"
-                    BuildAction = "EmbeddedResource"
-                    Generator = "CrystalDecisions.VSShell.CodeGen.ReportCodeGenerator"
-                    LastGenOutput = "CRAWBillingSummaryTiered2.vb"
-                />
-                <File
-                    RelPath = "CRAWBillingSummaryTiered2.vb"
-                    DependentUpon = "CRAWBillingSummaryTiered.rpt"
-                    SubType = "Component"
-                    BuildAction = "Compile"
-                    DesignTime = "True"
-                    AutoGen = "True"
-                />
-                <File
-                    RelPath = "CRAWsummaryTiered.vb"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "CSAABillingSummaryFixed.rpt"
-                    BuildAction = "EmbeddedResource"
-                    Generator = "CrystalDecisions.VSShell.CodeGen.ReportCodeGenerator"
-                    LastGenOutput = "CSAABillingSummaryFixed3.vb"
-                />
-                <File
-                    RelPath = "CSAABillingSummaryFixed3.vb"
-                    DependentUpon = "CSAABillingSummaryFixed.rpt"
-                    SubType = "Component"
-                    BuildAction = "Compile"
-                    DesignTime = "True"
-                    AutoGen = "True"
-                />
-                <File
-                    RelPath = "CSAASummaryFixed.vb"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "default.aspx"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "default.aspx.vb"
-                    DependentUpon = "default.aspx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "default.aspx.resx"
-                    DependentUpon = "default.aspx.vb"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "EMCBillingSummaryTiered.rpt"
-                    BuildAction = "EmbeddedResource"
-                    Generator = "CrystalDecisions.VSShell.CodeGen.ReportCodeGenerator"
-                    LastGenOutput = "EMCBillingSummaryTiered2.vb"
-                />
-                <File
-                    RelPath = "EMCBillingSummaryTiered2.vb"
-                    DependentUpon = "EMCBillingSummaryTiered.rpt"
-                    SubType = "Component"
-                    BuildAction = "Compile"
-                    DesignTime = "True"
-                    AutoGen = "True"
-                />
-                <File
-                    RelPath = "EMCsummaryTiered.vb"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "ESISBillingSummaryFixed.rpt"
-                    BuildAction = "EmbeddedResource"
-                    Generator = "CrystalDecisions.VSShell.CodeGen.ReportCodeGenerator"
-                    LastGenOutput = "ESISBillingSummaryFixed2.vb"
-                />
-                <File
-                    RelPath = "ESISBillingSummaryFixed2.vb"
-                    DependentUpon = "ESISBillingSummaryFixed.rpt"
-                    SubType = "Component"
-                    BuildAction = "Compile"
-                    DesignTime = "True"
-                    AutoGen = "True"
-                />
-                <File
-                    RelPath = "ESISSummaryFixed.vb"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "EVRBillingSummaryFixed.rpt"
-                    BuildAction = "EmbeddedResource"
-                    Generator = "CrystalDecisions.VSShell.CodeGen.ReportCodeGenerator"
-                    LastGenOutput = "EVRBillingSummaryFixed.vb"
-                />
-                <File
-                    RelPath = "EVRBillingSummaryFixed.vb"
-                    DependentUpon = "EVRBillingSummaryFixed.rpt"
-                    SubType = "Component"
-                    BuildAction = "Compile"
-                    DesignTime = "True"
-                    AutoGen = "True"
-                />
-                <File
-                    RelPath = "EVRsummaryFixed.vb"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "FRGsummaryFixed.vb"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "GBSBillingSummaryFixed.rpt"
-                    BuildAction = "EmbeddedResource"
-                    Generator = "CrystalDecisions.VSShell.CodeGen.ReportCodeGenerator"
-                    LastGenOutput = "GBSBillingSummaryFixed3.vb"
-                />
-                <File
-                    RelPath = "GBSBillingSummaryFixed3.vb"
-                    DependentUpon = "GBSBillingSummaryFixed.rpt"
-                    SubType = "Component"
-                    BuildAction = "Compile"
-                    DesignTime = "True"
-                    AutoGen = "True"
-                />
-                <File
-                    RelPath = "GBSsummaryFixed.vb"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Global.asax"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "Global.asax.vb"
-                    DependentUpon = "Global.asax"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Global.asax.resx"
-                    DependentUpon = "Global.asax.vb"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "HMLBillingSummaryFixed.rpt"
-                    BuildAction = "EmbeddedResource"
-                    Generator = "CrystalDecisions.VSShell.CodeGen.ReportCodeGenerator"
-                    LastGenOutput = "HMLBillingSummaryFixed1.vb"
-                />
-                <File
-                    RelPath = "HMLBillingSummaryFixed1.vb"
-                    DependentUpon = "HMLBillingSummaryFixed.rpt"
-                    SubType = "Component"
-                    BuildAction = "Compile"
-                    DesignTime = "True"
-                    AutoGen = "True"
-                />
-                <File
-                    RelPath = "HMLSummaryFixed.vb"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "KMPBillingSummaryCATFixed.rpt"
-                    BuildAction = "EmbeddedResource"
-                    Generator = "CrystalDecisions.VSShell.CodeGen.ReportCodeGenerator"
-                    LastGenOutput = "KMPBillingSummaryCATFixed.vb"
-                />
-                <File
-                    RelPath = "KMPBillingSummaryCATFixed.vb"
-                    DependentUpon = "KMPBillingSummaryCATFixed.rpt"
-                    SubType = "Component"
-                    BuildAction = "Compile"
-                    DesignTime = "True"
-                    AutoGen = "True"
-                />
-                <File
-                    RelPath = "KMPBillingSummaryFixed.rpt"
-                    BuildAction = "EmbeddedResource"
-                    Generator = "CrystalDecisions.VSShell.CodeGen.ReportCodeGenerator"
-                    LastGenOutput = "KMPBillingSummaryFixed2.vb"
-                />
-                <File
-                    RelPath = "KMPBillingSummaryFixed2.vb"
-                    DependentUpon = "KMPBillingSummaryFixed.rpt"
-                    SubType = "Component"
-                    BuildAction = "Compile"
-                    DesignTime = "True"
-                    AutoGen = "True"
-                />
-                <File
-                    RelPath = "KMPCATsummaryFixed.vb"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "KMPSummaryfixed.vb"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "NBICBillingSummaryFixed.rpt"
-                    BuildAction = "EmbeddedResource"
-                    Generator = "CrystalDecisions.VSShell.CodeGen.ReportCodeGenerator"
-                    LastGenOutput = "NBICBillingSummaryFixed.vb"
-                />
-                <File
-                    RelPath = "NBICBillingSummaryFixed.vb"
-                    DependentUpon = "NBICBillingSummaryFixed.rpt"
-                    SubType = "Component"
-                    BuildAction = "Compile"
-                    DesignTime = "True"
-                    AutoGen = "True"
-                />
-                <File
-                    RelPath = "NBICsummaryFixed.vb"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "PEMBillingSummary.vb"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "PEMBillingSummaryFixed.rpt"
-                    BuildAction = "EmbeddedResource"
-                    Generator = "CrystalDecisions.VSShell.CodeGen.ReportCodeGenerator"
-                    LastGenOutput = "PEMBillingSummaryFixed2.vb"
-                />
-                <File
-                    RelPath = "PEMBillingSummaryFixed2.vb"
-                    DependentUpon = "PEMBillingSummaryFixed.rpt"
-                    SubType = "Component"
-                    BuildAction = "Compile"
-                    DesignTime = "True"
-                    AutoGen = "True"
-                />
-                <File
-                    RelPath = "PrudenBillingSummary.rpt"
-                    BuildAction = "EmbeddedResource"
-                    Generator = "CrystalDecisions.VSShell.CodeGen.ReportCodeGenerator"
-                    LastGenOutput = "PrudenBillingSummary3.vb"
-                />
-                <File
-                    RelPath = "PrudenBillingSummary3.vb"
-                    DependentUpon = "PrudenBillingSummary.rpt"
-                    SubType = "Component"
-                    BuildAction = "Compile"
-                    DesignTime = "True"
-                    AutoGen = "True"
-                />
-                <File
-                    RelPath = "Prudsummary.vb"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "RTWBillingSummaryFixed.rpt"
-                    BuildAction = "EmbeddedResource"
-                    Generator = "CrystalDecisions.VSShell.CodeGen.ReportCodeGenerator"
-                    LastGenOutput = "RTWBillingSummaryFixed1.vb"
-                />
-                <File
-                    RelPath = "RTWBillingSummaryFixed1.vb"
-                    DependentUpon = "RTWBillingSummaryFixed.rpt"
-                    SubType = "Component"
-                    BuildAction = "Compile"
-                    DesignTime = "True"
-                    AutoGen = "True"
-                />
-                <File
-                    RelPath = "RTWBillingSummaryFixed1.resx"
-                    DependentUpon = "RTWBillingSummaryFixed1.vb"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "RTWSummaryFixed.vb"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "SAFBillingSummaryFixed.rpt"
-                    BuildAction = "EmbeddedResource"
-                    Generator = "CrystalDecisions.VSShell.CodeGen.ReportCodeGenerator"
-                    LastGenOutput = "SAFBillingSummaryFixed.vb"
-                />
-                <File
-                    RelPath = "SAFBillingSummaryFixed.vb"
-                    DependentUpon = "SAFBillingSummaryFixed.rpt"
-                    SubType = "Component"
-                    BuildAction = "Compile"
-                    DesignTime = "True"
-                    AutoGen = "True"
-                />
-                <File
-                    RelPath = "SAFsummaryFixed.vb"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "SEABillingSummaryFixed.rpt"
-                    BuildAction = "EmbeddedResource"
-                    Generator = "CrystalDecisions.VSShell.CodeGen.ReportCodeGenerator"
-                    LastGenOutput = "SEABillingSummaryFixed1.vb"
-                />
-                <File
-                    RelPath = "SEABillingSummaryFixed1.vb"
-                    DependentUpon = "SEABillingSummaryFixed.rpt"
-                    SubType = "Component"
-                    BuildAction = "Compile"
-                    DesignTime = "True"
-                    AutoGen = "True"
-                />
-                <File
-                    RelPath = "SEAsummaryFixed.vb"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "SELBillingSummaryFixed.rpt"
-                    BuildAction = "EmbeddedResource"
-                    Generator = "CrystalDecisions.VSShell.CodeGen.ReportCodeGenerator"
-                    LastGenOutput = "SELBillingSummaryFixed1.vb"
-                />
-                <File
-                    RelPath = "SELBillingSummaryFixed1.vb"
-                    DependentUpon = "SELBillingSummaryFixed.rpt"
-                    SubType = "Component"
-                    BuildAction = "Compile"
-                    DesignTime = "True"
-                    AutoGen = "True"
-                />
-                <File
-                    RelPath = "SELSummaryFixed.vb"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "SHPRsummaryFixed.vb"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "SRSBillingSummary.vb"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "SRSBillingSummaryFixed.rpt"
-                    BuildAction = "EmbeddedResource"
-                    Generator = "CrystalDecisions.VSShell.CodeGen.ReportCodeGenerator"
-                    LastGenOutput = "SRSBillingSummaryFixed1.vb"
-                />
-                <File
-                    RelPath = "SRSBillingSummaryFixed1.vb"
-                    DependentUpon = "SRSBillingSummaryFixed.rpt"
-                    SubType = "Component"
-                    BuildAction = "Compile"
-                    DesignTime = "True"
-                    AutoGen = "True"
-                />
-                <File
-                    RelPath = "Styles.css"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "summaryFixed.vb"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "summaryFremont.vb"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "summaryMGCNoConf.vb"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "summaryMGCWithConf.vb"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "summaryTiered.vb"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "TGCASPBillingSummary.vb"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "TGCASPBillingSummaryFixed.rpt"
-                    BuildAction = "EmbeddedResource"
-                    Generator = "CrystalDecisions.VSShell.CodeGen.ReportCodeGenerator"
-                    LastGenOutput = "TGCASPBillingSummaryFixed1.vb"
-                />
-                <File
-                    RelPath = "TGCASPBillingSummaryFixed1.vb"
-                    DependentUpon = "TGCASPBillingSummaryFixed.rpt"
-                    SubType = "Component"
-                    BuildAction = "Compile"
-                    DesignTime = "True"
-                    AutoGen = "True"
-                />
-                <File
-                    RelPath = "TGCBillingSummary.vb"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "TGCBillingSummaryFixed.rpt"
-                    BuildAction = "EmbeddedResource"
-                    Generator = "CrystalDecisions.VSShell.CodeGen.ReportCodeGenerator"
-                    LastGenOutput = "TGCBillingSummaryFixed.vb"
-                />
-                <File
-                    RelPath = "TGCBillingSummaryFixed.vb"
-                    DependentUpon = "TGCBillingSummaryFixed.rpt"
-                    SubType = "Component"
-                    BuildAction = "Compile"
-                    DesignTime = "True"
-                    AutoGen = "True"
-                />
-                <File
-                    RelPath = "Web.config"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "WMAOHsummaryFixed.vb"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "WMAsummaryFixed.vb"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "bin\billingSummary.dll"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "bin\billingSummary.pdb"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "download\BillingSummary.pdf"
-                    BuildAction = "None"
-                />
-            </Include>
-        </Files>
-        <StartupServices>
-            <Service ID = "{CF845C55-C321-4742-B673-E6212D061ED9}" />
-        </StartupServices>
-    </VisualBasic>
-</VisualStudioProject>
-
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <PropertyGroup>
+    <ProductVersion>7.10.3077</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{4FBC399D-5767-482F-9BD6-D4363D64E30D}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{F184B08F-C81C-45F6-A57F-5ABD9991F28F}</ProjectTypeGuids>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ApplicationIcon />
+    <AssemblyKeyContainerName />
+    <AssemblyName>billingSummary</AssemblyName>
+    <AssemblyOriginatorKeyFile />
+    <AssemblyOriginatorKeyMode>None</AssemblyOriginatorKeyMode>
+    <DefaultClientScript>JScript</DefaultClientScript>
+    <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
+    <DefaultTargetSchema>IE50</DefaultTargetSchema>
+    <DelaySign>false</DelaySign>
+    <OutputType>Library</OutputType>
+    <OptionCompare>Binary</OptionCompare>
+    <OptionExplicit>On</OptionExplicit>
+    <OptionStrict>Off</OptionStrict>
+    <RootNamespace>billingSummary</RootNamespace>
+    <StartupObject />
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <MyType>Windows</MyType>
+    <UseIISExpress>false</UseIISExpress>
+    <UpgradeBackupLocation />
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\</OutputPath>
+    <DocumentationFile>billingSummary.xml</DocumentationFile>
+    <BaseAddress>285212672</BaseAddress>
+    <ConfigurationOverrideFile />
+    <DefineConstants />
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <DebugSymbols>true</DebugSymbols>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>42016,42017,42018,42019,42032</NoWarn>
+    <DebugType>full</DebugType>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\</OutputPath>
+    <DocumentationFile>billingSummary.xml</DocumentationFile>
+    <BaseAddress>285212672</BaseAddress>
+    <ConfigurationOverrideFile />
+    <DefineConstants />
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <DebugSymbols>false</DebugSymbols>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>42016,42017,42018,42019,42032</NoWarn>
+    <DebugType>none</DebugType>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CrystalDecisions.CrystalReports.Engine">
+      <Name>CrystalDecisions.CrystalReports.Engine</Name>
+      <HintPath>C:\Program Files (x86)\Crystal Decisions\1.1\Managed\CrystalDecisions.CrystalReports.Engine.dll</HintPath>
+    </Reference>
+    <Reference Include="CrystalDecisions.ReportSource">
+      <Name>CrystalDecisions.ReportSource</Name>
+      <HintPath>C:\Program Files (x86)\Crystal Decisions\1.1\Managed\CrystalDecisions.ReportSource.dll</HintPath>
+    </Reference>
+    <Reference Include="CrystalDecisions.Shared">
+      <Name>CrystalDecisions.Shared</Name>
+      <HintPath>C:\Program Files (x86)\Crystal Decisions\1.1\Managed\CrystalDecisions.Shared.dll</HintPath>
+    </Reference>
+    <Reference Include="CrystalDecisions.Web">
+      <Name>crystaldecisions.web</Name>
+      <HintPath>C:\Program Files (x86)\Crystal Decisions\1.1\Managed\crystaldecisions.web.dll</HintPath>
+    </Reference>
+    <Reference Include="CrystalEnterpriseLib">
+      <Name>CrystalEnterpriseLib</Name>
+      <HintPath>C:\Program Files (x86)\Crystal Decisions\1.1\Managed\CrystalEnterpriseLib.dll</HintPath>
+    </Reference>
+    <Reference Include="CrystalInfoStoreLib">
+      <Name>CrystalInfoStoreLib</Name>
+      <HintPath>C:\Program Files (x86)\Crystal Decisions\1.1\Managed\CrystalInfoStoreLib.dll</HintPath>
+    </Reference>
+    <Reference Include="CrystalReportPluginLib">
+      <Name>CrystalReportPluginLib</Name>
+      <HintPath>C:\Program Files (x86)\Crystal Decisions\1.1\Managed\CrystalReportPluginLib.dll</HintPath>
+    </Reference>
+    <Reference Include="System">
+      <Name>System</Name>
+    </Reference>
+    <Reference Include="System.Data">
+      <Name>System.Data</Name>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data.OracleClient">
+      <Name>System.Data.OracleClient</Name>
+      <HintPath>..\..\..\Program Files\Microsoft.NET\OracleClient.Net\System.Data.OracleClient.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Drawing">
+      <Name>System.Drawing</Name>
+    </Reference>
+    <Reference Include="System.Web">
+      <Name>System.Web</Name>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Services">
+      <Name>System.Web.Services</Name>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Name>System.XML</Name>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Configuration" />
+    <Import Include="System.Data" />
+    <Import Include="System.Drawing" />
+    <Import Include="System.Web" />
+    <Import Include="System.Web.UI" />
+    <Import Include="System.Web.UI.HtmlControls" />
+    <Import Include="System.Web.UI.WebControls" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AAABillingSummaryFixed.vb">
+      <DependentUpon>AAABillingSummaryFixed.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="AAASummaryFixed.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AFFBillingSummaryTiered.vb">
+      <DependentUpon>AFFBillingSummaryTiered.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="AFFsummaryTiered.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ALMBillingSummary.vb">
+      <DependentUpon>ALMBillingSummary.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="ALMServiceFeeReport.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AMCBillingSummaryFixed.vb">
+      <DependentUpon>AMCBillingSummaryFixed.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="AMCsummaryFixed.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AMEBillingSummary.vb">
+      <DependentUpon>AMEBillingSummary.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="AMEBillingSummaryFixed.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AssemblyInfo.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="BillingSummaryFixed.vb">
+      <DependentUpon>BillingSummaryFixed.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="BillingSummaryTiered.vb">
+      <DependentUpon>BillingSummaryTiered.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="ChubBillingSummary.vb">
+      <DependentUpon>ChubBillingSummary.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="ChubSummaryFixed.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CISGSummaryFixed.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CnlBillingSummary.vb">
+      <DependentUpon>CnlBillingSummary.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="CnlServiceFeeReport.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="COVBillingSummary.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="COVBillingSummaryFixed.vb">
+      <DependentUpon>COVBillingSummaryFixed.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="CRAWBillingSummaryTiered.vb">
+      <DependentUpon>CRAWBillingSummaryTiered.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="CRAWsummaryTiered.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CSAABillingSummaryFixed.vb">
+      <DependentUpon>CSAABillingSummaryFixed.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="CSAASummaryFixed.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="default.aspx.vb">
+      <DependentUpon>default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EMCBillingSummaryTiered.vb">
+      <DependentUpon>EMCBillingSummaryTiered.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="EMCsummaryTiered.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ESISBillingSummaryFixed.vb">
+      <DependentUpon>ESISBillingSummaryFixed.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="ESISSummaryFixed.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="EVRBillingSummaryFixed.vb">
+      <DependentUpon>EVRBillingSummaryFixed.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="EVRsummaryFixed.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="FRGsummaryFixed.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="GBSBillingSummaryFixed.vb">
+      <DependentUpon>GBSBillingSummaryFixed.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="GBSsummaryFixed.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Global.asax.vb">
+      <DependentUpon>Global.asax</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HMLBillingSummaryFixed.vb">
+      <DependentUpon>HMLBillingSummaryFixed.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="HMLSummaryFixed.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="KMPBillingSummaryCATFixed.vb">
+      <DependentUpon>KMPBillingSummaryCATFixed.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="KMPBillingSummaryFixed.vb">
+      <DependentUpon>KMPBillingSummaryFixed.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="KMPCATsummaryFixed.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="KMPSummaryfixed.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="NBICBillingSummaryFixed.vb">
+      <DependentUpon>NBICBillingSummaryFixed.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="NBICsummaryFixed.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="PEMBillingSummary.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="PEMBillingSummaryFixed.vb">
+      <DependentUpon>PEMBillingSummaryFixed.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="PrudenBillingSummary.vb">
+      <DependentUpon>PrudenBillingSummary.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Prudsummary.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="RTWBillingSummaryFixed.vb">
+      <DependentUpon>RTWBillingSummaryFixed.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="RTWSummaryFixed.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="SAFBillingSummaryFixed.vb">
+      <DependentUpon>SAFBillingSummaryFixed.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="SAFsummaryFixed.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="SEABillingSummaryFixed.vb">
+      <DependentUpon>SEABillingSummaryFixed.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="SEAsummaryFixed.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="SELBillingSummaryFixed.vb">
+      <DependentUpon>SELBillingSummaryFixed.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="SELSummaryFixed.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="SHPRsummaryFixed.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="SRSBillingSummary.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="SRSBillingSummaryFixed.vb">
+      <DependentUpon>SRSBillingSummaryFixed.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="summaryFixed.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="summaryFremont.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="summaryMGCNoConf.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="summaryMGCWithConf.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="summaryTiered.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TGCASPBillingSummary.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TGCASPBillingSummaryFixed.vb">
+      <DependentUpon>TGCASPBillingSummaryFixed.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="TGCBillingSummary.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TGCBillingSummaryFixed.vb">
+      <DependentUpon>TGCBillingSummaryFixed.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="WMAOHsummaryFixed.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="WMAsummaryFixed.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Content Include="bin\billingSummary.dll" />
+    <Content Include="bin\billingSummary.pdb" />
+    <Content Include="default.aspx" />
+    <Content Include="Global.asax" />
+    <Content Include="Styles.css" />
+    <Content Include="Web.config" />
+    <EmbeddedResource Include="AAABillingSummaryFixed.rpt">
+      <Generator>CrystalDecisions.VSShell.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>AAABillingSummaryFixed.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AFFBillingSummaryTiered.rpt">
+      <Generator>CrystalDecisions.VSShell.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>AFFBillingSummaryTiered.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AFFBillingSummaryTiered.resx">
+      <DependentUpon>AFFBillingSummaryTiered.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ALMBillingSummary.rpt">
+      <Generator>CrystalDecisions.VSShell.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>ALMBillingSummary.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AMCBillingSummaryFixed.rpt">
+      <Generator>CrystalDecisions.VSShell.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>AMCBillingSummaryFixed.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AMEBillingSummary.rpt">
+      <Generator>CrystalDecisions.VSShell.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>AMEBillingSummary.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BillingSummaryFixed.rpt">
+      <Generator>CrystalDecisions.VSShell.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>BillingSummaryFixed.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BillingSummaryTiered.rpt">
+      <Generator>CrystalDecisions.VSShell.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>BillingSummaryTiered.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ChubBillingSummary.rpt">
+      <Generator>CrystalDecisions.VSShell.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>ChubBillingSummary.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CnlBillingSummary.rpt">
+      <Generator>CrystalDecisions.VSShell.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CnlBillingSummary.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="COVBillingSummaryFixed.rpt">
+      <Generator>CrystalDecisions.VSShell.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>COVBillingSummaryFixed.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CRAWBillingSummaryTiered.rpt">
+      <Generator>CrystalDecisions.VSShell.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CRAWBillingSummaryTiered.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CSAABillingSummaryFixed.rpt">
+      <Generator>CrystalDecisions.VSShell.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CSAABillingSummaryFixed.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="default.aspx.resx">
+      <DependentUpon>default.aspx.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EMCBillingSummaryTiered.rpt">
+      <Generator>CrystalDecisions.VSShell.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>EMCBillingSummaryTiered.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ESISBillingSummaryFixed.rpt">
+      <Generator>CrystalDecisions.VSShell.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>ESISBillingSummaryFixed.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EVRBillingSummaryFixed.rpt">
+      <Generator>CrystalDecisions.VSShell.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>EVRBillingSummaryFixed.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GBSBillingSummaryFixed.rpt">
+      <Generator>CrystalDecisions.VSShell.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>GBSBillingSummaryFixed.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Global.asax.resx">
+      <DependentUpon>Global.asax.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HMLBillingSummaryFixed.rpt">
+      <Generator>CrystalDecisions.VSShell.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>HMLBillingSummaryFixed.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="KMPBillingSummaryCATFixed.rpt">
+      <Generator>CrystalDecisions.VSShell.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>KMPBillingSummaryCATFixed.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="KMPBillingSummaryFixed.rpt">
+      <Generator>CrystalDecisions.VSShell.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>KMPBillingSummaryFixed.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NBICBillingSummaryFixed.rpt">
+      <Generator>CrystalDecisions.VSShell.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>NBICBillingSummaryFixed.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PEMBillingSummaryFixed.rpt">
+      <Generator>CrystalDecisions.VSShell.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>PEMBillingSummaryFixed.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PrudenBillingSummary.rpt">
+      <Generator>CrystalDecisions.VSShell.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>PrudenBillingSummary.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RTWBillingSummaryFixed.rpt">
+      <Generator>CrystalDecisions.VSShell.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>RTWBillingSummaryFixed.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RTWBillingSummaryFixed.resx">
+      <DependentUpon>RTWBillingSummaryFixed.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SAFBillingSummaryFixed.rpt">
+      <Generator>CrystalDecisions.VSShell.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>SAFBillingSummaryFixed.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SEABillingSummaryFixed.rpt">
+      <Generator>CrystalDecisions.VSShell.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>SEABillingSummaryFixed.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SELBillingSummaryFixed.rpt">
+      <Generator>CrystalDecisions.VSShell.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>SELBillingSummaryFixed.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SRSBillingSummaryFixed.rpt">
+      <Generator>CrystalDecisions.VSShell.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>SRSBillingSummaryFixed.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TGCASPBillingSummaryFixed.rpt">
+      <Generator>CrystalDecisions.VSShell.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>TGCASPBillingSummaryFixed.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TGCBillingSummaryFixed.rpt">
+      <Generator>CrystalDecisions.VSShell.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>TGCBillingSummaryFixed.vb</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="billingSummary.vsdisco" />
+    <None Include="download\BillingSummary.pdf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{CF845C55-C321-4742-B673-E6212D061ED9}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
+  <PropertyGroup>
+    <PreBuildEvent />
+    <PostBuildEvent />
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v12.0\WebApplications\Microsoft.WebApplication.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost/billingSummary</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>
