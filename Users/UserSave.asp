@@ -19,10 +19,22 @@
 	aRecycle(2) = "Delete From SETTING Where USER_ID = " & cUserID
 	aRecycle(3) = "Delete From ACCOUNT_USER Where USER_ID = " & cUserID
 	aRecycle(4) = "Delete From SECURITY_LOG Where USER_ID = " & cUserID
-	If cAction = "UPDATE" Then
-		cSQL = BuildSQL(cSQLString,Chr(128), Chr(129), "UPDATE", "USERS", "USER_ID", "")
-		Conn.BeginTrans
-		Conn.Execute(cSQL)
+	If cAction = "UPDATE" Then	    
+		 lret = SplitString(cSQLString, Chr(128))
+	    Set oComm=Server.CreateObject("ADODB.Command")
+        Set oComm.ActiveConnection=Conn
+        oComm.commandtype= 4	'	adCmdStoredProc 
+        oComm.commandtext="SP_UPDATE_USER"
+        oComm.Parameters.Refresh ' Fetching parameters list from SP. The order of parameters and their values must be synced
+        nUserID = SplitString(lret(1), Chr(129))(2)
+        oComm.Parameters(0) = nUserID		
+        for i = 2 to UBOUND(lret) step 1
+            If lret(i) <> "" Then
+                lret2 = SplitString(lret(i), Chr(129))
+                oComm.Parameters(i-1) = lret2(2)                
+            End If
+        Next
+        oComm.execute()            	        
 		cError = CheckADOErrors(Conn, "Users " & ACTION)
 		if cReuse = "Y" then
 			y = 0
@@ -36,37 +48,35 @@
 			Conn.RollbackTrans
 		else
 			Conn.CommitTrans
-		end if
+		end if	    
 	Elseif cAction = "INSERT" Then
-		'	recycling has been disabled because USER_IDs are stored in calls
-		'	try to find a recycled record
-		'cSQL = "Select USER_ID From USERS Where REUSE = 'Y'"
-		'Set oRS = Conn.Execute(cSQL)
-		'if not oRS.eof then
-			'nUserID = CLng(oRS.Fields("USER_ID").value)
-			'lNewKey = false
-		'else
-			nUserID = CLng(NextPkey("USERS","USER_ID"))
-			lNewKey = true
-		'end if
-		'oRS.close
-		If nUserID > 0 Then
-			if lNewKey then
-				cSQL = BuildSQL(cSQLString, Chr(128), Chr(129), "INSERT", "USERS", "USER_ID", nUserID)
-			else
-				cSQL = BuildSQL(cSQLString, Chr(128), Chr(129), "UPDATE", "USERS", "USER_ID", nUserID)
-			end if
-			Conn.Execute(cSQL)
-			cError = CheckADOErrors(Conn,"Users " & ACTION)
-			If cError = "" Then 
-				%>
-				parent.frames("WORKAREA").UpdateUID("<%=nUserID%>")
-				parent.frames("WORKAREA").enableTabs
-				parent.frames("WORKAREA").lockUserName
-				<%	
-			end if
+	     nUserID = CLng(NextPkey("USERS","USER_ID"))
+		 lNewKey = true		
+		 If nUserID > 0 Then
+	        lret = SplitString(cSQLString, Chr(128))
+		    Set oComm=Server.CreateObject("ADODB.Command")
+            Set oComm.ActiveConnection=Conn
+            oComm.commandtype= 4	'	adCmdStoredProc 
+            oComm.commandtext="SP_INSERT_USER"
+            oComm.Parameters.Refresh ' Fetching parameters list from SP. The order of parameters and their values must be synced
+            oComm.Parameters(0) = nUserID			
+            for i = 2 to UBOUND(lret) step 1
+                If lret(i) <> "" Then
+                    lret2 = SplitString(lret(i), Chr(129))
+                    oComm.Parameters(i-1) = lret2(2)
+                End If
+            Next                     
+            oComm.execute()            
+		    cError = CheckADOErrors(Conn,"Users " & ACTION)
+		    If cError = "" Then 
+			    %>
+			    parent.frames("WORKAREA").UpdateUID("<%=nUserID%>")
+			    parent.frames("WORKAREA").enableTabs
+			    parent.frames("WORKAREA").lockUserName
+			    <%	
+		    end if
 		Else
-			cError = "Unable to obtain next primary key for USERS table."
+			    cError = "Unable to obtain next primary key for USERS table."
 		End If
 	End If
 	Conn.Close

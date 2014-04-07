@@ -60,7 +60,7 @@ If UID <> "NEW" Then
      if cint(checkSentry)>0 then 'Added This Line as per Work Request MALB-0036
 		SQLST = SQLST & " ,u.OPERATOR_ID"
     end if
-    SQLST = SQLST & " FROM USERS u, SITE s "
+    SQLST = SQLST & " FROM USERS_VIEW u, SITE s "
     SQLST = SQLST & " WHERE u.SITE_ID = s.SITE_ID "
     SQLST = SQLST & "  and USER_ID =" & UID
     
@@ -499,66 +499,52 @@ Function ExeSave()
 		<%
 		end if
 		%>
-        sResult = sResult & "USER_ID" & Chr(129) & document.All.UID.Value & Chr(129) & "0" & Chr(128)
-        sResult = sResult & "SITE_ID" & Chr(129) & document.All.TxtSite.Value & Chr(129) & "0" & Chr(128)
+       sResult = sResult & "inUserId" & Chr(129) & document.All.UID.Value & Chr(128)
+        sResult = sResult & "inSiteId" & Chr(129) & document.All.TxtSite.Value & Chr(128)
         If document.All.activeUser(0).Checked Then
-            sResult = sResult & "ACTIVE" & Chr(129) & "Y" & Chr(129) & "1" & Chr(128)
-            sResult = sResult & "REUSE" & Chr(129) & "N" & Chr(129) & "1" & Chr(128)
+            sResult = sResult & "inActive" & Chr(129) & "Y" & Chr(128)
+            sResult = sResult & "inReuse" & Chr(129) & "N" & Chr(128)
         Else
-            sResult = sResult & "ACTIVE" & Chr(129) & "N" & Chr(129) & "1" & Chr(128)
+            sResult = sResult & "inActive" & Chr(129) & "N" & Chr(128)
 			If document.All.recycle(0).Checked Then
-				sResult = sResult & "REUSE" & Chr(129) & "Y" & Chr(129) & "1" & Chr(128)
+				sResult = sResult & "inReuse" & Chr(129) & "Y" & Chr(128)
 				document.All.TxtReuse.value = "Y"
 			Else
-				sResult = sResult & "REUSE" & Chr(129) & "N" & Chr(129) & "1" & Chr(128)
+				sResult = sResult & "inReuse" & Chr(129) & "N" & Chr(128)
 			End If
         End If
-        sResult = sResult & "LAST_NAME" & Chr(129) & document.All.TxtLName.Value & Chr(129) & "1" & Chr(128)
-        sResult = sResult & "FIRST_NAME" & Chr(129) & document.All.TxtFName.Value & Chr(129) & "1" & Chr(128)
+        sResult = sResult & "inLastName" & Chr(129) & document.All.TxtLName.Value &  Chr(128)
+        sResult = sResult & "inFirstName" & Chr(129) & document.All.TxtFName.Value & Chr(128)
 
-        if instr(document.All.TxtDBNAME.value,"SED")>0 then 'Added This Line as per Work Request TSOL-0105
-			sResult = sResult & "NAME" & Chr(129) & document.All.TxtUserName.Value & Chr(129) & "1" & Chr(128)  'Added This Line as per Work Request TSOL-0105
-		else
-			If document.All.UID.Value = "NEW" Then
-				sResult = sResult & "NAME" & Chr(129) & UCase(document.All.TxtUserName.Value) & Chr(129) & "1" & Chr(128)
+        If document.All.UID.Value = "NEW" Then
+            if instr(document.All.TxtDBNAME.value,"SED")>0 then
+			    sResult = sResult & "inName" & Chr(129) & document.All.TxtUserName.Value & Chr(128)
+		    else			
+				sResult = sResult & "inName" & Chr(129) & UCase(document.All.TxtUserName.Value) & Chr(128)
 			End If
 		end if 	
-        sResult = sResult & "PASSWORD" & Chr(129) & document.All.TxtPass.Value & Chr(129) & "1" & Chr(128)
-        sResult = sResult & "ADDRESS_LINE_1" & Chr(129) & document.All.TxtAddress1.Value & Chr(129) & "1" & Chr(128)
-        sResult = sResult & "ADDRESS_LINE_2" & Chr(129) & document.All.TxtAddress2.Value & Chr(129) & "1" & Chr(128)
-        sResult = sResult & "CITY" & Chr(129) & document.All.TxtCity.Value & Chr(129) & "1" & Chr(128)
-        sResult = sResult & "STATE" & Chr(129) & document.All.TxtState.Value & Chr(129) & "1" & Chr(128)
-        sResult = sResult & "ZIP_CODE" & Chr(129) & document.All.TxtZip.Value & Chr(129) & "1" & Chr(128)
-        sResult = sResult & "PHONE_WORK" & Chr(129) & document.All.TxtPhonWork.Value & Chr(129) & "1" & Chr(128)
-        sResult = sResult & "PHONE_WORK_EXTENSION" & Chr(129) & document.All.TxtPhonWorkExt.Value & Chr(129) & "1" & Chr(128)
-        sResult = sResult & "FAX_NUMBER" & Chr(129) & document.All.TxtFaxNumber.Value & Chr(129) & "1" & Chr(128)
-        sResult = sResult & "EMAIL_ADDRESS" & Chr(129) & document.All.TxtEmailAddress.Value & Chr(129) & "1" & Chr(128)
-        sResult = sResult & "CALLER_TYPE" & Chr(129) & document.All.TxtCallerType.Value & Chr(129) & "1" & Chr(128)
-        sResult = sResult & "CALLER_DEPARTMENT" & Chr(129) & document.All.TxtCallerDepartment.Value & Chr(129) & "1" & Chr(128)
-        sResult = sResult & "SUPERVISOR_NAME" & Chr(129) & document.All.TxtSupName.Value & Chr(129) & "1" & Chr(128)
-        sResult = sResult & "SUPERVISOR_PHONE_WORK" & Chr(129) & document.All.TxtSupPhonExt.Value & Chr(129) & "1" & Chr(128)
-        sResult = sResult & "SUPERVISOR_PHONE_EXTENSION" & Chr(129) & document.All.TxtSupPhonExt.Value & Chr(129) & "1" & Chr(128)
-        sResult = sResult & "ACTIVE_START_DATE" & Chr(129) & "to_date('" & document.All.TxtActStartDate.Value & "','MM/DD/YYYY')" & Chr(129) & "0" & Chr(128)
-        sResult = sResult & "ACTIVE_END_DATE" & Chr(129) & "to_date('" & document.All.TxtActEndDate.Value & "','MM/DD/YYYY')" & Chr(129) & "0" & Chr(128)
-        If document.All.UID.Value = "NEW" Then
-            sResult = sResult & "PASSWORD_CREATION_DATE" & Chr(129) & "SYSDATE" & Chr(129) & "0" & Chr(128)
-		end if
-		sResult = sResult & "PASSWORD_EXPIRATION_DATE" & Chr(129) & "to_date('" & document.All.TxtExpirDate.Value & "','MM/DD/YYYY')" & Chr(129) & "0" & Chr(128)
-        sResult = sResult & "LAST_CHANGE_DATE" & Chr(129) & "SYSDATE" & Chr(129) & "0" & Chr(128)
-        If document.All.newUser(0).Checked Then
-            sResult = sResult & "NEW_USER" & Chr(129) & "Y" & Chr(129) & "1" & Chr(128)
-        Else
-            sResult = sResult & "NEW_USER" & Chr(129) & "N" & Chr(129) & "1" & Chr(128)
-        End If
+        sResult = sResult & "inPassword" & Chr(129) & document.All.TxtPass.Value & Chr(128)
+        sResult = sResult & "inAddressLine1" & Chr(129) & document.All.TxtAddress1.Value & Chr(128)
+        sResult = sResult & "inAddressLine2" & Chr(129) & document.All.TxtAddress2.Value & Chr(128)
+        sResult = sResult & "inCity" & Chr(129) & document.All.TxtCity.Value & Chr(128)
+        sResult = sResult & "inState" & Chr(129) & document.All.TxtState.Value & Chr(128)
+        sResult = sResult & "inZipCode" & Chr(129) & document.All.TxtZip.Value & Chr(128)
+        sResult = sResult & "inPhoneWork" & Chr(129) & document.All.TxtPhonWork.Value & Chr(128)
+        sResult = sResult & "inPhoneWorkExtension" & Chr(129) & document.All.TxtPhonWorkExt.Value & Chr(128)
+        sResult = sResult & "inFaxNumber" & Chr(129) & document.All.TxtFaxNumber.Value & Chr(128)
+        sResult = sResult & "inEmailAddress" & Chr(129) & document.All.TxtEmailAddress.Value & Chr(128)
+        sResult = sResult & "inCallerType" & Chr(129) & document.All.TxtCallerType.Value & Chr(128)
+        sResult = sResult & "inCallerDepartment" & Chr(129) & document.All.TxtCallerDepartment.Value & Chr(128)
+        sResult = sResult & "inSupervisorName" & Chr(129) & document.All.TxtSupName.Value & Chr(128)
+        sResult = sResult & "inSupervisorPhoneWork" & Chr(129) & document.All.TxtSupPhonExt.Value & Chr(128)
+        sResult = sResult & "inSupervisorPhoneExtension" & Chr(129) & document.All.TxtSupPhonExt.Value & Chr(128)
+        sResult = sResult & "inActiveStartDate" & Chr(129) & document.All.TxtActStartDate.Value & Chr(128)
+        sResult = sResult & "inActiveEndDate" & Chr(129) & document.All.TxtActEndDate.Value & Chr(128)        
+		sResult = sResult & "inPasswordExpirationDate" & Chr(129) & document.All.TxtExpirDate.Value & Chr(128) 
 		if ucase(trim(document.All.TxtSite.options(document.All.TxtSite.selectedIndex).innertext)) = "INTERNET" then
-			sResult = sResult & "INTERNET_USER" & Chr(129) & "Y" & Chr(129) & "1" & Chr(128)
+			sResult = sResult & "inInternetUser" & Chr(129) & "Y" & Chr(128)
 		else
-			sResult = sResult & "INTERNET_USER" & Chr(129) & "N" & Chr(129) & "1" & Chr(128)
-		end if
-		
-		 if cint(instr(document.All.TxtDBNAME.value,"SEN"))>0 then 'Added This Line as per Work Request MALB-0036
-			sResult = sResult & "OPERATOR_ID" & Chr(129) & document.All.TxtOperatorID.Value & Chr(129) & "1" & Chr(128) ''Added This Line as per Work Request MALB-0036
-			
+			sResult = sResult & "inInternetUser" & Chr(129) & "N" & Chr(128)
 		end if
 		
 		document.All.TxtSaveData.Value = sResult
