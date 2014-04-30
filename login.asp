@@ -267,7 +267,7 @@ if (top.frames.length > 0)
 //-->
 </SCRIPT>
 </head>
-<body LANGUAGE=javascript onload="return window_onload()" bgcolor="#CC6600">
+<body LANGUAGE=javascript onload="return window_onload()" bgcolor="#018B98">
 <span ID="STATUS" CLASS=LABEL>Verifying / Installing FNSNet Designer components... Please wait.</span>
 <span ID="OFFSCREEN" CLASS=LABEL style="position: absolute; left:-999; top:-999;">
 
@@ -292,8 +292,9 @@ if (top.frames.length > 0)
 						<img src="images/designer.gif" width="162" height="47"></td>
 						<td bgcolor="#000000" width="1">
 						<img src="images/spacer.gif" width="1" height="1"></td>
-						<td width="307" align="right" valign="bottom">
-						<img src="images/orange_firstnotice.gif" vspace="13" width="143" height="14"></td>
+						<td width="307" align="right" valign="center">
+						<span style='font-weight:bold;font-size:16px'>Innovation First Notice</span>
+						</td>
 					</tr>
 				</table>
 				</td>
@@ -328,7 +329,7 @@ if (top.frames.length > 0)
 						<img src="images/orange_grad_login2.jpg" width="230" height="229"></td>
 						<td bgcolor="#000000" width="1">
 						<img src="images/spacer.gif" width="1" height="1"></td>
-						<td width="307" align="right" valign="bottom" bgcolor="#E68000">
+						<td width="307" align="right" valign="bottom" bgcolor="#018B98">
 						<form NAME="FrmLogin" ACTION="login.asp?ACTION=LOGIN" METHOD="POST">
 							<table border="0" cellspacing="3" cellpadding="0" width="95%" ID="Table8">
 								<tr>
@@ -419,8 +420,7 @@ if (top.frames.length > 0)
 				<td><img src="images/spacer.gif" width="20" height="20"></td>
 			</tr>
 			<tr>
-				<td class="copyright">Copyright 1998-<%=YEAR(Now)%>, Innovation First Notice,
-				Inc. - All rights reserved. Version 2.68</td>
+				<td class="copyright">Copyright 1998-<%=YEAR(Now)%>, First Notice Systems, Inc. - All rights reserved. Version 2.67</td>
 			</tr>
 		</table>
 		</td>
