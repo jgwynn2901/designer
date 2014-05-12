@@ -731,7 +731,7 @@ end if
 					cType=""
 				end if
                 %>
-						<input READONLY
+						<input 
 	           size="22" 
 	           class="LABEL" 
 	           maxlength="40" 
