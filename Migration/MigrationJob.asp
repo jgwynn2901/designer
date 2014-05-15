@@ -168,11 +168,19 @@ End If
 End Function
 
 Sub BtnMigrate_onclick
-dim cMsg
+dim cMsg, migrationStatus
 RPList = ""
 ODlist = ""
 sResult = ""
-    If Validate() Then
+migrationStatus="true"
+
+
+If Validate() Then
+    If( ( "<%=Session("isAsp")%>" = false AND "<%=Session("ENVIRONMENT_ABBREVIATION")%>" = "QA") OR "<%=Session("ENVIRONMENT_ABBREVIATION")%>" = "PP") Then
+         migrationStatus="false"
+         migrationStatus=window.showModalDialog("MigrationConfirmationDialog.asp","","dialogwidth:510px;dialogheight:130px")
+    End If
+    If migrationStatus="true" Then
         cMsg = "Are you sure you wish to migrate this data? This cannot be undone!" & vbCrLf
         If document.All.chkLevelOne.Checked Then
             cMsg = cMsg & vbCrLf & "[ Level ONE Migration ]" & vbCrLf
@@ -313,6 +321,7 @@ sResult = ""
             FrmData.submit()
         End If
     End If
+End If
 End Sub
 
 Function AttachNode(ID)
@@ -722,7 +731,7 @@ End Function
 			</td>
 			<td CLASS="LABEL" TITLE="mm/dd/yy">Date:<br><input TYPE="TEXT" NAME="START_DATE" CLASS="LABEL" SIZE="12" MAXLENGTH="10"></td>
 			<td CLASS="LABEL" TITLE="Enter the time in the 24 hour clock format ie. 17:30">Time<font SIZE="-5">(24 Hour Clock)</font>:<br><input TYPE="TEXT" NAME="START_TIME" CLASS="LABEL" SIZE="10" MAXLENGTH="5"></td>
-			<td	VALIGN="BOTTOM" ALIGN="RIGHT"><button NAME="BtnMigrate" STYLE CLASS="STDBUTTON"><u>M</u>igrate</button>&nbsp;&nbsp;</td>
+			<td	VALIGN="BOTTOM" ALIGN="RIGHT"><button NAME="BtnMigrate" STYLE CLASS="STDBUTTON">Migrate</button>&nbsp;&nbsp;</td>
 		</tr>
 		<tr>
 			<td> </td>

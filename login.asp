@@ -1,5 +1,14 @@
 <!--#include file=lib/AHSTree.inc -->
 <%
+Function in_array(element, arr)
+in_array = False
+For i=0 To Ubound(arr)
+If Trim(arr(i)) = Trim(element) Then
+in_array = True
+Exit Function
+End If
+Next
+End Function
 Response.Expires = 0
 
 dim oConn, oRS
@@ -139,6 +148,8 @@ If Request.QueryString("ACTION") = "LOGIN" Then
 			set oRS = nothing
 			oConn.Close
 			set oConn = nothing
+			Dim fnsEnv
+			fnsEnv=Array("ANALYST", "FNSBA", "QA", "PREPRODUCTION", "PRODUCTION")
 			
 			Dim environment, ConStrAnalyst, ENVIRONMENT_ABBREVIATION
 	        environment = CStr(Request.Form("environment"))	
@@ -155,7 +166,14 @@ If Request.QueryString("ACTION") = "LOGIN" Then
 	        END IF	
 	        If 	ENVIRONMENT_ABBREVIATION <> "" Then	    
 	            Session("ENVIRONMENT_ABBREVIATION") = ENVIRONMENT_ABBREVIATION
-	        End If
+	        End If	
+			
+			If in_array(fnsEnv,environment) Then
+				Session("isAsp")=false
+			Else
+				Session("isAsp")=true
+			End If
+			
 			Evn_RS.close
 			set Evn_RS = nothing
 			Connect.Close
