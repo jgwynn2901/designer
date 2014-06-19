@@ -3806,8 +3806,8 @@ cSQL = "SELECT distinct b.*, u.name as user_name, c.call_start_time as CallStart
 		" AND c.CALL_ID = cc.CALL_ID AND c.user_id = u.user_id AND cc.CALL_ID = cb.CALL_ID(+)) AND cc.CALL_CLAIM_ID = cll.CALL_CLAIM_ID(+) " & _
 		"Order by b.CLIENT_NAME,b.PARENT_NAME,b.CALL_TYPE,b.LOB_CD,b.CALL_END_TIME"
 
-'response.write(cSQL)
-'response.end
+response.write(cSQL)
+response.end
 
 
 set oRS = Conn.Execute(cSQL)
@@ -7986,7 +7986,7 @@ function genAMEXLS
 			"cc.TEMPEDPOLICY_FLG, cc.claim_type as ClaimType, " & _
 			"cca.caller_Type as Input_Type, " & _
 			"cb.BRANCH_NUMBER, cb.BRANCH_OFFICE_NAME, cll.ADDRESS_STATE  as LossState " & _
-			"FROM BILLING_DETAIL b, call c, call_caller cca, call_claim cc, users u, call_loss_location cll, " & _
+			"FROM BILLING_DETAIL b, call c, call_caller cca, call_claim cc, users_view u, call_loss_location cll, " & _
 			"(select cc.call_id,cb.branch_number,cb.branch_office_name " & _
 			"from call_claim cc,call_branch cb " & _
 			"where cc.call_claim_id = cb.call_claim_id(+) )cb " & _
