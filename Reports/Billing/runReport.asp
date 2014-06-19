@@ -3806,8 +3806,8 @@ cSQL = "SELECT distinct b.*, u.name as user_name, c.call_start_time as CallStart
 		" AND c.CALL_ID = cc.CALL_ID AND c.user_id = u.user_id AND cc.CALL_ID = cb.CALL_ID(+)) AND cc.CALL_CLAIM_ID = cll.CALL_CLAIM_ID(+) " & _
 		"Order by b.CLIENT_NAME,b.PARENT_NAME,b.CALL_TYPE,b.LOB_CD,b.CALL_END_TIME"
 
-response.write(cSQL)
-response.end
+'response.write(cSQL)
+'response.end
 
 
 set oRS = Conn.Execute(cSQL)
