@@ -1,11 +1,11 @@
 <!--#include file=lib/AHSTree.inc -->
 <%
-Function in_array(element, arr)
+Function in_array(arrayElements,currentElement)
 in_array = False
-For i=0 To Ubound(arr)
-If Trim(arr(i)) = Trim(element) Then
+For i=0 To Ubound(arrayElements)
+If Trim(arrayElements(i)) = Trim(currentElement) Then
 in_array = True
-Exit Function
+Exit FOR
 End If
 Next
 End Function
@@ -148,8 +148,8 @@ If Request.QueryString("ACTION") = "LOGIN" Then
 			set oRS = nothing
 			oConn.Close
 			set oConn = nothing
-			Dim fnsEnv
-			fnsEnv=Array("ANALYST", "FNSBA", "QA", "PREPRODUCTION", "PRODUCTION")
+			Dim fnsEnvironments
+			fnsEnvironments=Array("ANALYST", "FNSBA", "QA", "PREPRODUCTION", "PRODUCTION")
 			
 			Dim environment, ConStrAnalyst, ENVIRONMENT_ABBREVIATION
 	        environment = CStr(Request.Form("environment"))	
@@ -168,7 +168,7 @@ If Request.QueryString("ACTION") = "LOGIN" Then
 	            Session("ENVIRONMENT_ABBREVIATION") = ENVIRONMENT_ABBREVIATION
 	        End If	
 			
-			If in_array(fnsEnv,environment) Then
+			If in_array(fnsEnvironments,environment) Then
 				Session("isAsp")=false
 			Else
 				Session("isAsp")=true
