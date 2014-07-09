@@ -541,6 +541,11 @@ Function ExeSave()
         sResult = sResult & "inActiveStartDate" & Chr(129) & document.All.TxtActStartDate.Value & Chr(128)
         sResult = sResult & "inActiveEndDate" & Chr(129) & document.All.TxtActEndDate.Value & Chr(128)        
 		sResult = sResult & "inPasswordExpirationDate" & Chr(129) & document.All.TxtExpirDate.Value & Chr(128) 
+		if document.All.newUser(0).Checked Then
+            sResult = sResult & "inNewUser" & Chr(129) & "Y" & Chr(128) 
+        else
+            sResult = sResult & "inNewUser" & Chr(129) & "N" & Chr(128)
+        end if
 		if ucase(trim(document.All.TxtSite.options(document.All.TxtSite.selectedIndex).innertext)) = "INTERNET" then
 			sResult = sResult & "inInternetUser" & Chr(129) & "Y" & Chr(128)
 		else
