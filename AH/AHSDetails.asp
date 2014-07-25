@@ -250,6 +250,11 @@ If AHSID <> "" Then
 			if RS.Fields("FIELD_NAME") = "CLAIM:ACCOUNT:MASK_SSNO" Then
 				RSMASK_SSN = RS.Fields("FIELD_VALUE")
 			end if
+			
+			'MMAI-0684
+			if RS.Fields("FIELD_NAME") = "CLAIM:ACCOUNT:CUSTOM_POLICY_LU" Then
+				RSCBPOLICY_LOOKUP = RS.Fields("FIELD_VALUE")
+			end if
 
 			RS.Movenext
 		Wend
@@ -1253,6 +1258,10 @@ rs_Type.Close
 		<td CLASS="LABEL" VALIGN="BOTTOM">
 		<input TYPE="CHECKBOX" ID = "CH_MASK_SSN" ScrnBtn="TRUE" NAME="CH_MASK_SSN" <%if RSMASK_SSN="Y" then Response.write "checked"%> CLASS="LABEL" OnCLick="VBScript::Control_OnChange" ONCHANGE="VBScript::Control_OnChange">
 		Mask SSN</td>
+		<td CLASS="LABEL" VALIGN="BOTTOM">
+		<!--MMAI-0684 -->
+		<input TYPE="CHECKBOX" ID = "CH_CBPOLICY_LOOKUP" ScrnBtn="TRUE" NAME="CH_CBPOLICY_LOOKUP" <%if RSCBPOLICY_LOOKUP="Y" then Response.write "checked"%> CLASS="LABEL" OnCLick="VBScript::Control_OnChange" ONCHANGE="VBScript::Control_OnChange">
+		Contractor Based Policy Lookup</td>
 
 	</tr>
 	<tr>
