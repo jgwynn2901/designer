@@ -438,7 +438,7 @@ if (top.frames.length > 0)
 				<td><img src="images/spacer.gif" width="20" height="20"></td>
 			</tr>
 			<tr>
-				<td class="copyright">Copyright 1998-<%=YEAR(Now)%>, First Notice Systems, Inc. - All rights reserved. Version 2.71</td>
+				<td class="copyright">Copyright 1998-<%=YEAR(Now)%>, First Notice Systems, Inc. - All rights reserved. Version 2.72</td>
 			</tr>
 		</table>
 		</td>
