@@ -255,6 +255,11 @@ If AHSID <> "" Then
 			if RS.Fields("FIELD_NAME") = "CLAIM:ACCOUNT:CUSTOM_POLICY_LU" Then
 				RSCBPOLICY_LOOKUP = RS.Fields("FIELD_VALUE")
 			end if
+			
+			'MMAI-0708
+			if RS.Fields("FIELD_NAME") = "CLAIM:ACCOUNT:RENTAL_REFERRAL_FLG" Then
+				RSRENTALREFERRAL = RS.Fields("FIELD_VALUE")
+			end if
 
 			RS.Movenext
 		Wend
@@ -1262,6 +1267,14 @@ rs_Type.Close
 		<!--MMAI-0684 -->
 		<input TYPE="CHECKBOX" ID = "CH_CBPOLICY_LOOKUP" ScrnBtn="TRUE" NAME="CH_CBPOLICY_LOOKUP" <%if RSCBPOLICY_LOOKUP="Y" then Response.write "checked"%> CLASS="LABEL" OnCLick="VBScript::Control_OnChange" ONCHANGE="VBScript::Control_OnChange">
 		Contractor Based Policy Lookup</td>
+
+	</tr>
+	<tr>
+		<td CLASS="LABEL" VALIGN="BOTTOM">
+		<!--MMAI-0708-->
+		<input TYPE="CHECKBOX" ID = "CH_RENTAL_REFERRAL" ScrnBtn="TRUE" NAME="CH_RENTAL_REFERRAL" <%if RSRENTALREFERRAL="Y" then Response.write "checked"%> CLASS="LABEL" OnCLick="VBScript::Control_OnChange" ONCHANGE="VBScript::Control_OnChange">
+		Rental Referral</td>
+		<td CLASS="LABEL" VALIGN="BOTTOM">&nbsp;</td>
 
 	</tr>
 	<tr>
