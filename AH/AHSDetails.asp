@@ -260,7 +260,11 @@ If AHSID <> "" Then
 			if RS.Fields("FIELD_NAME") = "CLAIM:ACCOUNT:RENTAL_REFERRAL_FLG" Then
 				RSRENTALREFERRAL = RS.Fields("FIELD_VALUE")
 			end if
-
+			
+			'MMAI-0726
+			if RS.Fields("FIELD_NAME") = "CLAIM:ACCOUNT:CUSTOM_SIDECAR_FLG" Then
+				RSCUSTOM_SIDECAR = RS.Fields("FIELD_VALUE")
+			end if
 			RS.Movenext
 		Wend
 		End If
@@ -1274,9 +1278,13 @@ rs_Type.Close
 		<!--MMAI-0708-->
 		<input TYPE="CHECKBOX" ID = "CH_RENTAL_REFERRAL" ScrnBtn="TRUE" NAME="CH_RENTAL_REFERRAL" <%if RSRENTALREFERRAL="Y" then Response.write "checked"%> CLASS="LABEL" OnCLick="VBScript::Control_OnChange" ONCHANGE="VBScript::Control_OnChange">
 		Rental Referral</td>
-		<td CLASS="LABEL" VALIGN="BOTTOM">&nbsp;</td>
+		<td CLASS="LABEL" VALIGN="BOTTOM">
+		<!--MMAI-0726 -->
+		<input TYPE="CHECKBOX" ID = "CH_CUSTOM_SIDECAR" ScrnBtn="TRUE" NAME="CH_CUSTOM_SIDECAR" <%if RSCUSTOM_SIDECAR="Y" then Response.write "checked"%> CLASS="LABEL" OnCLick="VBScript::Control_OnChange" ONCHANGE="VBScript::Control_OnChange">
+		Custom Side Car</td>
 
 	</tr>
+	
 	<tr>
 	<td CLASS="LABEL" VALIGN="BOTTOM">Account Type:
 <select NAME="ACCOUNT_TYPE" STYLE="WIDTH:100" ScrnBtn="TRUE" CLASS="LABEL" ONKEYPRESS="VBScript::Control_OnChange" ONCHANGE="VBScript::Control_OnChange">
