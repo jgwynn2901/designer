@@ -265,6 +265,11 @@ If AHSID <> "" Then
 			if RS.Fields("FIELD_NAME") = "CLAIM:ACCOUNT:CUSTOM_SIDECAR_FLG" Then
 				RSCUSTOM_SIDECAR = RS.Fields("FIELD_VALUE")
 			end if
+					
+			'MMAI-0756
+			if RS.Fields("FIELD_NAME") = "CLAIM:ACCOUNT:STAFFING_AGENCY_FLG" Then
+				RSSTAFFING_AGENCY = RS.Fields("FIELD_VALUE")
+			end if			
 			RS.Movenext
 		Wend
 		End If
@@ -1284,7 +1289,13 @@ rs_Type.Close
 		Custom Side Car</td>
 
 	</tr>
-	
+	<tr>
+		<td CLASS="LABEL" VALIGN="BOTTOM">
+		<!--MMAI-0756-->
+		<input TYPE="CHECKBOX" ID = "CH_STAFFING_AGENCY" ScrnBtn="TRUE" NAME="CH_STAFFING_AGENCY" <%if RSSTAFFING_AGENCY="Y" then Response.write "checked"%> CLASS="LABEL" OnCLick="VBScript::Control_OnChange" ONCHANGE="VBScript::Control_OnChange">
+		Staffing Agency</td>
+
+	</tr>	
 	<tr>
 	<td CLASS="LABEL" VALIGN="BOTTOM">Account Type:
 <select NAME="ACCOUNT_TYPE" STYLE="WIDTH:100" ScrnBtn="TRUE" CLASS="LABEL" ONKEYPRESS="VBScript::Control_OnChange" ONCHANGE="VBScript::Control_OnChange">
