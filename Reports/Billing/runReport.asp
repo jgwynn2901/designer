@@ -1073,7 +1073,7 @@ function genSEL
 				"INNER JOIN SITE S on S.SITE_ID = BD.SITE_ID  " & _				
 				"WHERE (BD.BILLING_ID = " & cBillID & _
 				" AND BD.STATUS='ACTIVE') " & _
-				" AND BD.CALLSTATUS = 'COMPLETED' " & _
+				" AND BD.CALLSTATUS IN ('COMPLETED', 'PENDED') " & _
 				"Order by BD.CLIENT_NAME,BD.PARENT_NAME, BD.CALL_TYPE, BD.LOB_CD, BD.CALL_END_TIME"
 				'response.write(cSQL)
 				'response.end
