@@ -515,14 +515,11 @@ Function ExeSave()
         End If
         sResult = sResult & "inLastName" & Chr(129) & document.All.TxtLName.Value &  Chr(128)
         sResult = sResult & "inFirstName" & Chr(129) & document.All.TxtFName.Value & Chr(128)
-
-        'If document.All.UID.Value = "NEW" Then
-            if instr(document.All.TxtDBNAME.value,"SED")>0 then
-			    sResult = sResult & "inName" & Chr(129) & document.All.TxtUserName.Value & Chr(128)
-		    else			
-				sResult = sResult & "inName" & Chr(129) & UCase(document.All.TxtUserName.Value) & Chr(128)
-			End If
-		'end if 	
+		if instr(document.All.TxtDBNAME.value,"SED")>0 then
+			sResult = sResult & "inName" & Chr(129) & document.All.TxtUserName.Value & Chr(128)
+		else			
+			sResult = sResult & "inName" & Chr(129) & UCase(document.All.TxtUserName.Value) & Chr(128)
+		End If	
         sResult = sResult & "inPassword" & Chr(129) & document.All.TxtPass.Value & Chr(128)
         sResult = sResult & "inAddressLine1" & Chr(129) & document.All.TxtAddress1.Value & Chr(128)
         sResult = sResult & "inAddressLine2" & Chr(129) & document.All.TxtAddress2.Value & Chr(128)
@@ -541,13 +538,11 @@ Function ExeSave()
         sResult = sResult & "inActiveStartDate" & Chr(129) & document.All.TxtActStartDate.Value & Chr(128)
         sResult = sResult & "inActiveEndDate" & Chr(129) & document.All.TxtActEndDate.Value & Chr(128)        
 		sResult = sResult & "inPasswordExpirationDate" & Chr(129) & document.All.TxtExpirDate.Value & Chr(128) 
-		' added by sajjad
 		if document.All.newUser(0).Checked Then
             sResult = sResult & "inNewUser" & Chr(129) & "Y" & Chr(128) 
         else
             sResult = sResult & "inNewUser" & Chr(129) & "N" & Chr(128)
         end if
-		' end
 		if ucase(trim(document.All.TxtSite.options(document.All.TxtSite.selectedIndex).innertext)) = "INTERNET" then
 			sResult = sResult & "inInternetUser" & Chr(129) & "Y" & Chr(128)
 		else
@@ -687,14 +682,7 @@ End Function
 				</tr>
 				<tr>
 					<td CLASS="LABEL" width="135"><b><font size="1">User Name:</font></b><br>
-						<input ScrnInput="TRUE" 
-<%
-if Request.QueryString("UID") <> "NEW" then
-%>
-			   'READONLY
-<%
-end if
-%>			   
+						<input ScrnInput="TRUE" 		   
 	           size="22" 
 	           CLASS="LABEL" 
 	           MAXLENGTH="40" 

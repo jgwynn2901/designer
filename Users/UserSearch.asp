@@ -37,6 +37,7 @@ Sub BtnClear_onclick()
 	document.all.SearchFName.value = ""
 	document.all.SearchLName.value = ""
 	document.all.SearchAHSID.value = ""
+	document.all.SearchEMAIL.value = ""
 End Sub
 
 Sub BtnSearch_onclick()
