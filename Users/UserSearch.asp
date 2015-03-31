@@ -34,6 +34,8 @@ Sub BtnClear_onclick()
 	document.all.SearchName.value = ""
 	document.all.SearchSite.value = ""
 	document.all.SearchActive.value = ""
+	document.all.SearchFName.value = ""
+	document.all.SearchLName.value = ""
 	document.all.SearchAHSID.value = ""
 End Sub
 
@@ -142,41 +144,63 @@ End Sub
 	          TYPE="TEXT" 
 	          NAME="SearchName"
 	          VALUE="<%=Request.QueryString("SearchName")%>"></td>
+			  
+			  <td CLASS="LABEL">First Name:<br>
+	   <input CLASS="LABEL" 
+	          tabindex=2 
+	          TYPE="TEXT" 
+	          NAME="SearchFName"
+	          VALUE="<%=Request.QueryString("SearchFName")%>"></td>
+    <td CLASS="LABEL">Last Name:<br>
+	   <input CLASS="LABEL" 
+	          tabindex=3 
+	          TYPE="TEXT" 
+	          NAME="SearchLName"
+	          VALUE="<%=Request.QueryString("SearchLName")%>"></td> 		
 	<td CLASS="LABEL">Site:<br>
 	<SELECT NAME="SearchSite" 
-	        tabindex=2 
+	        tabindex=4 
 	        CLASS="LABEL"><%=GetControlDataHTML("SITE","SITE_ID","NAME","",true)%></SELECT></td>
 	<td CLASS="LABEL">Active:<br>
 	<SELECT NAME="SearchActive" 
-	        tabindex=2 
+	        tabindex=5 
 	        CLASS="LABEL">
 	        <OPTION VALUE='' SELECTED></OPTION>
 	        <OPTION VALUE='Y'>YES</OPTION>
 	        <OPTION VALUE='N'>NO</OPTION>
 	 </SELECT></td>
+	 	  
 	</tr>				
 	<tr>
 	<td CLASS="LABEL">User ID:<br>
 	     <input CLASS="LABEL" 
-	     tabindex=3 
+	     tabindex=6 
 	     TYPE="TEXT" 
 	     NAME="SearchUID" 
 	     VALUE="<%=Request.QueryString("SearchUID")%>">
 	 </td>
 	<td CLASS="LABEL">AHSID:<br>
 	     <input CLASS="LABEL" 
-	     tabindex=3 
+	     tabindex=7 
 	     TYPE="TEXT" 
 	     NAME="SearchAHSID" 
 	     VALUE="<%=Request.QueryString("SearchAHSID")%>" ID="Text1">
+	 </td>
+	 
+	 <td CLASS="LABEL">EMAIL:<br>
+	     <input CLASS="LABEL" 
+	     tabindex=8 
+	     TYPE="TEXT" 
+	     NAME="SearchEMAIL" 
+	     VALUE="<%=Request.QueryString("SearchEMAIL")%>" ID="Text1">
 	 </td>
 	</tr>
  </table>
 </td>			
 <td VALIGN="TOP" rowspan="3">
  <table>
- <tr><td CLASS="LABEL"><button CLASS="StdButton" tabindex=7 NAME="BtnSearch" TYPE="BUTTON" ACCESSKEY="H">Searc<u>h</u></button></td></tr>
- <tr><td CLASS="LABEL"><button CLASS="StdButton" tabindex=8 NAME="BtnClear" ACCESSKEY="L">C<u>l</u>ear</button></td></tr>
+ <tr><td CLASS="LABEL"><button CLASS="StdButton" tabindex=12 NAME="BtnSearch" TYPE="BUTTON" ACCESSKEY="H">Searc<u>h</u></button></td></tr>
+ <tr><td CLASS="LABEL"><button CLASS="StdButton" tabindex=13 NAME="BtnClear" ACCESSKEY="L">C<u>l</u>ear</button></td></tr>
  </table>
 </td>	
 </tr>
@@ -184,9 +208,9 @@ End Sub
 
 <table topmargin=0 bottommargin=0>
 <tr>
-<td CLASS="LABEL"><input TYPE="RADIO" STYLE="CURSOR:HAND" tabindex=4 NAME="SearchType" VALUE="B" CLASS="LABEL">Begins With</td>
-<td CLASS="LABEL"><input TYPE="RADIO" STYLE="CURSOR:HAND" tabindex=5 NAME="SearchType" VALUE="C" CLASS="LABEL">Contains</td>
-<td CLASS="LABEL"><input TYPE="RADIO" STYLE="CURSOR:HAND" tabindex=6 NAME="SearchType" VALUE="E" CLASS="LABEL">Exact</td>
+<td CLASS="LABEL"><input TYPE="RADIO" STYLE="CURSOR:HAND" tabindex=9 NAME="SearchType" VALUE="B" CLASS="LABEL">Begins With</td>
+<td CLASS="LABEL"><input TYPE="RADIO" STYLE="CURSOR:HAND" tabindex=10 NAME="SearchType" VALUE="C" CLASS="LABEL">Contains</td>
+<td CLASS="LABEL"><input TYPE="RADIO" STYLE="CURSOR:HAND" tabindex=11 NAME="SearchType" VALUE="E" CLASS="LABEL">Exact</td>
 </tr>
 </table>
 

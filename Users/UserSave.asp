@@ -19,6 +19,7 @@
 	aRecycle(2) = "Delete From SETTING Where USER_ID = " & cUserID
 	aRecycle(3) = "Delete From ACCOUNT_USER Where USER_ID = " & cUserID
 	aRecycle(4) = "Delete From SECURITY_LOG Where USER_ID = " & cUserID
+
 	If cAction = "UPDATE" Then	    
 		 lret = SplitString(cSQLString, Chr(128))
 	    Set oComm=Server.CreateObject("ADODB.Command")
@@ -33,7 +34,8 @@
                 lret2 = SplitString(lret(i), Chr(129))
                 oComm.Parameters(i-1) = lret2(2)                
             End If
-        Next
+	   NEXT
+      
         oComm.execute()            	        
 		cError = CheckADOErrors(Conn, "Users " & ACTION)
 		if cReuse = "Y" then
@@ -56,6 +58,7 @@
 	        lret = SplitString(cSQLString, Chr(128))
 		    Set oComm=Server.CreateObject("ADODB.Command")
             Set oComm.ActiveConnection=Conn
+			
             oComm.commandtype= 4	'	adCmdStoredProc 
             oComm.commandtext="SP_INSERT_USER"
             oComm.Parameters.Refresh ' Fetching parameters list from SP. The order of parameters and their values must be synced
@@ -65,7 +68,7 @@
                     lret2 = SplitString(lret(i), Chr(129))
                     oComm.Parameters(i-1) = lret2(2)
                 End If
-            Next                     
+            Next       			
             oComm.execute()            
 		    cError = CheckADOErrors(Conn,"Users " & ACTION)
 		    If cError = "" Then 

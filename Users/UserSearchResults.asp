@@ -46,10 +46,14 @@ End Function
 		<tr align="left">
 			<td class="thd"><div id><nobr>User Id</div></td>
 			<td class="thd"><div id><nobr>Name</div></td>
+			<td class="thd"><div id><nobr>First Name</div></td>
+			<td class="thd"><div id><nobr>Last Name</div></td>
+			<td class="thd"><div id><nobr>Email</div></td>
 			<td class="thd"><div id><nobr>Site</div></td>
 			<td class="thd"><div id><nobr>Active</div></td>
 			<td class="thd"><div id><nobr>Creation Date</div></td>
 			<td class="thd"><div id><nobr>Expiration Date</div></td>
+			
 		</tr>
 	</thead>
 	<tbody ID="TableRows">
@@ -62,16 +66,25 @@ End Function
 			Case "B"
 				UID = Request.QueryString("SearchUID") & "%"
 				NAME = Request.QueryString("SearchName") & "%"
+				FIRSTNAME = Request.QueryString("SearchFName") & "%"
+				LASTNAME = Request.QueryString("SearchLName") & "%"
+				EMAIL = Request.QueryString("SearchEMAIL") & "%"
 				'site is always exact
 				SITE = Request.QueryString("SearchSite")
 			Case "C"
 				UID = "%" & Request.QueryString("SearchUID") & "%"
 				NAME = "%" & Request.QueryString("SearchName") & "%"
+				FIRSTNAME = "%" & Request.QueryString("SearchFName") & "%"
+				LASTNAME = "%" & Request.QueryString("SearchLName") & "%"
+				EMAIL = "%" & Request.QueryString("SearchEMAIL") & "%"
 				'site is always exact
 				SITE = Request.QueryString("SearchSite")
 			Case "E"
 				UID = Request.QueryString("SearchUID")
 				NAME = Request.QueryString("SearchName")
+				FIRSTNAME = Request.QueryString("SearchFName") 
+				LASTNAME = Request.QueryString("SearchLName") 
+				EMAIL =  Request.QueryString("SearchEMAIL")
 				'site is always exact
 				SITE = Request.QueryString("SearchSite")
 		End Select
@@ -89,6 +102,24 @@ End Function
 				WHERECLS = WHERECLS & " AND "
 			End If
 			WHERECLS = WHERECLS & "USER_ID LIKE '" & UID & "'"
+		End If
+		If Request.QueryString("SearchFName") <> "" Then
+			If WHERECLS <> "" Then 
+				WHERECLS = WHERECLS & " AND "
+			End If
+			WHERECLS = WHERECLS & "UPPER(FIRST_NAME) LIKE '" & UCASE(FIRSTNAME) & "'"
+		End If
+		If Request.QueryString("SearchLName") <> "" Then
+			If WHERECLS <> "" Then 
+				WHERECLS = WHERECLS & " AND "
+			End If
+			WHERECLS = WHERECLS & "UPPER(LAST_NAME) LIKE '" & UCASE(LASTNAME) & "'"
+		End If
+		If Request.QueryString("SearchEMAIL") <> "" Then
+			If WHERECLS <> "" Then 
+				WHERECLS = WHERECLS & " AND "
+			End If
+			WHERECLS = WHERECLS & "UPPER(EMAIL_ADDRESS) LIKE '" & UCASE(EMAIL) & "'"
 		End If
 		If Request.QueryString("SearchSite") <> "" Then
 			If WHERECLS <> "" Then 
@@ -116,7 +147,7 @@ End Function
 			Set RS = Server.CreateObject("ADODB.Recordset")
 			RS.MaxRecords = MAXRECORDCOUNT
 			RS.Open SQLST, Conn, adOpenStatic,adLockReadOnly, adCmdText
-	
+
 			if RS.EOF And RS.BOF then %>
 
 <tr ID="FieldRow" CLASS="ResultRow" OnClick="Javascript:multiselect(this);" UID=''>
@@ -130,10 +161,14 @@ End Function
 <tr ID="FieldRow" CLASS="ResultRow" DYNKEY="1" OnClick="Javascript:multiselect(this);" UID="<%=RS("USER_ID")%>">
 <td NOWRAP CLASS="ResultCell"><%=renderCell(RS("USER_ID"))%></td>
 <td NOWRAP CLASS="ResultCell" ID="NAME"><%=renderCell(RS("NAME"))%></td>
+<td NOWRAP CLASS="ResultCell"><%=renderCell(RS("FIRST_NAME"))%></td>
+<td NOWRAP CLASS="ResultCell"><%=renderCell(RS("LAST_NAME"))%></td>
+<td NOWRAP CLASS="ResultCell"><%=renderCell(RS("EMAIL_ADDRESS"))%></td>
 <td NOWRAP CLASS="ResultCell"><%=renderCell(RS("SITE_NAME"))%></td>
 <td NOWRAP CLASS="ResultCell"><%=renderCell(RS("ACTIVE"))%></td>
 <td NOWRAP CLASS="ResultCell"><%=renderCell(RS("PASSWORD_CREATION_DATE"))%></td>
 <td NOWRAP CLASS="ResultCell"><%=renderCell(RS("PASSWORD_EXPIRATION_DATE"))%></td>
+
 
 
 </tr>

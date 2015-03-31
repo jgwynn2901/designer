@@ -516,13 +516,13 @@ Function ExeSave()
         sResult = sResult & "inLastName" & Chr(129) & document.All.TxtLName.Value &  Chr(128)
         sResult = sResult & "inFirstName" & Chr(129) & document.All.TxtFName.Value & Chr(128)
 
-        If document.All.UID.Value = "NEW" Then
+        'If document.All.UID.Value = "NEW" Then
             if instr(document.All.TxtDBNAME.value,"SED")>0 then
 			    sResult = sResult & "inName" & Chr(129) & document.All.TxtUserName.Value & Chr(128)
 		    else			
 				sResult = sResult & "inName" & Chr(129) & UCase(document.All.TxtUserName.Value) & Chr(128)
 			End If
-		end if 	
+		'end if 	
         sResult = sResult & "inPassword" & Chr(129) & document.All.TxtPass.Value & Chr(128)
         sResult = sResult & "inAddressLine1" & Chr(129) & document.All.TxtAddress1.Value & Chr(128)
         sResult = sResult & "inAddressLine2" & Chr(129) & document.All.TxtAddress2.Value & Chr(128)
@@ -541,19 +541,20 @@ Function ExeSave()
         sResult = sResult & "inActiveStartDate" & Chr(129) & document.All.TxtActStartDate.Value & Chr(128)
         sResult = sResult & "inActiveEndDate" & Chr(129) & document.All.TxtActEndDate.Value & Chr(128)        
 		sResult = sResult & "inPasswordExpirationDate" & Chr(129) & document.All.TxtExpirDate.Value & Chr(128) 
+		' added by sajjad
 		if document.All.newUser(0).Checked Then
             sResult = sResult & "inNewUser" & Chr(129) & "Y" & Chr(128) 
         else
             sResult = sResult & "inNewUser" & Chr(129) & "N" & Chr(128)
         end if
+		' end
 		if ucase(trim(document.All.TxtSite.options(document.All.TxtSite.selectedIndex).innertext)) = "INTERNET" then
 			sResult = sResult & "inInternetUser" & Chr(129) & "Y" & Chr(128)
 		else
 			sResult = sResult & "inInternetUser" & Chr(129) & "N" & Chr(128)
 		end if
-		
+
 		document.All.TxtSaveData.Value = sResult
-		
         FrmDetails.Action = "UserSave.asp"
         FrmDetails.method = "POST"
         FrmDetails.Target = "hiddenPage"
@@ -690,7 +691,7 @@ End Function
 <%
 if Request.QueryString("UID") <> "NEW" then
 %>
-			   READONLY
+			   'READONLY
 <%
 end if
 %>			   
