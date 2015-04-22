@@ -571,7 +571,7 @@ End Sub
 sub activeAcc_OnChange
 	Control_OnChange
 	If not document.All.activeUser(0).Checked Then
-		'document.All.rec0.style.visibility = "visible"
+		document.All.rec0.style.visibility = "visible"
 	else
 		document.All.rec0.style.visibility = "hidden"
 	end if
