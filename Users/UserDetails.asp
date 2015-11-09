@@ -15,6 +15,9 @@
 'Work Request/ILog #	:	MALB-0036
 'Requirement		: Designer Code Change for Sentry Security	 
 
+'Work Request/ILog #	:	MMAI-0825
+'Requirement		: Modify Password Lockout Logic
+
 '*/
 '---------------------------------------------------------------------------------------------------------------------->
 
@@ -23,10 +26,11 @@
 
     Dim UID ,ACTIVE
 	dim getSession,checkSentry, checkSedgwick 'Added This Line as per Work Request MALB-0036
+	dim checkSelective 'MMAI-0825 User Lockout Logic
       getSession=Session("SecurityObj").m_ConnectionString
       checkSentry=instr(getSession,"SEN")'Added This Line as per Work Request MALB-0036
       checkSedgwick = instr(getSession,"SED") 'Added This Line as per Work Request TSOL-0105
-      
+      checkSelective = instr(getSession,"SEL") 'MMAI-0825 User Lockout Logic
     UID	= CStr(Request.QueryString("UID"))
 	
     Dim RsName, RsPassword, RsSiteID, RsSiteName, RsActive, RsLName, RsFName
@@ -36,7 +40,7 @@
     
     dim RsOperatorID 'Added This Line as per Work Request MALB-0036
     
-    Dim RsLastChangeDate, RsNewUser, FullOldName, strOldName
+    Dim RsLastChangeDate, RsNewUser, FullOldName, strOldName, RsLockOutFlag 'Added RsLockOutFlag MMAI-0825 User Lockout Logic
     Dim strNewFName, strNewLname, strNewFullName, RsPasswExpirDate
     Dim dispExpirPassword, dispPassCreatDate, dispLastChangedDate, sCreatDate, PassExpDate
     
@@ -57,6 +61,9 @@ If UID <> "NEW" Then
     SQLST = SQLST & " TO_CHAR(u.PASSWORD_EXPIRATION_DATE, 'mm/dd/yyyy') AS PASSWORD_EXPIRATION_DATE,"
     SQLST = SQLST & " TO_CHAR(u.LAST_CHANGE_DATE, 'mm/dd/yyyy') AS LAST_CHANGE_DATE,"
     SQLST = SQLST & " u.NEW_USER, u.REUSE"
+    if cint(checkSedgwick)>0 or cint(checkSelective)>0  then  'MMAI-0825 User Lockout Logic
+	   SQLST = SQLST & " , u.LOCKOUT_FLAG" 
+	end if
      if cint(checkSentry)>0 then 'Added This Line as per Work Request MALB-0036
 		SQLST = SQLST & " ,u.OPERATOR_ID"
     end if
@@ -96,7 +103,9 @@ If UID <> "NEW" Then
         RsNewUser = "" & RS("NEW_USER")
         RsReuse = "" & RS("REUSE")
         
-       
+       	if cint(checkSedgwick)>0 or cint(checkSelective)>0 then  'MMAI-0825 User Lockout Logic
+		 RsLockOutFlag = "" & RS("LOCKOUT_FLAG") 
+        end if 
         if cint(checkSentry)>0 then  'Added This Line as per Work Request MALB-0036
 				RsOperatorID="" & RS("OPERATOR_ID")
 		end if
@@ -139,6 +148,12 @@ var g_StatusInfoAvailable = false;
 			document.all.newUser[0].checked = true;
 		else
 			document.all.newUser[1].checked = true;
+		<% if cint(checkSedgwick)>0 or cint(checkSelective)>0  then %>
+		if ("<%=RsLockOutFlag%>" == "Y")
+			document.all.LockoutUser[0].checked = true;
+		else
+			document.all.LockoutUser[1].checked = true;	
+      <% end if %>
         if ("<%=RsActive%>" == "Y")
 			document.all.activeUser[0].checked = true;
 		else
@@ -548,7 +563,14 @@ Function ExeSave()
 		else
 			sResult = sResult & "inInternetUser" & Chr(129) & "N" & Chr(128)
 		end if
-
+       <% if cint(checkSedgwick)>0 or cint(checkSelective)>0 then %>
+		    if document.All.LockoutUser(0).Checked Then
+                sResult = sResult & "inLockoutFlag" & Chr(129) & "Y" & Chr(128) 
+            else
+                sResult = sResult & "inLockoutFlag" & Chr(129) & "N" & Chr(128)
+            end if
+	   <% end if %>
+	
 		document.All.TxtSaveData.Value = sResult
         FrmDetails.Action = "UserSave.asp"
         FrmDetails.method = "POST"
@@ -950,7 +972,14 @@ end if
 	           ONCHANGE="VBScript::Control_OnChange" ID="Text16" style="text-align: right"></td>
 					<td CLASS="LABEL" width="134" align="center">
 						<b><font size="1">Active</font><br>
-						</b><input name="activeUser" type="radio" CHECKED value="Y" ID="Radio5" onClick="VBScript::activeAcc_OnChange"><font size="1">Yes</font></td>
+						</b><input name="activeUser" type="radio" CHECKED value="Y" ID="Radio5" onClick="VBScript::activeAcc_OnChange"><font size="1">Yes</font>
+					</td>
+		        <% if cint(checkSedgwick)>0 or cint(checkSelective)>0  then %>
+					<td CLASS="LABEL" width="100" align="center">
+						<b><font size="1">Lockout</font><br>
+						</b><input name="LockoutUser" type="radio" value="Y" ID="rbLockoutY" onChange="VBScript::Control_OnChange"><font size="1">Yes</font>
+						</td>
+					<% end if %>
 				</tr>
 				<tr>
 					<td CLASS="LABEL" width="70"><font size="1">Phone:</font><br>
@@ -985,6 +1014,11 @@ end if
 					<td CLASS="LABEL" width="134" align="center">
 						<input name="activeUser" type="radio" value="N" ID="Radio6" onClick="VBScript::activeAcc_OnChange"><font size="1">
 							No</font></td>
+				    <% if cint(checkSedgwick)>0  or cint(checkSelective)>0 then %>
+					<td CLASS="LABEL" width="100" align="center">
+						<input name="LockoutUser" type="radio" CHECKED value="N" ID="rbLockOutN" onChange="VBScript::Control_OnChange"><font size="1">
+							No</font></td>
+					<% end if %>			
 				</tr>
 				<tr>
 					<td CLASS="LABEL" width="469" colspan="5"><font size="1">Extension:</font><br>
