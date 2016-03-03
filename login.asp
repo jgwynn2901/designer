@@ -149,13 +149,13 @@ If Request.QueryString("ACTION") = "LOGIN" Then
 			oConn.Close
 			set oConn = nothing
 			Dim fnsEnvironments
-			fnsEnvironments=Array("ANALYST", "FNSBA", "QA", "PREPRODUCTION", "PRODUCTION")
+			fnsEnvironments=Array("ANALYST", "SEDBA", "QA", "PREPRODUCTION", "PRODUCTION")
 			
 			Dim environment, ConStrAnalyst, ENVIRONMENT_ABBREVIATION
 	        environment = CStr(Request.Form("environment"))	
 	        SQL = "Select ENVIRONMENT_ABBREVIATION From DBConnection Where ENABLED = 'Y' AND ENVIRONMENT = '" & environment &"'"	
 	        Set Connect = Server.CreateObject("ADODB.Connection")
-	        Connect.Open "DSN=FNSANALYST;UID=FNSOWNER;PWD=CTOWN_DESIGNER"
+	        Connect.Open "DSN=SEDBA;UID=FNSOWNER;PWD=CTOWN_DESIGNER"
 	        Set Evn_RS = Connect.Execute(SQL)
 	        IF Not Evn_RS.EOF AND Not Evn_RS.BOF THEN
 		        Evn_RS.MoveFirst

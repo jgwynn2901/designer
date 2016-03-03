@@ -3,7 +3,7 @@ Sub Application_OnStart()
 
 	SQL = "Select * From DBConnection Where ENABLED = 'Y' Order By ENVIRONMENT"
 	Set Connect = Server.CreateObject("ADODB.Connection")
-	Connect.Open "DSN=FNSANALYST;UID=FNSOWNER;PWD=CTOWN_DESIGNER"
+	Connect.Open "DSN=SEDBA;UID=FNSOWNER;PWD=CTOWN_DESIGNER"
 	Set RS = Connect.Execute(SQL)
 	IF Not RS.EOF AND Not RS.BOF THEN
 		RS.MoveFirst
