@@ -161,6 +161,7 @@ End Function
 			<td class="thd"><div id><nobr>Status Msg</div></td>
 			<td class="thd"><div id><nobr>All R.P.</div></td>
 			<td class="thd"><div id><nobr>All O.D.</div></td>
+			<td class="thd"><div id><nobr>Reference ID</div></td>
 		</tr>
 	</thead>
 	<tbody ID="TableRows">
@@ -183,6 +184,7 @@ Do While not oRS.EOF
 	<td NOWRAP CLASS="<%=cStyle%>"><%=renderCell(oRS("STATUS_MSG"))%></td>
 	<td NOWRAP CLASS="<%=cStyle%>"><%=renderCell(oRS("MOVE_ALL_ROUTING_PLANS"))%></td>
 	<td NOWRAP CLASS="<%=cStyle%>"><%=renderCell(oRS("MOVE_ALL_OUTPUT_DEFS"))%></td>
+	<td NOWRAP CLASS="<%=cStyle%>"><%=renderCell(oRS("REFERENCE_ID"))%></td>
 	</tr>
 <%
 oRS.MoveNext

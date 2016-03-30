@@ -102,6 +102,9 @@ Function Validate
     If document.All.LOB_CD.Value = "" Then
         cErrMsg = cErrMsg & "LOB is a required field" & vbCrLf
     End If
+	If document.All.REFERENCE_ID.Value = "" Then
+        cErrMsg = cErrMsg & "Reference ID is a required field." & vbCrLf
+    End If
     If document.All.START_DATE.Value = "" Then
         cErrMsg = cErrMsg & "Please enter a start date." & vbCrLf
     ElseIf Not CheckDate(document.All.START_DATE.Value) Then
@@ -252,6 +255,7 @@ If Validate() Then
             sResult = sResult & "SCHEDULED_START" & Chr(129) & "TO_DATE('" & document.All.Start_Date.Value & "," & document.All.Start_Time.Value & ":" & Second(Now) & "', 'MM/DD/YY,HH24:MI:SS')" & Chr(129) & "0" & Chr(128)
             sResult = sResult & "ACCNT_HRCY_STEP_ID" & Chr(129) & document.All.AHSID.Value & Chr(129) & "1" & Chr(128)
             sResult = sResult & "LOB_CD" & Chr(129) & document.All.LOB_CD.Value & Chr(129) & "1" & Chr(128)
+			sResult = sResult & "REFERENCE_ID" & Chr(129) & document.All.REFERENCE_ID.Value & Chr(129) & "1" & Chr(128)
             sResult = sResult & "STATUS_CD" & Chr(129) & "1" & Chr(129) & "1" & Chr(128)
             sResult = sResult & "STATUS_MSG" & Chr(129) & "null" & Chr(129) & "0" & Chr(128)
             sResult = sResult & "USER_ID" & Chr(129) & "<%= Session("SecurityObj").m_UserID %>" & Chr(129) & "0" & Chr(128)
@@ -836,7 +840,19 @@ End Function
 				</table>
 				</div>
 			</td>
-			<TD VALIGN="TOP" ALIGN="CENTER" CLASS="LABEL">&nbsp;<INPUT TYPE="CHECKBOX" NAME="chkLevelOne">Level One Migration</TD> 
+			<TD VALIGN="TOP" ALIGN="CENTER" CLASS="LABEL">
+			<table>
+			<tr>
+			  <td CLASS="LABEL"><INPUT TYPE="CHECKBOX" NAME="chkLevelOne">Level One Migration</td>
+			 </tr>
+			 <tr>
+			 <td CLASS="LABEL">&nbsp;Reference ID:</td>
+			 </tr>
+			 <tr>
+			 <td>&nbsp;<input TYPE="TEXT" NAME="REFERENCE_ID" CLASS="LABEL" SIZE="50" MAXLENGTH="255"></td>
+			 </tr>
+			</table>
+			</TD>
 		</tr>
 	</table>
 	<table WIDTH="100%" CELLPADDING="0" CELLSPACING="0">
