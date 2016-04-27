@@ -33,6 +33,27 @@ var RoutingPlanObj = new CRoutingRelatedSearchObj();
 var DefinitionObj = new COutputDefinitionSearchObj();
 var NodeSearchObj = new CNodeSearchObj();
 var g_StatusInfoAvailable = false;
+
+function addZero(i) {
+    if (i < 10) {
+        i = "0" + i;
+    }
+    return i;
+}
+
+function GetCurrentHourMinute()
+{
+    var d = new Date();
+    var h = addZero(d.getHours());
+    var m = addZero(d.getMinutes());
+    return h + ":" + m;
+}
+function GetCurrentSecond()
+{
+    var d = new Date();
+	var s = addZero(d.getSeconds());
+    return s;  
+}
 </script>
 <script ID="clientEventHandlersVBS" LANGUAGE="vbscript">
 <!--
@@ -249,13 +270,14 @@ If Validate() Then
 
         If lret = "1" Then
             If document.All.Start_Time.Value = "" Then
-                document.All.Start_Time.Value = DatePart("h", Time) & ":" & DatePart("n", Time)
+                document.All.Start_Time.Value = GetCurrentHourMinute()
             End If
             sResult = sResult & "JOB_ID" & Chr(129) & "" & Chr(129) & "0" & Chr(128)
-            sResult = sResult & "SCHEDULED_START" & Chr(129) & "TO_DATE('" & document.All.Start_Date.Value & "," & document.All.Start_Time.Value & ":" & Second(Now) & "', 'MM/DD/YY,HH24:MI:SS')" & Chr(129) & "0" & Chr(128)
+            sResult = sResult & "SCHEDULED_START" & Chr(129) & "TO_DATE('" & document.All.Start_Date.Value & "," & document.All.Start_Time.Value & ":" & GetCurrentSecond() & "', 'MM/DD/YY,HH24:MI:SS')" & Chr(129) & "0" & Chr(128)
             sResult = sResult & "ACCNT_HRCY_STEP_ID" & Chr(129) & document.All.AHSID.Value & Chr(129) & "1" & Chr(128)
             sResult = sResult & "LOB_CD" & Chr(129) & document.All.LOB_CD.Value & Chr(129) & "1" & Chr(128)
 			sResult = sResult & "REFERENCE_ID" & Chr(129) & document.All.REFERENCE_ID.Value & Chr(129) & "1" & Chr(128)
+			sResult = sResult & "COMMENTS" & Chr(129) & document.All.COMMENTS.Value & Chr(129) & "1" & Chr(128)
             sResult = sResult & "STATUS_CD" & Chr(129) & "1" & Chr(129) & "1" & Chr(128)
             sResult = sResult & "STATUS_MSG" & Chr(129) & "null" & Chr(129) & "0" & Chr(128)
             sResult = sResult & "USER_ID" & Chr(129) & "<%= Session("SecurityObj").m_UserID %>" & Chr(129) & "0" & Chr(128)
@@ -849,7 +871,13 @@ End Function
 			 <td CLASS="LABEL">&nbsp;Reference ID:</td>
 			 </tr>
 			 <tr>
-			 <td>&nbsp;<input TYPE="TEXT" NAME="REFERENCE_ID" CLASS="LABEL" SIZE="50" MAXLENGTH="255"></td>
+			 <td>&nbsp;<input TYPE="TEXT" NAME="REFERENCE_ID" CLASS="LABEL" SIZE="130" MAXLENGTH="255"></td>
+			 </tr>
+			 <tr>
+			 <td CLASS="LABEL">&nbsp;Comments:</td>
+			 </tr>
+			 <tr>
+			 <td>&nbsp;<input TYPE="TEXT" NAME="COMMENTS" CLASS="LABEL" SIZE="130" MAXLENGTH="255"></td>
 			 </tr>
 			</table>
 			</TD>
