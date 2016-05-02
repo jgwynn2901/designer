@@ -13,7 +13,7 @@
 	Elseif ACTION = "INSERT" Then
 		InsertSQL = ""
 		NewJID = NextPkey("MIGRATION_JOB","JOB_ID")
-		InsertSQL = BuildSQL(SQL_STRING, Chr(128), Chr(129), "INSERT", "MIGRATION_JOB", "JOB_ID", NewJID)
+		InsertSQL = BuildSQL(SQL_STRING, Chr(124), Chr(126), "INSERT", "MIGRATION_JOB", "JOB_ID", NewJID)
 		Set RSUpdate = Conn.Execute(InsertSQL)
 
 		If Request.Form("AllRoutingRelatedItems") = "on" Then

@@ -54,6 +54,13 @@ function GetCurrentSecond()
 	var s = addZero(d.getSeconds());
     return s;  
 }
+function StringReplace(strInput)
+{
+ var result;
+ result = strInput.replace("|","");
+ result = result.replace("~","");
+ return result;
+}
 </script>
 <script ID="clientEventHandlersVBS" LANGUAGE="vbscript">
 <!--
@@ -272,42 +279,42 @@ If Validate() Then
             If document.All.Start_Time.Value = "" Then
                 document.All.Start_Time.Value = GetCurrentHourMinute()
             End If
-            sResult = sResult & "JOB_ID" & Chr(129) & "" & Chr(129) & "0" & Chr(128)
-            sResult = sResult & "SCHEDULED_START" & Chr(129) & "TO_DATE('" & document.All.Start_Date.Value & "," & document.All.Start_Time.Value & ":" & GetCurrentSecond() & "', 'MM/DD/YY,HH24:MI:SS')" & Chr(129) & "0" & Chr(128)
-            sResult = sResult & "ACCNT_HRCY_STEP_ID" & Chr(129) & document.All.AHSID.Value & Chr(129) & "1" & Chr(128)
-            sResult = sResult & "LOB_CD" & Chr(129) & document.All.LOB_CD.Value & Chr(129) & "1" & Chr(128)
-			sResult = sResult & "REFERENCE_ID" & Chr(129) & document.All.REFERENCE_ID.Value & Chr(129) & "1" & Chr(128)
-			sResult = sResult & "COMMENTS" & Chr(129) & document.All.COMMENTS.Value & Chr(129) & "1" & Chr(128)
-            sResult = sResult & "STATUS_CD" & Chr(129) & "1" & Chr(129) & "1" & Chr(128)
-            sResult = sResult & "STATUS_MSG" & Chr(129) & "null" & Chr(129) & "0" & Chr(128)
-            sResult = sResult & "USER_ID" & Chr(129) & "<%= Session("SecurityObj").m_UserID %>" & Chr(129) & "0" & Chr(128)
+            sResult = sResult & "JOB_ID" & Chr(126) & "" & Chr(126) & "0" & Chr(124)
+            sResult = sResult & "SCHEDULED_START" & Chr(126) & "TO_DATE('" & document.All.Start_Date.Value & "," & document.All.Start_Time.Value & ":" & GetCurrentSecond() & "', 'MM/DD/YY,HH24:MI:SS')" & Chr(126) & "0" & Chr(124)
+            sResult = sResult & "ACCNT_HRCY_STEP_ID" & Chr(126) & document.All.AHSID.Value & Chr(126) & "1" & Chr(124)
+            sResult = sResult & "LOB_CD" & Chr(126) & document.All.LOB_CD.Value & Chr(126) & "1" & Chr(124)
+			sResult = sResult & "REFERENCE_ID" & Chr(126) & StringReplace(document.All.REFERENCE_ID.Value) & Chr(126) & "1" & Chr(124)
+			sResult = sResult & "COMMENTS" & Chr(126) & StringReplace(document.All.COMMENTS.Value) & Chr(126) & "1" & Chr(124)
+            sResult = sResult & "STATUS_CD" & Chr(126) & "1" & Chr(126) & "1" & Chr(124)
+            sResult = sResult & "STATUS_MSG" & Chr(126) & "null" & Chr(126) & "0" & Chr(124)
+            sResult = sResult & "USER_ID" & Chr(126) & "<%= Session("SecurityObj").m_UserID %>" & Chr(126) & "0" & Chr(124)
             If document.All.chkLevelOne.Checked Then
-                sResult = sResult & "LEVEL_ONE" & Chr(129) & "Y" & Chr(129) & "1" & Chr(128)
+                sResult = sResult & "LEVEL_ONE" & Chr(126) & "Y" & Chr(126) & "1" & Chr(124)
             Else
-                sResult = sResult & "LEVEL_ONE" & Chr(129) & "N" & Chr(129) & "1" & Chr(128)
+                sResult = sResult & "LEVEL_ONE" & Chr(126) & "N" & Chr(126) & "1" & Chr(124)
             End If
             If document.All.VendorDefs.Checked Then
-                sResult = sResult & "VENDOR_ELIGIBILITY" & Chr(129) & "Y" & Chr(129) & "1" & Chr(128)
+                sResult = sResult & "VENDOR_ELIGIBILITY" & Chr(126) & "Y" & Chr(126) & "1" & Chr(124)
             Else
-                sResult = sResult & "VENDOR_ELIGIBILITY" & Chr(129) & "N" & Chr(129) & "1" & Chr(128)
+                sResult = sResult & "VENDOR_ELIGIBILITY" & Chr(126) & "N" & Chr(126) & "1" & Chr(124)
             End If
             If document.All.FraudDefs.Checked Then
-                sResult = sResult & "FRAUD_DETECTION" & Chr(129) & "Y" & Chr(129) & "1" & Chr(128)
+                sResult = sResult & "FRAUD_DETECTION" & Chr(126) & "Y" & Chr(126) & "1" & Chr(124)
             Else
-                sResult = sResult & "FRAUD_DETECTION" & Chr(129) & "N" & Chr(129) & "1" & Chr(128)
+                sResult = sResult & "FRAUD_DETECTION" & Chr(126) & "N" & Chr(126) & "1" & Chr(124)
             End If
             If document.All.ALLROUTINGRELATEDITEMS.Checked = True And document.All.CLIENTROUTING.Checked = True Then
-                sResult = sResult & "MOVE_ALL_ROUTING_PLANS" & Chr(129) & "Y" & Chr(129) & "1" & Chr(128)
+                sResult = sResult & "MOVE_ALL_ROUTING_PLANS" & Chr(126) & "Y" & Chr(126) & "1" & Chr(124)
             Else
-                sResult = sResult & "MOVE_ALL_ROUTING_PLANS" & Chr(129) & "N" & Chr(129) & "1" & Chr(128)
+                sResult = sResult & "MOVE_ALL_ROUTING_PLANS" & Chr(126) & "N" & Chr(126) & "1" & Chr(124)
             End If
             If document.All.ALLDEFINITIONS.Checked = True And document.All.OUTPUTDEFINITION.Checked = True Then
-                sResult = sResult & "MOVE_ALL_OUTPUT_DEFS" & Chr(129) & "Y" & Chr(129) & "1" & Chr(128)
+                sResult = sResult & "MOVE_ALL_OUTPUT_DEFS" & Chr(126) & "Y" & Chr(126) & "1" & Chr(124)
             Else
-                sResult = sResult & "MOVE_ALL_OUTPUT_DEFS" & Chr(129) & "N" & Chr(129) & "1" & Chr(128)
+                sResult = sResult & "MOVE_ALL_OUTPUT_DEFS" & Chr(126) & "N" & Chr(126) & "1" & Chr(124)
             End If
-            sResult = sResult & "START_TIME" & Chr(129) & "null" & Chr(129) & "0" & Chr(128)
-            sResult = sResult & "END_TIME" & Chr(129) & "null" & Chr(129) & "0" & Chr(128)
+            sResult = sResult & "START_TIME" & Chr(126) & "null" & Chr(126) & "0" & Chr(124)
+            sResult = sResult & "END_TIME" & Chr(126) & "null" & Chr(126) & "0" & Chr(124)
 
             For R = 0 To document.All.RoutingRelatedItems_List.Options.length - 1 Step 1
                 If RPList <> "" Then
