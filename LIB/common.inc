@@ -57,7 +57,7 @@ Sub Getdefault
 	SET RS2  = NOTHING
 	SET Conn = NOTHING
 	
-	If (IsNull(s_QAFAX) or IsEmpty(s_QAFAX)) then s_QAFAX             = "8009659825"
+	If (IsNull(s_QAFAX) or IsEmpty(s_QAFAX)) then s_QAFAX             = "5017475675"
     If (IsNull(s_QAPRINTER) or IsEmpty(s_QAPRINTER)) then s_QAPRINTER = "\\Cha0s2t\CHA4SI"
 	If (IsNull(s_PRODUCTIONPRINTER) or IsEmpty(s_PRODUCTIONPRINTER)) then 
 	   s_PRODUCTIONPRINTER = "\\Cha0s00t\OPER_HP5SI_A"

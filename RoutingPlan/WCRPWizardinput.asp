@@ -112,7 +112,7 @@ sub setTransmissionValues()
     
     if strTransmissionType = 1 then ' "Fax" then
       
-      document.FrmSave.alt_destination_string.value = "8009659825"
+      document.FrmSave.alt_destination_string.value = "5017475675"
       document.FrmSave.sequence.value               = "1"
       document.FrmSave.retry_count.value            = "3"
       document.FrmSave.retry_wait_time.value        = "180"
@@ -415,7 +415,7 @@ var RuleSearchObj  = new CRuleSearchObj();
       <td CLASS="LABEL">Destination String:<br><input TYPE="TEXT" CLASS="LABEL" NAME="DESTINATION_STRING" SIZE="60" MAXLENGTH="255" VALUE="~CLAIM:BRANCH:PHONE_FAX~" <% If MODE="RO" Then Response.Write(" READONLY STYLE='BACKGROUND-COLOR:SILVER;'  ") %>  VALUE="<%= DESTINATION_STRING %>"></td>
    </tr>
    <tr>
-      <td CLASS="LABEL">Alternate Destination String:<br><input TYPE="TEXT" CLASS="LABEL" NAME="ALT_DESTINATION_STRING" SIZE="60" MAXLENGTH="255" VALUE="8009659825" <% If MODE="RO" Then Response.Write(" READONLY STYLE='BACKGROUND-COLOR:SILVER;'  ") %> VALUE="<%= ALT_DESTINATION_STRING %>"></td>
+      <td CLASS="LABEL">Alternate Destination String:<br><input TYPE="TEXT" CLASS="LABEL" NAME="ALT_DESTINATION_STRING" SIZE="60" MAXLENGTH="255" VALUE="5017475675" <% If MODE="RO" Then Response.Write(" READONLY STYLE='BACKGROUND-COLOR:SILVER;'  ") %> VALUE="<%= ALT_DESTINATION_STRING %>"></td>
    </tr>
    <table>
       <tr>
