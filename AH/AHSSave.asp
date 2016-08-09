@@ -14,8 +14,8 @@ DIM oRS, rs_UpdateParent, cAHS,ahs_field_name,ahs_field_value
 'Prashant Shekhar 05/21/2007
 'Declare the variables to be used by the functions.
 
-Dim rs,temp,tele_claim_value,cat_loss_value,expo_ppo_value,fist_script_value,tcm_ind_value,triage_ind_value,acc_rec_value,gen_rout_value,spec_lost_time_value,spec_med_value,osha_recordable_value,longshore_value,edi_value,severity_value,monopolistic_value,selfadminindicator_value,srsclient_value,fromdatetip_value,todatetip_value,account_type_value,employer_report_level_value,ro_override_value,secure_email_value,policy_lookup_state_value,mask_ssn_value,cbpolicy_lookup_value,rentalreferral_value,customsidecar_value,staffingagency_value
-Dim tele_claim_field,cat_loss_field,expo_ppo_field,fist_script_field,tcm_ind_field,triage_ind_field,acc_rec_field,gen_rout_field,spec_lost_time_field,spec_med_field,osha_recordable_field,longshore_field,edi_field,severity_field,monopolistic_field,selfadminindicator_field,srsclient_field,fromdatetip_field,todatetip_field,account_type_field,employer_report_level_field,ro_override_field,secure_email_field,policy_lookup_state_field,mask_ssn_field,cbpolicy_lookup_field,rentalreferral_field,customsidecar_field,staffingagency_field
+Dim rs,temp,tele_claim_value,cat_loss_value,expo_ppo_value,fist_script_value,tcm_ind_value,triage_ind_value,acc_rec_value,gen_rout_value,spec_lost_time_value,spec_med_value,osha_recordable_value,longshore_value,edi_value,severity_value,monopolistic_value,selfadminindicator_value,srsclient_value,fromdatetip_value,todatetip_value,account_type_value,employer_report_level_value,ro_override_value,secure_email_value,policy_lookup_state_value,mask_ssn_value,cbpolicy_lookup_value,rentalreferral_value,customsidecar_value,staffingagency_value, textescdestination_value
+Dim tele_claim_field,cat_loss_field,expo_ppo_field,fist_script_field,tcm_ind_field,triage_ind_field,acc_rec_field,gen_rout_field,spec_lost_time_field,spec_med_field,osha_recordable_field,longshore_field,edi_field,severity_field,monopolistic_field,selfadminindicator_field,srsclient_field,fromdatetip_field,todatetip_field,account_type_field,employer_report_level_field,ro_override_field,secure_email_field,policy_lookup_state_field,mask_ssn_field,cbpolicy_lookup_field,rentalreferral_field,customsidecar_field,staffingagency_field, textescdestination_field
 
 ACTION = Request.Form("TxtAction")
 cSQL = Request.Form("TxtSaveData")
@@ -108,22 +108,27 @@ If ACTION = "UPDATE" Then
 		end if
 
 		fromdatetip_value = Request.Form("ACC_FROM_DATE_TIP")
-		AHS_Type = Request.Form("AHStype")
-		if AHS_Type = "ACCOUNT" then
+		if CheckType = "ACCOUNT" then
 				fromdatetip_field = "CLAIM:ACCOUNT:FROM_DATE_TIP"
 				todatetip_field = "CLAIM:ACCOUNT:TO_DATE_TIP"
-		elseif AHS_Type = "INSURED" then
+				textescdestination_field = "CLAIM:ACCOUNT:TEXT_ESC_DESTINATION"
+		elseif CheckType = "INSURED" then
 				fromdatetip_field = "CLAIM:INSURED:FROM_DATE_TIP"
 				todatetip_field = "CLAIM:INSURED:TO_DATE_TIP"
-		elseif AHS_Type = "RISK LOCATION" then
+				textescdestination_field = "CLAIM:INSURED:TEXT_ESC_DESTINATION"
+		elseif CheckType = "RISK LOCATION" then
 				fromdatetip_field = "CLAIM:RISK_LOCATION:FROM_DATE_TIP"
 				todatetip_field = "CLAIM:RISK_LOCATION:TO_DATE_TIP"
+				textescdestination_field = "CLAIM:RISK_LOCATION:TEXT_ESC_DESTINATION"
 		end if
 		Insert_Update fromdatetip_field,fromdatetip_value
 
 		todatetip_value = Request.Form("ACC_TO_DATE_TIP")
 
 		Insert_Update todatetip_field,todatetip_value
+		'REQ-2016-00467
+		textescdestination_value = Request.Form("TEXT_ESC_DESTINATION")
+        Insert_Update textescdestination_field,textescdestination_value
 
 		If CheckType = "ACCOUNT" then
 				tele_claim_value =  Swap(Request.Form("REVERSE_TELECLAIM_INDICATOR"))
@@ -314,22 +319,28 @@ Elseif ACTION = "INSERT" Then
 			end if
 
 		fromdatetip_value = Request.Form("ACC_FROM_DATE_TIP")
-		AHS_Type = Request.Form("AHStype")
-		if AHS_Type = "ACCOUNT" then
+		
+		if CheckType = "ACCOUNT" then
 				fromdatetip_field = "CLAIM:ACCOUNT:FROM_DATE_TIP"
 				todatetip_field = "CLAIM:ACCOUNT:TO_DATE_TIP"
-		elseif AHS_Type = "INSURED" then
+				textescdestination_field = "CLAIM:ACCOUNT:TEXT_ESC_DESTINATION"
+		elseif CheckType = "INSURED" then
 				fromdatetip_field = "CLAIM:INSURED:FROM_DATE_TIP"
 				todatetip_value = "CLAIM:INSURED:TO_DATE_TIP"
-		elseif AHS_Type = "RISK LOCATION" then
+				textescdestination_field = "CLAIM:INSURED:TEXT_ESC_DESTINATION"
+		elseif CheckType = "RISK LOCATION" then
 				fromdatetip_field = "CLAIM:RISK_LOCATION:FROM_DATE_TIP"
 				todatetip_value = "CLAIM:RISK_LOCATION:TO_DATE_TIP"
+				textescdestination_field = "CLAIM:RISK_LOCATION:TEXT_ESC_DESTINATION"
 		end if
 		Insert_New fromdatetip_field,fromdatetip_value
 
 		todatetip_value = Request.Form("ACC_TO_DATE_TIP")
 
 		Insert_New todatetip_field,todatetip_value
+		'REQ-2016-00467
+		textescdestination_value = Request.Form("TEXT_ESC_DESTINATION")
+        Insert_New textescdestination_field,textescdestination_value
 
 	'MMAI-0007
 	'Prashant Shekhar   13/06/2007

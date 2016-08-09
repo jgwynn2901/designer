@@ -270,6 +270,10 @@ If AHSID <> "" Then
 			if RS.Fields("FIELD_NAME") = "CLAIM:ACCOUNT:STAFFING_AGENCY_FLG" Then
 				RSSTAFFING_AGENCY = RS.Fields("FIELD_VALUE")
 			end if			
+			 'REQ-2016-00467
+			if RS.Fields("FIELD_NAME") = "CLAIM:ACCOUNT:TEXT_ESC_DESTINATION"  OR RS.Fields("FIELD_NAME") = "CLAIM:INSURED:TEXT_ESC_DESTINATION" OR RS.Fields("FIELD_NAME") = "CLAIM:RISK_LOCATION:TEXT_ESC_DESTINATION" Then
+				RSTEXT_ESC_DESTINATION = RS.Fields("FIELD_VALUE")
+			end if	
 			RS.Movenext
 		Wend
 		End If
@@ -392,6 +396,14 @@ function DefaultCheck_Insert(AHS_ID)
 	DisplayCheckBox(AHS_ID);
 	//*********** MMAI 0019 Change ***********
 }
+function onlyNumbersCommaSemicolon()
+ {
+  key = String.fromCharCode(event.keyCode);
+  var regex = /^[0-9;,]+$/;
+  if( !regex.test(key) ) {
+   event.returnValue = false;
+  }
+ }
 </script>
 <script ID="clientEventHandlersVBS" LANGUAGE="vbscript">
 
@@ -1143,6 +1155,11 @@ rs_Type.Close
 <tr>
 <td CLASS="LABEL">EMail Address:<br><input TYPE="TEXT" ScrnInput="TRUE" NAME="EMailAddress" CLASS="LABEL" SIZE="80" MAXLENGTH="80" VALUE="<%= RSEMAIL %>" ONKEYPRESS="VBScript::Control_OnChange" ONCHANGE="VBScript::Control_OnChange"></td>
 </tr>
+<% if RSTYPE <> "CLIENT" then %>
+</tr>
+<td CLASS="LABEL">Text Message Destination:<br><input TYPE="TEXT" ScrnInput="TRUE" NAME="TEXT_ESC_DESTINATION" CLASS="LABEL" SIZE="80" MAXLENGTH="220" VALUE="<%= RSTEXT_ESC_DESTINATION %>" ONCHANGE="VBScript::Control_OnChange" onkeypress="javascript:onlyNumbersCommaSemicolon()"></td>
+</tr>
+<% end if %>
 </table>
 
 <table WIDTH="100%">
