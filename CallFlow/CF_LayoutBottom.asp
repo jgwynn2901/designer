@@ -311,7 +311,7 @@ width=883 height=533>
 	<PARAM NAME="DefaultItemBackColorSelected" VALUE="65535">
 	<PARAM NAME="DefaultItemTextColor" VALUE="0">
 	<PARAM NAME="UseTransparentItemBackground" VALUE="FALSE">
-	<PARAM NAME="UseAnisotropicMapMode" VALUE="TRUE">
+	<PARAM NAME="UseAnisotropicMapMode" VALUE="False">
 	<PARAM NAME="ShowGridBorder" VALUE="TRUE">
 	<PARAM NAME="DefaultMandatoryBackColor" VALUE="255">
 	<PARAM NAME="GridBorderX" VALUE="0">
