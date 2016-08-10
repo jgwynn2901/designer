@@ -1,7 +1,7 @@
 <!--#include file="..\lib\common.inc"-->
 <!--#include file="..\lib\Security.inc"-->
-<% 
-If HasViewPrivilege("FNSD_CALLFLOW",SECURITYPRIV) <> True Then   
+<%
+If HasViewPrivilege("FNSD_CALLFLOW",SECURITYPRIV) <> True Then
 	Session("NAME") = ""
 	Response.Redirect "CF_LayoutBottom.asp"
 End If
@@ -33,7 +33,7 @@ Function ReplaceStr(TextIn, SearchStr , Replacement)
     Loop
     ReplaceStr = WorkText
 End Function
-%> 
+%>
 <HTML>
 <HEAD>
 <META name=VI60_defaultClientScript content=VBScript>
@@ -53,7 +53,7 @@ function CAttributeSearchObj()
 	this.AID = "";
 	this.AIDName = "";
 	this.AIDCaption = "";
-	this.AIDInputType = "";	
+	this.AIDInputType = "";
 }
 
 var AttributeSearchObj = new CAttributeSearchObj();
@@ -84,10 +84,10 @@ Set objCol = LayoutCtl.PageItems
 	ConnectionString = CONNECT_STRING
 	Conn.Open ConnectionString
 	SQLST = "SELECT ATTR_INSTANCE.*, ATTRIBUTE.CAPTION As ATTRIBUTE_CAPTION, ATTRIBUTE.ATTRIBUTE_ID, ATTRIBUTE.NAME FROM ATTR_INSTANCE, ATTRIBUTE WHERE ATTR_INSTANCE.ATTRIBUTE_ID = ATTRIBUTE.ATTRIBUTE_ID AND FRAME_ID=" & Request.QueryString("FRAMEID") & " ORDER BY ATTRIBUTE.NAME"
-	SQLST2 = SQLST2 & "SELECT TITLE FROM FRAME WHERE FRAME_ID=" & Request.QueryString("FRAMEID") 
+	SQLST2 = SQLST2 & "SELECT TITLE FROM FRAME WHERE FRAME_ID=" & Request.QueryString("FRAMEID")
 	Set RS = Conn.Execute(SQLST)
-	Set RS2 = Conn.Execute(SQLST2) 
-%> 
+	Set RS2 = Conn.Execute(SQLST2)
+%>
 
 
 			'Templates
@@ -95,17 +95,17 @@ Set objCol = LayoutCtl.PageItems
 			NewObj.LabelOffsetY = -3
 			NewObj.LabelOffsetX = 0
 			NewObj.ItemBackColor = 26316
-						
+
 			Set NewObj = objCol.AddItemTemplate("!TRIGGER", "",  "", 0, 0, 15, 4, "ARIAL", 9,false ,false ,false ,false ,false , 1, "", "MODIFY",  "", False	)
 			NewObj.LabelOffsetY = -3
 			NewObj.LabelOffsetX = 0
 			NewObj.ItemBackColor = 26316
-			
+
 			Set NewObj = objCol.AddItemTemplate("!SUMMARY", "",  "", 0, 0, 15, 4, "ARIAL", 9,false ,false ,false ,false ,false , 1, "", "MODIFY",  "", False	)
 			NewObj.LabelOffsetY = -3
 			NewObj.LabelOffsetX = 0
 			NewObj.ItemBackColor = 26316
-			
+
 <% Do While Not RS.EOF %>
 <%
 If RS("CAPTION") = "-999999999" Then
@@ -148,16 +148,16 @@ End If
 			<% If IsNull(RS("ATTRIBUTEFRAME_ID")) Then
 				ATTRIBUTEFRAME_ID = "null"
 			Else
-				ATTRIBUTEFRAME_ID = RS("ATTRIBUTEFRAME_ID") 
+				ATTRIBUTEFRAME_ID = RS("ATTRIBUTEFRAME_ID")
 			End If %>
-			
+
 			NewObj.SetExtraProperty "ATTRIBUTEFRAME_ID", true, "<%= ReplaceStr(ATTRIBUTEFRAME_ID, """", """""") %>"
 <%
 RS.MoveNext
-Loop	
+Loop
 %>
 LayoutCtl.SetContextMenu "DEFAULT", "COMMAND|Undo|145|COMMAND|" & G_Zoom_Text & "|100|COMMAND|" & G_ShowSelected_Text & "|125|COMMAND|" & G_ShowLabel_text & "|155|COMMAND|Save|110", "|"
-LayoutCtl.SetContextMenu "FIELD", "COMMAND|Instance Properties...|400|COMMAND|Attribute Properties...|500|COMMAND|Over Ride|423|SEPARATOR|0|0|COMMAND|Remove|401", "|" 
+LayoutCtl.SetContextMenu "FIELD", "COMMAND|Instance Properties...|400|COMMAND|Attribute Properties...|500|COMMAND|Over Ride|423|SEPARATOR|0|0|COMMAND|Remove|401", "|"
 LayoutCtl.CleanAllDirty
 LayoutCtl.EnableTrackUndo = True
 LayoutCtl.RedrawItems
@@ -177,20 +177,20 @@ Sub LayoutCtl_OnMenuCommand (MenuID)
 		Case "400" 'Instance Properties
 			Parent.Frames("TOPAREA").Document.all.BtnProperties.onclick()
 		Case "500" 'Attribute Properties
-			
+
 			Set X = Parent.Frames("LAYOUTAREA").LayoutCtl.GetSelectedItem
 			AttributeSearchObj.AIDCaption = x.label
 			AttributeSearchObj.AIDName = x.attributekey
 			AttributeSearchObj.AIDInputType = x.ItemType
-			
+
 			lret = window.showModalDialog ("../Attribute/AttributeMaintenance.asp?DETAILONLY=TRUE&AID=" & X.GetExtraProperty("ATTRIBUTE_ID") , AttributeSearchObj, "center=yes")
-			
+
 			x.label = AttributeSearchObj.AIDCaption
 			x.attributekey = AttributeSearchObj.AIDName
 			x.ItemType = AttributeSearchObj.AIDInputType
 			Parent.Frames("LAYOUTAREA").LayoutCtl.RedrawItems()
 		Case "401" 'Remove
-		
+
 			Parent.Frames("TOPAREA").Document.all.BtnDelete.click()
 		Case "110" 'Save
 			Parent.Frames("TOPAREA").Document.all.BtnSave.click()
@@ -260,7 +260,7 @@ End If
 End Function
 
 Sub LayoutCtl_OnItemSelect( pixelXPos, pixelYPos, xPos , yPos, attrKey,  refID )
-	Set X =LayoutCtl.GetSelectedItem	
+	Set X =LayoutCtl.GetSelectedItem
 	If IsObject(X) Then
 		Parent.Frames("TOPAREA").document.all.ListAttributes.value = x.refid
 	End If
@@ -311,7 +311,7 @@ width=883 height=533>
 	<PARAM NAME="DefaultItemBackColorSelected" VALUE="65535">
 	<PARAM NAME="DefaultItemTextColor" VALUE="0">
 	<PARAM NAME="UseTransparentItemBackground" VALUE="FALSE">
-	<PARAM NAME="UseAnisotropicMapMode" VALUE="False">
+	<PARAM NAME="UseAnisotropicMapMode" VALUE="TRUE">
 	<PARAM NAME="ShowGridBorder" VALUE="TRUE">
 	<PARAM NAME="DefaultMandatoryBackColor" VALUE="255">
 	<PARAM NAME="GridBorderX" VALUE="0">
