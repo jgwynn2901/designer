@@ -40,7 +40,7 @@ session.Abandon
 
 function f1
 Set oConn = Server.CreateObject("ADODB.Connection")
-oConn.Open "DSN=FNSANALYST;UID=FNSOWNER;PWD=CTOWN_DESIGNER"
+oConn.Open "DSN=FNSBA;UID=FNSOWNER;PWD=CTOWN_DESIGNER"
 end function
 
 function f2

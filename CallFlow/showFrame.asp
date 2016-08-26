@@ -197,7 +197,7 @@ width=883 height=533>
 	<PARAM NAME="GridBorderY" VALUE="0">
 	<PARAM NAME="GridBorderWidth" VALUE=<%=Session("LayoutCtlWidth")%>>
 	<PARAM NAME="GridBorderHeight" VALUE=<%=Session("LayoutCtlHeight")%>>
-	<PARAM NAME="DefaultFontName" VALUE="Arial">
+	<PARAM NAME="DefaultFontName" VALUE="Courier New">
 	<PARAM NAME="XViewExtent" VALUE="883">
 	<PARAM NAME="YViewExtent" VALUE="533">
 	<PARAM NAME="AutoCreateItem" VALUE="False">

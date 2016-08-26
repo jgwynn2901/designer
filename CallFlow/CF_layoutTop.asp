@@ -327,7 +327,7 @@ If AttributeSearchObj.Selected <> false Then
 	For i = 0 to Ubound(listarray) step 1
 		SequenceNumber = Parent.Frames("LAYOUTAREA").document.all.LayoutCtl.NextSequenceNumber
 		Set objCol = Parent.Frames("LAYOUTAREA").document.all.LayoutCtl.PageItems
-		Set NewObj = objCol.AddItem ("NEW" & SequenceNumber, listarray(i),CapArray(i)  , Xinc,Yinc, 15, 4, "ARIAL", 9,false ,false ,false ,false ,false , SequenceNumber, "Output Field", "NEW",  "", False	)
+		Set NewObj = objCol.AddItem ("NEW" & SequenceNumber, listarray(i),CapArray(i)  , Xinc,Yinc, 15, 4, "Courier New", 9,false ,false ,false ,false ,false , SequenceNumber, "Output Field", "NEW",  "", False	)
 		NewObj.MandatoryFlag = False
 		
 		NewObj.SetExtraProperty "LUCOLUMN_NAME", true, ""

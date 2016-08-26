@@ -332,7 +332,7 @@ WIDTH='800'  HEIGHT='1040' >
 <PARAM NAME="XSelectedSensitivity" VALUE="50">
 <PARAM NAME="YSelectedSensitivity" VALUE="50">
 <PARAM NAME="DefaultFontPointSize" VALUE="8">
-<PARAM NAME="DefaultFontName" VALUE="Arial">
+<PARAM NAME="DefaultFontName" VALUE="Courier New">
 <PARAM NAME="DefaultItemType" VALUE="Output Field">
 <PARAM NAME="DefaultAttributeKey" VALUE="New">
 <PARAM NAME="DefaultLabel" VALUE="New">

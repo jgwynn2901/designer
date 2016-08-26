@@ -91,17 +91,17 @@ Set objCol = LayoutCtl.PageItems
 
 
 			'Templates
-			Set NewObj = objCol.AddItemTemplate("CMDBTN", "",  "", 0, 0, 15, 4, "ARIAL", 9,false ,false ,false ,false ,false , 1, "", "MODIFY",  "", False	)
+			Set NewObj = objCol.AddItemTemplate("CMDBTN", "",  "", 0, 0, 15, 4, "Courier New", 9,false ,false ,false ,false ,false , 1, "", "MODIFY",  "", False	)
 			NewObj.LabelOffsetY = -3
 			NewObj.LabelOffsetX = 0
 			NewObj.ItemBackColor = 26316
 
-			Set NewObj = objCol.AddItemTemplate("!TRIGGER", "",  "", 0, 0, 15, 4, "ARIAL", 9,false ,false ,false ,false ,false , 1, "", "MODIFY",  "", False	)
+			Set NewObj = objCol.AddItemTemplate("!TRIGGER", "",  "", 0, 0, 15, 4, "Courier New", 9,false ,false ,false ,false ,false , 1, "", "MODIFY",  "", False	)
 			NewObj.LabelOffsetY = -3
 			NewObj.LabelOffsetX = 0
 			NewObj.ItemBackColor = 26316
 
-			Set NewObj = objCol.AddItemTemplate("!SUMMARY", "",  "", 0, 0, 15, 4, "ARIAL", 9,false ,false ,false ,false ,false , 1, "", "MODIFY",  "", False	)
+			Set NewObj = objCol.AddItemTemplate("!SUMMARY", "",  "", 0, 0, 15, 4, "Courier New", 9,false ,false ,false ,false ,false , 1, "", "MODIFY",  "", False	)
 			NewObj.LabelOffsetY = -3
 			NewObj.LabelOffsetX = 0
 			NewObj.ItemBackColor = 26316
@@ -115,7 +115,7 @@ Else
 End If
 %>
 
-			Set NewObj = objCol.AddItem ("<%= RS("ATTR_INSTANCE_ID") %>", "<%= ReplaceStr(RS("NAME"), """", """""")  %>",  "<%= UseCaption %>", <%= RS("XPOS") %>, <%= RS("YPOS") %>, <%= RS("WIDTH") %>, <%= RS("HEIGHT") %>, "ARIAL", 9,false ,false ,false ,false ,false , <%= Clng(RS("SEQUENCE")) %>, "<%= RS("INPUTTYPE") %>", "MODIFY",  "", False	)
+			Set NewObj = objCol.AddItem ("<%= RS("ATTR_INSTANCE_ID") %>", "<%= ReplaceStr(RS("NAME"), """", """""")  %>",  "<%= UseCaption %>", <%= RS("XPOS") %>, <%= RS("YPOS") %>, <%= RS("WIDTH") %>, <%= RS("HEIGHT") %>, "Courier New", 9,false ,false ,false ,false ,false , <%= Clng(RS("SEQUENCE")) %>, "<%= RS("INPUTTYPE") %>", "MODIFY",  "", False	)
 			<% If MODE = "RO" Then %>
 			NewObj.readonly = true
 			<% End If %>
